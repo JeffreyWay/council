@@ -13,8 +13,8 @@ Begin by cloning this repository to your machine, and installing all Composer de
 ```bash
 git clone git@github.com:JeffreyWay/council.git
 cd council && composer install
-php artisan key:generate
 mv .env.example .env
+php artisan key:generate
 ```
 
 ### Step 2.
