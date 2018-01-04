@@ -2,7 +2,7 @@
     <div>
         <div v-if="signedIn">
             <div class="form-group">
-                <wysiwyg name="body" v-model="body" placeholder="Have something to say?" :shouldClear="completed"></wysiwyg>
+                <wysiwyg name="body" v-model="body" placeholder="Have something to say?" v-on:input="typed" :shouldClear="completed"></wysiwyg>
             </div>
 
             <button type="submit"
@@ -57,6 +57,9 @@
 
                         this.$emit('created', data);
                     });
+            },
+            typed() {
+                this.completed = false;
             }
         }
     }
