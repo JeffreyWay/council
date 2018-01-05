@@ -41,6 +41,10 @@ class Recaptcha implements Rule
      */
     public static function isInTestMode()
     {
-        return config('services.recaptcha.key') == '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+        return Zttp::asFormParams()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('services.recaptcha.secret'),
+            'response' => 'test',
+            'remoteip' => request()->ip()
+        ])->json()['success'];
     }
 }
