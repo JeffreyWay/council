@@ -10,8 +10,7 @@ class Spam
      * @var array
      */
     protected $inspections = [
-        InvalidKeywords::class,
-        KeyHeldDown::class
+        InvalidKeywords::class
     ];
 
     /**
