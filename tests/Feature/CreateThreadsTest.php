@@ -78,7 +78,6 @@ class CreateThreadsTest extends TestCase
     {
         if ( Recaptcha::isInTestMode() ) {
             $this->markTestSkipped("Recaptcha is in test mode.");
-            return true;
         }
 
         unset(app()[Recaptcha::class]);

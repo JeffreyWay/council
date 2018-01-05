@@ -15,7 +15,6 @@ class SearchTest extends TestCase
     {
         if ( ! config('scout.algolia.id')) {
             $this->markTestSkipped("Algolia is not configured.");
-            return true;
         }
 
         config(['scout.driver' => 'algolia']);
