@@ -37,7 +37,7 @@ class InstallCommand extends Command
         exec('composer install');
         $this->line("\r\n ~ App dependencies successfully installed\r\n");
 
-        exec('php artisan key:generate');
+        $this->call('key:generate');
         $this->line("\r\n ~ Secret key properly generated\r\n");
 
         // TODO: handle different db types (SQLite etc..), currently defaults to MySQL
@@ -51,7 +51,7 @@ class InstallCommand extends Command
         // TODO: check if the DB connection is actually working or not.
 
         if ($this->confirm('Do you want to automatically setup the database tables?', true)) {
-            exec('php artisan migrate');
+            $this->call('migrate');
             $this->line("\r\n~ Database successfully migrated\r\n");
         }
 
