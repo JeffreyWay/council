@@ -32,4 +32,15 @@ class Recaptcha implements Rule
     {
         return 'The recaptcha verification failed. Try again.';
     }
+
+    /**
+     * Is Recaptcha in test mode?
+     * @method isInTestMode
+     *
+     * @return   bool
+     */
+    public static function isInTestMode()
+    {
+        return config('services.recaptcha.key') == '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
+    }
 }
