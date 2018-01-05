@@ -37,8 +37,10 @@ class InstallCommand extends Command
         exec('composer install');
         $this->line("\r\n ~ App dependencies successfully installed\r\n");
 
-        $this->call('key:generate');
-        $this->line("\r\n ~ Secret key properly generated\r\n");
+        if (strlen(config('app.key')) === 0) {
+            $this->call('key:generate');
+            $this->line("\r\n ~ Secret key properly generated\r\n");
+        }
 
         // TODO: handle different db types (SQLite etc..), currently defaults to MySQL
 
