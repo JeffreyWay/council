@@ -4,13 +4,13 @@ namespace Tests\Feature;
 
 use App\Activity;
 use App\Rules\Recaptcha;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Tests\TestCase;
 
 class CreateThreadsTest extends TestCase
 {
-    use DatabaseMigrations, MockeryPHPUnitIntegration;
+    use RefreshDatabase, MockeryPHPUnitIntegration;
 
     public function setUp()
     {
