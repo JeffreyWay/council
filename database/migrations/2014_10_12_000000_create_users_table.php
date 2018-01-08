@@ -22,9 +22,21 @@ class CreateUsersTable extends Migration
             $table->string('avatar_path')->nullable();
             $table->boolean('confirmed')->default(false);
             $table->string('confirmation_token', 25)->nullable()->unique();
+            $table->boolean('isAdmin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
+
+        DB::table('users')
+          ->insert(
+              [
+                  'name' => 'admin',
+                  'email' => 'admin@example.com',
+                  'password' => bcrypt('admin'),
+                  'isAdmin' => true,
+                  'confirmed' => 1,
+              ]
+          );
     }
 
     /**
