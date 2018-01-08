@@ -6,19 +6,25 @@
     export default {
         props: ['active'],
 
+        data() {
+            return {
+                isActive: this.active
+            }
+        },
+
         computed: {
             classes() {
-                return ['btn', this.active ? 'btn-primary' : 'btn-default'];
+                return ['btn', this.isActive ? 'btn-primary' : 'btn-default'];
             }
         },
 
         methods: {
             subscribe() {
                 axios[
-                    (this.active ? 'delete' : 'post')
+                    (this.isActive ? 'delete' : 'post')
                 ](location.pathname + '/subscriptions');
 
-                this.active = ! this.active;
+                this.isActive = ! this.isActive;
             }
         }
     }
