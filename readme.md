@@ -30,10 +30,10 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Then, migrate your database to create tables.
+Then, migrate your database to create tables and trigger the seeder to provide demo data.
 
 ```
-php artisan migrate
+php artisan migrate --seed
 ```
 
 ### Step 3.
