@@ -31,11 +31,11 @@ $factory->state(App\User::class, 'unconfirmed', function () {
     ];
 });
 
-$factory->state(App\User::class, 'administrator', function () {
-    return [
-        'isAdmin' => true
-    ];
-});
+// $factory->state(App\User::class, 'administrator', function () {
+//     return [
+//         'isAdmin' => true
+//     ];
+// });
 
 
 $factory->define(App\Thread::class, function ($faker) {

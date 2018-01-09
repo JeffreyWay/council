@@ -19,13 +19,5 @@ class UsersSeeder extends Seeder
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
             ]);
-
-        factory(User::class)
-            ->create([
-                'name' => 'Admin',
-                'email' => 'admin@example.com',
-                'password' => bcrypt('admin'),
-                'isAdmin' => true,
-            ]);
     }
 }
