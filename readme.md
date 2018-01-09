@@ -47,10 +47,6 @@ password: admin
 
 now visit: http://council.test/admin/channels and add at least one channel.
 
-```
-php artisan cache:clear
-```
-
 ### Step 4.
 
 Use your forum! Visit `http://council.test/threads` to create a new account and publish your first thread.
