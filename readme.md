@@ -47,8 +47,6 @@ password: admin
 
 now visit: http://council.test/admin/channels and add at least one channel.
 
-Once finished, clear your server cache, and you're all set to go!
-
 ```
 php artisan cache:clear
 ```
