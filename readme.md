@@ -38,14 +38,11 @@ php artisan migrate
 
 ### Step 3.
 
-Finally, add one or more channels. Login with the following credentials:
+Finally, add one or more channels.
 
-```
-email: admin@example.com
-password: admin
-```
-
-now visit: http://council.test/admin/channels and add at least one channel.
+1. Visit: http://council.test/register and register an account.
+1. Edit `config/council.php`, adding the email address of the account you just created.
+1. Visit: http://council.test/admin/channels and add at least one channel.  
 
 ### Step 4.
 
