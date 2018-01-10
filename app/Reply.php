@@ -45,6 +45,8 @@ class Reply extends Model
 
         static::deleted(function ($reply) {
             $reply->thread->decrement('replies_count');
+
+            Reputation::reduce($reply->owner, Reputation::REPLY_POSTED);
         });
     }
 
