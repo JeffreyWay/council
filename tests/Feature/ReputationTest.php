@@ -105,15 +105,15 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_earns_points_when_their_reply_is_favorited()
     {
-        $this->signIn();
-
         $thread = create('App\Thread');
+        $replyOwner = create('App\User');
 
         $reply = $thread->addReply([
-            'user_id' => auth()->id(),
+            'user_id' => $replyOwner->id,
             'body' => 'Some reply'
         ]);
 
+        $this->signIn();
         $this->post("/replies/{$reply->id}/favorites");
 
         $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED;
@@ -124,10 +124,10 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_loses_points_when_their_favorited_reply_is_unfavorited()
     {
+        $replyOwner = create('App\User');
+        $reply = create('App\Reply', ['user_id' => $replyOwner->id]);
+
         $this->signIn();
-
-        $reply = create('App\Reply', ['user_id' => auth()->id()]);
-
         $this->post("/replies/{$reply->id}/favorites");
 
         $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED;
