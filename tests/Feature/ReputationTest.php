@@ -54,7 +54,7 @@ class ReputationTest extends TestCase
 
         $this->assertEquals(Reputation::REPLY_POSTED, $reply->owner->reputation);
 
-        $this->delete("/replies/{$reply->id}");
+        $this->delete(route('replies.destroy',$reply->id));
 
         $this->assertEquals(0, $reply->owner->fresh()->reputation);
     }
@@ -114,7 +114,7 @@ class ReputationTest extends TestCase
             'body' => 'Some reply'
         ]);
 
-        $this->post("/replies/{$reply->id}/favorites");
+        $this->post(route('replies.favorite', $reply->id));
 
         $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED;
 
@@ -129,15 +129,16 @@ class ReputationTest extends TestCase
         
         $this->signIn();
 
-        $this->post("/replies/{$reply->id}/favorites");
+        $this->post(route('replies.favorite', $reply->id));
 
         $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED;
         $this->assertEquals($total, $reply->owner->fresh()->reputation);
 
-        $this->delete("/replies/{$reply->id}/favorites");
+        $this->delete(route('replies.unfavorite', $reply->id));
 
         $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED - Reputation::REPLY_FAVORITED;
         $this->assertEquals($total, $reply->owner->fresh()->reputation);
+      
         $this->assertEquals(0, auth()->user()->reputation);
     }
 }
