@@ -26,7 +26,8 @@ class ThreadTest extends TestCase
         $thread = create('App\Thread');
 
         $this->assertEquals(
-            "/threads/{$thread->channel->slug}/{$thread->slug}", $thread->path()
+            "/threads/{$thread->channel->slug}/{$thread->slug}",
+            $thread->path()
         );
     }
 
@@ -40,8 +41,22 @@ class ThreadTest extends TestCase
     function a_thread_has_replies()
     {
         $this->assertInstanceOf(
-            'Illuminate\Database\Eloquent\Collection', $this->thread->replies
+            'Illuminate\Database\Eloquent\Collection',
+            $this->thread->replies
         );
+    }
+
+    /** @test */
+    function a_thread_can_have_a_best_reply()
+    {
+        $reply = $this->thread->addReply([
+            'body' => 'Foobar',
+            'user_id' => 1
+        ]);
+
+        $this->thread->markBestReply($reply);
+
+        $this->assertEquals($reply->id, $this->thread->bestReply->id);
     }
 
     /** @test */
@@ -65,7 +80,7 @@ class ThreadTest extends TestCase
             ->subscribe()
             ->addReply([
                 'body' => 'Foobar',
-                'user_id' => 999
+                'user_id' => create('App\User')->id
             ]);
 
         Notification::assertSentTo(auth()->user(), ThreadWasUpdated::class);
