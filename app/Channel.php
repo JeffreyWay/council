@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Channel extends Model
 {
+    protected $guarded = [];
+
     /**
      * Get the route key name for Laravel.
      *
