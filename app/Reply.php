@@ -103,6 +103,17 @@ class Reply extends Model
     }
 
     /**
+     * Access the body attribute.
+     *
+     * @param  string $body
+     * @return string
+     */
+    public function getBodyAttribute($body)
+    {
+        return \Purify::clean($body);
+    }
+
+    /**
      * Set the body attribute.
      *
      * @param string $body
@@ -135,16 +146,5 @@ class Reply extends Model
     public function getIsBestAttribute()
     {
         return $this->isBest();
-    }
-
-    /**
-     * Access the body attribute.
-     *
-     * @param  string $body
-     * @return string
-     */
-    public function getBodyAttribute($body)
-    {
-        return \Purify::clean($body);
     }
 }
