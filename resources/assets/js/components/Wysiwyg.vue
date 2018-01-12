@@ -50,10 +50,10 @@
             let el = $vm.$refs.trix;
 
             let tribute = new Tribute({
-                lookup: 'value',
                 values: function(text, cb){
                     $vm.remoteSearch(text, cb);
-                }
+                },
+                lookup: 'name',
             }).attach(el);
 
             el.addEventListener('tribute-replaced', function (e) {
@@ -62,7 +62,7 @@
                 el.editor.setSelectedRange([range[0] - $vm.query.length, range[1]]);
                 // // delete typed text and insert the matched item
                 el.editor.deleteInDirection("forward");
-                el.editor.insertString(e.detail.item.original.value);
+                el.editor.insertString(e.detail.item.original.name);
             });
 
         },
