@@ -83305,12 +83305,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mounted: function mounted() {
-        var $vm = this;
-        var el = $vm.$refs.trix;
+        var _this = this;
 
-        var tribute = new __WEBPACK_IMPORTED_MODULE_1_tributejs___default.a({
+        var el = this.$refs.trix;
+
+        new __WEBPACK_IMPORTED_MODULE_1_tributejs___default.a({
             values: function values(text, cb) {
-                $vm.remoteSearch(text, cb);
+                _this.remoteSearch(text, cb);
             },
             lookup: 'name'
         }).attach(el);
@@ -83318,7 +83319,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         el.addEventListener('tribute-replaced', function (e) {
             // set selected range
             var range = el.editor.getSelectedRange();
-            el.editor.setSelectedRange([range[0] - $vm.query.length, range[1]]);
+            el.editor.setSelectedRange([range[0] - _this.query.length, range[1]]);
             // // delete typed text and insert the matched item
             el.editor.deleteInDirection("forward");
             el.editor.insertString(e.detail.item.original.name);

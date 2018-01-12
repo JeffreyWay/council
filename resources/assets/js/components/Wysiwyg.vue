@@ -37,7 +37,7 @@
                 this.query = text;
 
                 axios.get(`/api/users?name=${text}`)
-                    .then(function({data}) {
+                    .then(({data}) => {
                         callback(data);
                     }).catch(() => {
                         callback([]);
@@ -46,20 +46,19 @@
         },
 
         mounted() {
-            let $vm = this;
-            let el = $vm.$refs.trix;
+            let el = this.$refs.trix;
 
-            let tribute = new Tribute({
-                values: function(text, cb){
-                    $vm.remoteSearch(text, cb);
+            new Tribute({
+                values: (text, cb) => {
+                    this.remoteSearch(text, cb);
                 },
                 lookup: 'name',
             }).attach(el);
 
-            el.addEventListener('tribute-replaced', function (e) {
+            el.addEventListener('tribute-replaced', (e) => {
                 // set selected range
                 let range = el.editor.getSelectedRange();
-                el.editor.setSelectedRange([range[0] - $vm.query.length, range[1]]);
+                el.editor.setSelectedRange([range[0] - this.query.length, range[1]]);
                 // // delete typed text and insert the matched item
                 el.editor.deleteInDirection("forward");
                 el.editor.insertString(e.detail.item.original.name);
