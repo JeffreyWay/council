@@ -9,7 +9,6 @@ before_script:
   - composer install --no-interaction
 
 script:
-  - touch database/database.sqlite
   - php artisan key:generate
   - vendor/bin/phpunit
 
