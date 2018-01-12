@@ -29,7 +29,7 @@ class InstallCommandTest extends TestCase
     {
         $this->assertFileNotExists('.env');
 
-        $this->artisan('council:install');
+        $this->artisan('council:install', ['--no-interaction' => true]);
 
         $this->assertFileExists('.env');
     }
@@ -39,7 +39,7 @@ class InstallCommandTest extends TestCase
     {
         $key = 'APP_KEY';
 
-        $this->artisan('council:install');
+        $this->artisan('council:install', ['--no-interaction' => true]);
 
         $this->assertStringStartsWith('base64:', $this->getEnvValue($key));
     }
