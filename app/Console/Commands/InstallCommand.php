@@ -95,7 +95,7 @@ class InstallCommand extends Command
         return [
             'DB_DATABASE' => $this->ask('Database name'),
             'DB_USERNAME' => $this->ask('Database user'),
-            'DB_PASSWORD' => $this->secret('Database password ("null" for no password)', false),
+            'DB_PASSWORD' => $this->secret('Database password ("null" for no password)'),
         ];
     }
 
