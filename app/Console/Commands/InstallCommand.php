@@ -37,10 +37,12 @@ class InstallCommand extends Command
             $this->line("~ Secret key properly generated.");
         }
 
-        $this->updateEnvironmentFile($this->requestDatabaseCredentials());
+        $credentials = $this->requestDatabaseCredentials();
+
+        $this->updateEnvironmentFile($credentials);
 
         if ($this->confirm('Do you want to migrate the database?', false)) {
-            $this->call('migrate');
+            $this->migrateDatabaseWithFreshCredentials($credentials);
 
             $this->line("~ Database successfully migrated.");
         }
@@ -107,5 +109,22 @@ class InstallCommand extends Command
 
             $this->line(".env file successfully created");
         }
+    }
+
+    /**
+     * Migrate the db with the new credentials.
+     *
+     * @param array $credentials
+     * @return void
+     */
+    protected function migrateDatabaseWithFreshCredentials($credentials)
+    {
+        foreach ($credentials as $key => $value) {
+            $configKey = strtolower(str_replace("DB_", "", $key));
+
+            config(["database.connections.mysql.{$configKey}" => $value]);
+        }
+
+        $this->call('migrate');
     }
 }
