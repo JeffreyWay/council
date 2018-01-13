@@ -95,7 +95,7 @@ class InstallCommand extends Command
         return [
             'DB_DATABASE' => $this->ask('Database name'),
             'DB_USERNAME' => $this->ask('Database user'),
-            'DB_PASSWORD' => $this->secret('Database password ("null" for no password)'),
+            'DB_PASSWORD' => $this->secret('Database password ("null" for no password)', false),
         ];
     }
 
@@ -121,6 +121,12 @@ class InstallCommand extends Command
     {
         foreach ($credentials as $key => $value) {
             $configKey = strtolower(str_replace("DB_", "", $key));
+
+            if ($configKey === 'password' && $value == 'null' ) {
+                config(["database.connections.mysql.{$configKey}" => '']);             
+                
+                continue;
+            }
 
             config(["database.connections.mysql.{$configKey}" => $value]);
         }
