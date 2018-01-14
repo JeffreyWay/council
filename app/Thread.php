@@ -4,6 +4,7 @@ namespace App;
 
 use App\Events\ThreadReceivedNewReply;
 use App\Filters\ThreadFilters;
+use App\Notifications\YouWereMentioned;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -57,6 +58,8 @@ class Thread extends Model
 
         static::created(function ($thread) {
             $thread->update(['slug' => $thread->title]);
+
+            $thread->notifyMentionedUsers();
 
             Reputation::gain($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
@@ -125,6 +128,28 @@ class Thread extends Model
         event(new ThreadReceivedNewReply($reply));
 
         return $reply;
+    }
+
+    /**
+     * Fetch all mentioned users within the thread's body.
+     *
+     * @return bool
+     */
+    public function notifyMentionedUsers()
+    {
+        preg_match_all('/@([\w\-]+)/', $this->body, $matches);
+
+        if(isset($matches[1])) {
+            User::whereIn('name', $matches[1])
+                ->get()
+                ->each(function ($user) {
+                    $user->notify(new YouWereMentioned($this));
+                });
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
