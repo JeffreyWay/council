@@ -142,7 +142,7 @@ class InstallCommand extends Command
      * @param  bool    $fallback
      * @return string
      */
-    protected function askHiddenWithDefault($question, $fallback = true)
+    public function askHiddenWithDefault($question, $fallback = true)
     {
         $question = new Question($question, 'NULL');
 
