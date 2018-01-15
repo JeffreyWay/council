@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use App\Activity;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ActivityTest extends TestCase
 {

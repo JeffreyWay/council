@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use App\Reply;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReplyTest extends TestCase
 {

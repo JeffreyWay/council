@@ -3,7 +3,7 @@
 @section('administration-content')
 
         <p><a class="btn btn-sm btn-default" href="{{ route('admin.channels.create') }}">New Channel <span class="glyphicon glyphicon-plus"></span></a></p>
-    
+
         <table class="table">
             <thead>
             <tr>
@@ -19,7 +19,7 @@
                     <td>{{$channel->name}}</td>
                     <td>{{$channel->slug}}</td>
                     <td>{{$channel->description}}</td>
-                    <td>{{ count($channel->threads()) }}</td>
+                    <td>{{ $channel->threads()->count() }}</td>
                 </tr>
             @empty
                 <tr>

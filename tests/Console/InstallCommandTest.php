@@ -2,9 +2,9 @@
 
 namespace Tests\Console;
 
-use Illuminate\Support\Facades\File;
 use Mockery;
 use Tests\TestCase;
+use Illuminate\Support\Facades\File;
 
 class InstallCommandTest extends TestCase
 {
@@ -51,6 +51,7 @@ class InstallCommandTest extends TestCase
             $mock->shouldReceive('confirm')->once()->andReturn(true);
             $mock->shouldReceive('call')->with('key:generate');
             $mock->shouldReceive('call')->with('migrate')->once();
+            $mock->shouldReceive('call')->with('cache:clear')->once();
         });
 
         $this->artisan('council:install', ['--no-interaction' => true]);

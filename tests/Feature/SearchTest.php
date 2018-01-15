@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Thread;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SearchTest extends TestCase
 {

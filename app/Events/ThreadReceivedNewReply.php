@@ -2,8 +2,8 @@
 
 namespace App\Events;
 
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Foundation\Events\Dispatchable;
 
 class ThreadReceivedNewReply
 {

@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReadThreadsTest extends TestCase
 {
@@ -49,12 +49,12 @@ class ReadThreadsTest extends TestCase
     {
         $this->signIn(create('App\User', ['name' => 'JohnDoe']));
 
-        $threadByJohn = create('App\Thread', ['user_id' => auth()->id()]);
-        $threadNotByJohn = create('App\Thread');
+        $johnsThread = create('App\Thread', ['user_id' => auth()->id()]);
+        $janesThread = create('App\Thread');
 
         $this->get('threads?by=JohnDoe')
-            ->assertSee($threadByJohn->title)
-            ->assertDontSee($threadNotByJohn->title);
+            ->assertSee($johnsThread->title)
+            ->assertDontSee($janesThread->title);
     }
 
     /** @test */

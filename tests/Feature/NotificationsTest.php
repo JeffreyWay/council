@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Notifications\DatabaseNotification;
 use Tests\TestCase;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class NotificationsTest extends TestCase
 {

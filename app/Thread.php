@@ -2,12 +2,13 @@
 
 namespace App;
 
-use App\Events\ThreadReceivedNewReply;
+use Laravel\Scout\Searchable;
 use App\Filters\ThreadFilters;
 use App\Notifications\YouWereMentioned;
 use Illuminate\Database\Eloquent\Builder;
+use App\Events\ThreadReceivedNewReply;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
+use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
