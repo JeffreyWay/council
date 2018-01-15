@@ -10,6 +10,28 @@ class MentionUsersTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    function mentioned_users_in_a_thread_are_notified()
+    {
+        // Given we have a user, JohnDoe, who is signed in.
+        $john = create('App\User', ['name' => 'JohnDoe']);
+
+        $this->signIn($john);
+
+        // And we also have a user, JaneDoe.
+        $jane = create('App\User', ['name' => 'JaneDoe']);
+
+        // And JohnDoe create new thread and mentions @JaneDoe.
+        $thread = make('App\Thread', [
+            'body' => 'Hey @JaneDoe check this out.'
+        ]);
+
+        $this->post(route('threads'), $thread->toArray() + ['g-recaptcha-response' => 'token']);
+
+        // Then @JaneDoe should receive a notification.
+        $this->assertCount(1, $jane->notifications);
+    }
+
+    /** @test */
     function mentioned_users_in_a_reply_are_notified()
     {
         // Given we have a user, JohnDoe, who is signed in.
