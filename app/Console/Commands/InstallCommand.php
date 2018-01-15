@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Question\Question;
 
 class InstallCommand extends Command
 {
@@ -95,7 +96,7 @@ class InstallCommand extends Command
         return [
             'DB_DATABASE' => $this->ask('Database name'),
             'DB_USERNAME' => $this->ask('Database user'),
-            'DB_PASSWORD' => $this->secret('Database password ("null" for no password)'),
+            'DB_PASSWORD' => $this->askHiddenWithDefault('Database password (leave blank for no password)'),
         ];
     }
 
@@ -132,5 +133,21 @@ class InstallCommand extends Command
         }
 
         $this->call('migrate');
+    }
+
+    /**
+     * Prompt the user for optional input but hide the answer from the console.
+     *
+     * @param  string  $question
+     * @param  bool    $fallback
+     * @return string
+     */
+    protected function askHiddenWithDefault($question, $fallback = true)
+    {
+        $question = new Question($question, 'NULL');
+
+        $question->setHidden(true)->setHiddenFallback($fallback);
+
+        $password = $this->output->askQuestion($question);
     }
 }
