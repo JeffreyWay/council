@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use Zttp\Zttp;
+use Illuminate\Contracts\Validation\Rule;
 
 class Recaptcha implements Rule
 {
@@ -31,5 +31,20 @@ class Recaptcha implements Rule
     public function message()
     {
         return 'The recaptcha verification failed. Try again.';
+    }
+
+    /**
+     * Is Recaptcha in test mode?
+     * @method isInTestMode
+     *
+     * @return   bool
+     */
+    public static function isInTestMode()
+    {
+        return Zttp::asFormParams()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('services.recaptcha.secret'),
+            'response' => 'test',
+            'remoteip' => request()->ip()
+        ])->json()['success'];
     }
 }

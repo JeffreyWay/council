@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
+         beStrictAboutTestsThatDoNotTestAnything="true"
          bootstrap="bootstrap/autoload.php"
          colors="true"
          convertErrorsToExceptions="true"
@@ -9,6 +10,10 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
+        <testsuite name="Console Tests">
+            <directory suffix="Test.php">./tests/Console</directory>
+        </testsuite>
+
         <testsuite name="Feature Tests">
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>

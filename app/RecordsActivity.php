@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 trait RecordsActivity
 {
     /**

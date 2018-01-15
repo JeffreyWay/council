@@ -40,11 +40,13 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->thread->increment('replies_count');
 
-            Reputation::award($reply->owner, Reputation::REPLY_POSTED);
+            Reputation::gain($reply->owner, Reputation::REPLY_POSTED);
         });
 
         static::deleted(function ($reply) {
             $reply->thread->decrement('replies_count');
+
+            Reputation::lose($reply->owner, Reputation::REPLY_POSTED);
         });
     }
 
@@ -101,6 +103,17 @@ class Reply extends Model
     }
 
     /**
+     * Access the body attribute.
+     *
+     * @param  string $body
+     * @return string
+     */
+    public function getBodyAttribute($body)
+    {
+        return \Purify::clean($body);
+    }
+
+    /**
      * Set the body attribute.
      *
      * @param string $body
@@ -133,16 +146,5 @@ class Reply extends Model
     public function getIsBestAttribute()
     {
         return $this->isBest();
-    }
-
-    /**
-     * Access the body attribute.
-     *
-     * @param  string $body
-     * @return string
-     */
-    public function getBodyAttribute($body)
-    {
-        return \Purify::clean($body);
     }
 }
