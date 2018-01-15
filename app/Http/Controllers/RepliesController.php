@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePostRequest;
 use App\Reply;
 use App\Thread;
+use App\Http\Requests\CreatePostRequest;
 
 class RepliesController extends Controller
 {

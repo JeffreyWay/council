@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Notifications\ThreadWasUpdated;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
+use App\Notifications\ThreadWasUpdated;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ThreadTest extends TestCase
 {
