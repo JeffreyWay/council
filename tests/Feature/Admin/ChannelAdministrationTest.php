@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Channel;
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\HttpFoundation\Response;
+use App\Channel;
 use Tests\TestCase;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ChannelAdministrationTest extends TestCase
 {
