@@ -15,6 +15,6 @@ class NotifyMentionedUsers
      */
     public function handle(ThreadReceivedNewReply $event)
     {
-        app(Mentions::class)->notifyMentionedUsers($event->reply);
+        Mentions::notifyMentionedUsers($event->reply);
     }
 }

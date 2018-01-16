@@ -82,7 +82,7 @@ class MentionUsersTest extends TestCase
             'body' => '@JaneDoe wants to talk to @JohnDoe'
         ]);
 
-        $this->assertEquals(['JohnDoe', 'JaneDoe'], app(Mentions::class)->mentionedUsers($thread->body));
-        $this->assertEquals(['JaneDoe', 'JohnDoe'], app(Mentions::class)->mentionedUsers($reply->body));
+        $this->assertEquals(['JohnDoe', 'JaneDoe'], Mentions::mentionedUsers($thread->body));
+        $this->assertEquals(['JaneDoe', 'JohnDoe'], Mentions::mentionedUsers($reply->body));
     }
 }

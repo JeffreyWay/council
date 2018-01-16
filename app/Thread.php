@@ -58,7 +58,7 @@ class Thread extends Model
         static::created(function ($thread) {
             $thread->update(['slug' => $thread->title]);
 
-            app(Mentions::class)->notifyMentionedUsers($thread);
+            Mentions::notifyMentionedUsers($thread);
 
             Reputation::gain($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
