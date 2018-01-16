@@ -5,7 +5,6 @@ namespace App;
 use Laravel\Scout\Searchable;
 use App\Filters\ThreadFilters;
 use App\Notifications\YouWereMentioned;
-use Illuminate\Database\Eloquent\Builder;
 use App\Events\ThreadReceivedNewReply;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
