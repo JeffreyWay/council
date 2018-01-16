@@ -12,7 +12,7 @@ class Mentions
      * @param $body
      * @return bool
      */
-    protected function fetchUsers($body)
+    public function mentionedUsers($body)
     {
        preg_match_all('/@([\w\-]+)/', $body, $matches);
 
@@ -26,7 +26,7 @@ class Mentions
      */
     public function notifyMentionedUsers($subject)
     {
-        User::whereIn('name', $this->fetchUsers($subject->body))
+        User::whereIn('name', $this->mentionedUsers($subject->body))
             ->get()
             ->each(function ($user) use ($subject) {
                 $user->notify(new YouWereMentioned($subject));

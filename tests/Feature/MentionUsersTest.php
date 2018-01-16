@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Mentions;
+use App\Reply;
+use App\Thread;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -66,5 +69,20 @@ class MentionUsersTest extends TestCase
         $results = $this->json('GET', '/api/users', ['name' => 'john']);
 
         $this->assertCount(2, $results->json());
+    }
+
+    /** @test */
+    function it_can_detect_all_mentioned_users_in_the_body()
+    {
+        $thread = new Thread([
+            'body' => '@JohnDoe wants to talk to @JaneDoe'
+        ]);
+
+        $reply = new Reply([
+            'body' => '@JaneDoe wants to talk to @JohnDoe'
+        ]);
+
+        $this->assertEquals(['JohnDoe', 'JaneDoe'], app(Mentions::class)->mentionedUsers($thread->body));
+        $this->assertEquals(['JaneDoe', 'JohnDoe'], app(Mentions::class)->mentionedUsers($reply->body));
     }
 }
