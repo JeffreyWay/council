@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Mentions;
-use App\Reply;
 use App\Thread;
+use App\Mentions;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MentionUsersTest extends TestCase
@@ -13,7 +13,7 @@ class MentionUsersTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function mentioned_users_in_a_thread_are_notified()
+    public function mentioned_users_in_a_thread_are_notified()
     {
         // Given we have a user, JohnDoe, who is signed in.
         $john = create('App\User', ['name' => 'JohnDoe']);
@@ -23,7 +23,7 @@ class MentionUsersTest extends TestCase
         // And we also have a user, JaneDoe.
         $jane = create('App\User', ['name' => 'JaneDoe']);
 
-        // And JohnDoe create new thread and mentions @JaneDoe.
+        // And JohnDoe create a new thread and mentions @JaneDoe.
         $thread = make('App\Thread', [
             'body' => 'Hey @JaneDoe check this out.'
         ]);
@@ -32,10 +32,15 @@ class MentionUsersTest extends TestCase
 
         // Then @JaneDoe should receive a notification.
         $this->assertCount(1, $jane->notifications);
+
+        $this->assertEquals(
+            "JohnDoe mentioned you in \"{$thread->title}\"",
+            $jane->notifications->first()->data['message']
+        );
     }
 
     /** @test */
-    function mentioned_users_in_a_reply_are_notified()
+    public function mentioned_users_in_a_reply_are_notified()
     {
         // Given we have a user, JohnDoe, who is signed in.
         $john = create('App\User', ['name' => 'JohnDoe']);
@@ -57,10 +62,15 @@ class MentionUsersTest extends TestCase
 
         // Then @JaneDoe should receive a notification.
         $this->assertCount(1, $jane->notifications);
+
+        $this->assertEquals(
+            "JohnDoe mentioned you in \"{$thread->title}\"",
+            $jane->notifications->first()->data['message']
+        );
     }
 
     /** @test */
-    function it_can_fetch_all_mentioned_users_starting_with_the_given_characters()
+    public function it_can_fetch_all_mentioned_users_starting_with_the_given_characters()
     {
         create('App\User', ['name' => 'johndoe']);
         create('App\User', ['name' => 'johndoe2']);
@@ -69,20 +79,5 @@ class MentionUsersTest extends TestCase
         $results = $this->json('GET', '/api/users', ['name' => 'john']);
 
         $this->assertCount(2, $results->json());
-    }
-
-    /** @test */
-    function it_can_detect_all_mentioned_users_in_the_body()
-    {
-        $thread = new Thread([
-            'body' => '@JohnDoe wants to talk to @JaneDoe'
-        ]);
-
-        $reply = new Reply([
-            'body' => '@JaneDoe wants to talk to @JohnDoe'
-        ]);
-
-        $this->assertEquals(['JohnDoe', 'JaneDoe'], Mentions::mentionedUsers($thread->body));
-        $this->assertEquals(['JaneDoe', 'JohnDoe'], Mentions::mentionedUsers($reply->body));
     }
 }

@@ -71,6 +71,14 @@ class Reply extends Model
     }
 
     /**
+     * Get the related title for the reply.
+     */
+    public function title()
+    {
+        return $this->thread->title;
+    }
+
+    /**
      * Determine if the reply was just published a moment ago.
      *
      * @return bool
