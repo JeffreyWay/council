@@ -34,7 +34,7 @@ class InstallCommand extends Command
         if (strlen(config('app.key')) === 0) {
             $this->call('key:generate');
 
-            $this->line("~ Secret key properly generated.");
+            $this->line('~ Secret key properly generated.');
         }
 
         $this->updateEnvironmentFile($this->requestDatabaseCredentials());
@@ -42,7 +42,7 @@ class InstallCommand extends Command
         if ($this->confirm('Do you want to migrate the database?', false)) {
             $this->call('migrate');
 
-            $this->line("~ Database successfully migrated.");
+            $this->line('~ Database successfully migrated.');
         }
 
         $this->call('cache:clear');
@@ -74,7 +74,7 @@ class InstallCommand extends Command
      */
     protected function welcome()
     {
-        $this->info(">> Welcome to the Council installation process! <<");
+        $this->info('>> Welcome to the Council installation process! <<');
     }
 
     /**
@@ -82,7 +82,7 @@ class InstallCommand extends Command
      */
     protected function goodbye()
     {
-        $this->info(">> The installation process is complete. Enjoy your new forum! <<");
+        $this->info('>> The installation process is complete. Enjoy your new forum! <<');
     }
 
     /**
@@ -107,7 +107,7 @@ class InstallCommand extends Command
         if (! file_exists('.env')) {
             copy('.env.example', '.env');
 
-            $this->line(".env file successfully created");
+            $this->line('.env file successfully created');
         }
     }
 }
