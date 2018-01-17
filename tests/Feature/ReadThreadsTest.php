@@ -26,8 +26,9 @@ class ReadThreadsTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_read_a_single_thread()
-    {
+    function a_user_can_read_a_single_thread() {
+        $thing = 'foo';
+
         $this->get($this->thread->path())
             ->assertSee($this->thread->title);
     }
