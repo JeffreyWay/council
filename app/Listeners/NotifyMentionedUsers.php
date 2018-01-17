@@ -25,7 +25,7 @@ class NotifyMentionedUsers
      * Fetch all mentioned users within the reply's body.
      *
      * @return array
-    */
+     */
     public function mentionedUsers($body)
     {
         preg_match_all('/@([\w\-]+)/', $body, $matches);
