@@ -56,8 +56,9 @@ class ThreadsController extends Controller
      * @param  \App\Rules\Recaptcha $recaptcha
      * @return \Illuminate\Http\Response
      */
-    public function store(Recaptcha $recaptcha)
-    {
+    public function store(Recaptcha $recaptcha) {
+        $name = 'some var';
+
         request()->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
