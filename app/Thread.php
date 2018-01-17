@@ -58,6 +58,8 @@ class Thread extends Model
         static::created(function ($thread) {
             $thread->update(['slug' => $thread->title]);
 
+            Mentions::notifyMentionedUsers($thread);
+
             Reputation::gain($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
     }
@@ -126,6 +128,7 @@ class Thread extends Model
 
         return $reply;
     }
+
 
     /**
      * Apply all relevant thread filters.
