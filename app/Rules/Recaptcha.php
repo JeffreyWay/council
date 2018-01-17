@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use Zttp\Zttp;
+use Illuminate\Contracts\Validation\Rule;
 
 class Recaptcha implements Rule
 {
