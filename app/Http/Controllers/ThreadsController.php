@@ -58,6 +58,8 @@ class ThreadsController extends Controller
      */
     public function store(Recaptcha $recaptcha)
     {
+        $name = 'some var';
+
         request()->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
