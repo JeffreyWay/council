@@ -24,7 +24,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-
 $factory->state(App\User::class, 'unconfirmed', function () {
     return [
         'confirmed' => false
@@ -55,7 +54,6 @@ $factory->define(App\Channel::class, function ($faker) {
         'description' => $faker->sentence
     ];
 });
-
 
 $factory->define(App\Reply::class, function ($faker) {
     return [

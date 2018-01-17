@@ -83,7 +83,7 @@ class ThreadsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  integer      $channel
+     * @param  int      $channel
      * @param  \App\Thread  $thread
      * @param \App\Trending $trending
      * @return \Illuminate\Http\Response

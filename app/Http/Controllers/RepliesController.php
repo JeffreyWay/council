@@ -30,7 +30,7 @@ class RepliesController extends Controller
     /**
      * Persist a new reply.
      *
-     * @param  integer           $channelId
+     * @param  int           $channelId
      * @param  Thread            $thread
      * @param  CreatePostRequest $form
      * @return \Illuminate\Database\Eloquent\Model

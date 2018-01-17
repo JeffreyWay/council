@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\{Thread, Trending};
+use App\Thread;
+use App\Trending;
 
 class SearchController extends Controller
 {
