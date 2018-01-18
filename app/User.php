@@ -3,7 +3,6 @@
 namespace App;
 
 use Carbon\Carbon;
-use App\HasReputation;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

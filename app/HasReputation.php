@@ -2,8 +2,8 @@
 
 namespace App;
 
-trait HasReputation {
-
+trait HasReputation
+{
     /**
      * Award reputation points to the model.
      *
@@ -23,5 +23,4 @@ trait HasReputation {
     {
         $this->decrement('reputation', config("council.reputation.{$action}"));
     }
-
 }
