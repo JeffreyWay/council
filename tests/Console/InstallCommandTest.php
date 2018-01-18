@@ -69,7 +69,6 @@ class InstallCommandTest extends TestCase
         $this->artisan('council:install', ['--no-interaction' => true]);
 
         $this->assertEnvKeyEquals('DB_DATABASE', 'mydatabase');
-        $this->assertEnvKeyEquals('DB_PORT', '3306');
         $this->assertEnvKeyEquals('DB_USERNAME', 'johndoe');
         $this->assertEnvKeyEquals('DB_PASSWORD', 'password');
     }
