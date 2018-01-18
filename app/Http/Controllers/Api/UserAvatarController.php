@@ -18,7 +18,7 @@ class UserAvatarController extends Controller
             'avatar' => ['required', 'image']
         ]);
 
-        Storage::disk('public')->delete(auth()->user()->getOriginal()['avatar_path']);
+        Storage::disk('public')->delete(auth()->user()->getOriginal('avatar_path'));
 
         auth()->user()->update([
             'avatar_path' => request()->file('avatar')->store('avatars', 'public')
