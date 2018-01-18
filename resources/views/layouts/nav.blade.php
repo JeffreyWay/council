@@ -62,7 +62,7 @@
                     <user-notifications></user-notifications>
 
                     @if (Auth::user()->isAdmin())
-                        <li><a href="/admin"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></li>
+                        <li><a href="{{ route('admin.dashboard.index') }}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></li>
                     @endif
 
                     <li class="dropdown">

@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Thread;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SearchTest extends TestCase
 {
@@ -13,6 +13,10 @@ class SearchTest extends TestCase
     /** @test */
     public function a_user_can_search_threads()
     {
+        if ( ! config('scout.algolia.id')) {
+            $this->markTestSkipped("Algolia is not configured.");
+        }
+
         config(['scout.driver' => 'algolia']);
 
         create('App\Thread', [], 2);

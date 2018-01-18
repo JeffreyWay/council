@@ -71,6 +71,14 @@ class Reply extends Model
     }
 
     /**
+     * Get the related title for the reply.
+     */
+    public function title()
+    {
+        return $this->thread->title;
+    }
+
+    /**
      * Determine if the reply was just published a moment ago.
      *
      * @return bool
@@ -81,25 +89,13 @@ class Reply extends Model
     }
 
     /**
-     * Fetch all mentioned users within the reply's body.
-     *
-     * @return array
-     */
-    public function mentionedUsers()
-    {
-        preg_match_all('/@([\w\-]+)/', $this->body, $matches);
-
-        return $matches[1];
-    }
-
-    /**
      * Determine the path to the reply.
      *
      * @return string
      */
     public function path()
     {
-        return $this->thread->path() . "#reply-{$this->id}";
+        return $this->thread->path()."#reply-{$this->id}";
     }
 
     /**
@@ -138,7 +134,6 @@ class Reply extends Model
     }
 
     /**
-     *
      * Determine if the current reply is marked as the best.
      *
      * @return bool
