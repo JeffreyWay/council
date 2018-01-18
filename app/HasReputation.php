@@ -5,6 +5,18 @@ namespace App;
 trait HasReputation
 {
     /**
+     * Clear user reputation.
+     *
+     * @return void
+     */
+    public function clearReputation()
+    {
+        $this->reputation = 0;
+
+        $this->save();
+    }
+
+    /**
      * Award reputation points to the model.
      *
      * @param  string $action
