@@ -40,13 +40,13 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->thread->increment('replies_count');
 
-            Reputation::gain($reply->owner, Reputation::REPLY_POSTED);
+            $reply->owner->gainReputation('reply_posted');
         });
 
         static::deleted(function ($reply) {
             $reply->thread->decrement('replies_count');
 
-            Reputation::lose($reply->owner, Reputation::REPLY_POSTED);
+            $reply->owner->loseReputation('reply_posted');
         });
     }
 
