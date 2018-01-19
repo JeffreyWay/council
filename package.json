@@ -5,16 +5,25 @@
     "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch-poll": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --watch-poll --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "test": "cross-env NODE_ENV=development node_modules/mocha-webpack/bin/mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --require tests/Javascript/setup.js tests/Javascript/**/*.spec.js",
+    "test-watch": "cross-env NODE_ENV=development node_modules/mocha-webpack/bin/mocha-webpack --webpack-config=node_modules/laravel-mix/setup/webpack.config.js --watch --require tests/Javascript/setup.js tests/Javascript/**/*.spec.js"
   },
   "devDependencies": {
     "axios": "^0.15.3",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^3.2.3",
+    "expect": "^22.0.3",
     "jquery": "^3.1.1",
+    "jsdom": "^11.5.1",
+    "jsdom-global": "^3.0.2",
     "laravel-mix": "^1.0.3",
     "lodash": "^4.17.4",
-    "vue": "^2.1.10"
+    "mocha": "^4.1.0",
+    "mocha-webpack": "^1.0.1",
+    "sinon": "^4.1.6",
+    "vue": "^2.1.10",
+    "vue-test-utils": "^1.0.0-beta.9"
   },
   "dependencies": {
     "at.js": "^1.5.3",
