@@ -3,10 +3,10 @@
 namespace Tests\Feature;
 
 use App\Activity;
+use Tests\TestCase;
 use App\Rules\Recaptcha;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
-use Tests\TestCase;
 
 class CreateThreadsTest extends TestCase
 {
@@ -76,6 +76,10 @@ class CreateThreadsTest extends TestCase
     /** @test */
     function a_thread_requires_recaptcha_verification()
     {
+        if ( Recaptcha::isInTestMode() ) {
+            $this->markTestSkipped("Recaptcha is in test mode.");
+        }
+
         unset(app()[Recaptcha::class]);
 
         $this->publishThread(['g-recaptcha-response' => 'test'])

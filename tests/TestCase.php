@@ -3,9 +3,9 @@
 namespace Tests;
 
 use App\Exceptions\Handler;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\DB;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -25,6 +25,17 @@ abstract class TestCase extends BaseTestCase
         $user = $user ?: create('App\User');
 
         $this->actingAs($user);
+
+        return $this;
+    }
+
+    protected function signInAdmin($admin = null)
+    {
+        $admin = $admin ?: create('App\User');
+
+        config(['council.administrators' => [$admin->email]]);
+
+        $this->actingAs($admin);
 
         return $this;
     }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Channel;
-use App\Filters\ThreadFilters;
-use App\Rules\Recaptcha;
 use App\Thread;
+use App\Channel;
 use App\Trending;
+use App\Rules\Recaptcha;
+use App\Filters\ThreadFilters;
 
 class ThreadsController extends Controller
 {
@@ -83,7 +83,7 @@ class ThreadsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  integer      $channel
+     * @param  int      $channel
      * @param  \App\Thread  $thread
      * @param \App\Trending $trending
      * @return \Illuminate\Http\Response

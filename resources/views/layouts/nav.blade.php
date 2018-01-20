@@ -61,6 +61,10 @@
                 @else
                     <user-notifications user-name="{{Auth::user()->name}}"></user-notifications>
 
+                    @if (Auth::user()->isAdmin())
+                        <li><a href="{{ route('admin.dashboard.index') }}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></li>
+                    @endif
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">

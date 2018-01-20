@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Reply;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
@@ -10,18 +11,18 @@ class YouWereMentioned extends Notification
     use Queueable;
 
     /**
-     * @var \App\Reply
+     * @var \App\Reply or \App\Thread
      */
-    protected $reply;
+    protected $subject;
 
     /**
      * Create a new notification instance.
      *
-     * @param \App\Reply $reply
+     * @param $subject
      */
-    public function __construct($reply)
+    public function __construct($subject)
     {
-        $this->reply = $reply;
+        $this->subject = $subject;
     }
 
     /**
@@ -44,8 +45,24 @@ class YouWereMentioned extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => $this->reply->owner->name . ' mentioned you in ' . $this->reply->thread->title,
-            'link' => $this->reply->path()
+            'message' => $this->message(),
+            'link' => $this->subject->path()
         ];
+    }
+
+    /**
+     * Get a message title for the notification.
+     */
+    public function message()
+    {
+        return sprintf('%s mentioned you in "%s"', $this->user()->name, $this->subject->title());
+    }
+
+    /**
+     * Get the associated user for the subject.
+     */
+    public function user()
+    {
+        return $this->subject instanceof Reply ? $this->subject->owner : $this->subject->creator;
     }
 }

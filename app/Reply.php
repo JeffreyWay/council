@@ -40,11 +40,13 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->thread->increment('replies_count');
 
-            Reputation::award($reply->owner, Reputation::REPLY_POSTED);
+            $reply->owner->gainReputation('reply_posted');
         });
 
         static::deleted(function ($reply) {
             $reply->thread->decrement('replies_count');
+
+            $reply->owner->loseReputation('reply_posted');
         });
     }
 
@@ -69,6 +71,14 @@ class Reply extends Model
     }
 
     /**
+     * Get the related title for the reply.
+     */
+    public function title()
+    {
+        return $this->thread->title;
+    }
+
+    /**
      * Determine if the reply was just published a moment ago.
      *
      * @return bool
@@ -79,25 +89,24 @@ class Reply extends Model
     }
 
     /**
-     * Fetch all mentioned users within the reply's body.
-     *
-     * @return array
-     */
-    public function mentionedUsers()
-    {
-        preg_match_all('/@([\w\-]+)/', $this->body, $matches);
-
-        return $matches[1];
-    }
-
-    /**
      * Determine the path to the reply.
      *
      * @return string
      */
     public function path()
     {
-        return $this->thread->path() . "#reply-{$this->id}";
+        return $this->thread->path()."#reply-{$this->id}";
+    }
+
+    /**
+     * Access the body attribute.
+     *
+     * @param  string $body
+     * @return string
+     */
+    public function getBodyAttribute($body)
+    {
+        return \Purify::clean($body);
     }
 
     /**
@@ -125,7 +134,6 @@ class Reply extends Model
     }
 
     /**
-     *
      * Determine if the current reply is marked as the best.
      *
      * @return bool
@@ -133,16 +141,5 @@ class Reply extends Model
     public function getIsBestAttribute()
     {
         return $this->isBest();
-    }
-
-    /**
-     * Access the body attribute.
-     *
-     * @param  string $body
-     * @return string
-     */
-    public function getBodyAttribute($body)
-    {
-        return \Purify::clean($body);
     }
 }

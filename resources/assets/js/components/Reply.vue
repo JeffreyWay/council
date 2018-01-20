@@ -22,7 +22,7 @@
                     </div>
 
                     <button class="btn btn-xs btn-primary">Update</button>
-                    <button class="btn btn-xs btn-link" @click="editing = false" type="button">Cancel</button>
+                    <button class="btn btn-xs btn-link" @click="cancel" type="button">Cancel</button>
                 </form>
             </div>
 
@@ -83,6 +83,12 @@
                 this.editing = false;
 
                 flash('Updated!');
+            },
+
+            cancel() {
+                this.editing = false;
+
+                this.body = this.reply.body;
             },
 
             destroy() {

@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Notifications\DatabaseNotification;
 use Tests\TestCase;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class NotificationsTest extends TestCase
 {
@@ -46,7 +46,7 @@ class NotificationsTest extends TestCase
 
         $this->assertCount(
             1,
-            $this->getJson("/profiles/" . auth()->user()->name . "/notifications")->json()
+            $this->getJson(route('user-notifications', auth()->user()->name))->json()
         );
     }
 
@@ -58,7 +58,7 @@ class NotificationsTest extends TestCase
         tap(auth()->user(), function ($user) {
             $this->assertCount(1, $user->unreadNotifications);
 
-            $this->delete("/profiles/{$user->name}/notifications/" . $user->unreadNotifications->first()->id);
+            $this->delete(route('user-notification.destroy', [$user->name, $user->unreadNotifications->first()->id]));
 
             $this->assertCount(0, $user->fresh()->unreadNotifications);
         });

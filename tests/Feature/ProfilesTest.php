@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProfilesTest extends TestCase
 {
@@ -25,9 +25,8 @@ class ProfilesTest extends TestCase
 
         $thread = create('App\Thread', ['user_id' => auth()->id()]);
 
-        $this->get("/profiles/" . auth()->user()->name)
+        $this->get(route('profile', auth()->user()->name))
             ->assertSee($thread->title)
             ->assertSee($thread->body);
-
     }
 }

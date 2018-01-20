@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use App\Reply;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReplyTest extends TestCase
 {
@@ -29,16 +29,6 @@ class ReplyTest extends TestCase
         $reply->created_at = Carbon::now()->subMonth();
 
         $this->assertFalse($reply->wasJustPublished());
-    }
-
-    /** @test */
-    function it_can_detect_all_mentioned_users_in_the_body()
-    {
-        $reply = new Reply([
-            'body' => '@JaneDoe wants to talk to @JohnDoe'
-        ]);
-
-        $this->assertEquals(['JaneDoe', 'JohnDoe'], $reply->mentionedUsers());
     }
 
     /** @test */
