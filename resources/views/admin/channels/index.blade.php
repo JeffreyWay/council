@@ -28,4 +28,6 @@
             @endforelse
             </tbody>
         </table>
+
+        {{ $channels->links() }}
 @endsection
