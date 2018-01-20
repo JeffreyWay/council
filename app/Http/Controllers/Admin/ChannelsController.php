@@ -14,7 +14,7 @@ class ChannelsController extends Controller
      */
     public function index()
     {
-        $channels = Channel::with('threads')->paginate(20);
+        $channels = Channel::withCount('threads')->paginate(20);
 
         return view('admin.channels.index', compact('channels'));
     }
