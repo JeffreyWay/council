@@ -38263,7 +38263,7 @@ Vue.prototype.highlight = function (block) {
     block.querySelectorAll('pre').forEach(function (node) {
         Highlighter.highlightBlock(node);
     });
-},
+};
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -99791,7 +99791,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
     },
     mounted: function mounted() {
-        console.log('Reply Highlight');
         this.highlight(this.$refs['reply-body']);
     },
 

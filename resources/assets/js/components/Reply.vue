@@ -71,7 +71,6 @@
         },
 
         mounted() {
-            console.log('Reply Highlight');
             this.highlight(this.$refs['reply-body']);
         },
 
