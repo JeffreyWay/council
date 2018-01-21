@@ -22,6 +22,18 @@
             this.resetForm();
         },
 
+        mounted () {
+            this.highlight(this.$refs.question);
+        },
+
+        watch: {
+            editing() {
+                if(!this.editing) {
+                    setTimeout(() => this.highlight(this.$refs.question), 100);
+                }
+            }
+        },
+        
         methods: {
             toggleLock () {
                 let uri = `/locked-threads/${this.thread.slug}`;
