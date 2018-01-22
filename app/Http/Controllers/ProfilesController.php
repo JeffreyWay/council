@@ -19,9 +19,11 @@ class ProfilesController extends Controller
             'profileUser' => $user,
             'activities' => Activity::feed($user)
         ];
+
         if (request()->expectsJson()) {
             return $data;
         }
+
         return view('profiles.show', $data);
     }
 }
