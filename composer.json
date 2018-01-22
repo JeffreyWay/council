@@ -8,6 +8,7 @@
         "php": ">=5.6.4",
         "algolia/algoliasearch-client-php": "^1.23",
         "barryvdh/laravel-debugbar": "^2.3",
+        "jenssegers/agent": "^2.6",
         "kitetail/zttp": "^0.3.0",
         "laravel/framework": "5.5.*",
         "laravel/scout": "^3.0",

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Agent;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -106,5 +107,21 @@ class ReadThreadsTest extends TestCase
         $this->call('GET', $thread->path());
 
         $this->assertEquals(1, $thread->fresh()->visits);
+    }
+
+    /** @test */
+    function requests_from_robots_are_not_recorded_as_new_visits()
+    {
+        // The user-agent of the Google web crawling bot as specified at:
+        // https://support.google.com/webmasters/answer/1061943?hl=en
+        Agent::setUserAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)');
+
+        $thread = create('App\Thread');
+
+        $this->assertSame(0, $thread->visits);
+
+        $this->call('GET', $thread->path());
+
+        $this->assertEquals(0, $thread->fresh()->visits);
     }
 }

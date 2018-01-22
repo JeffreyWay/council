@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Agent;
 use App\Thread;
 use App\Channel;
 use App\Trending;
@@ -96,7 +97,9 @@ class ThreadsController extends Controller
 
         $trending->push($thread);
 
-        $thread->increment('visits');
+        if (!Agent::isRobot()) {
+            $thread->increment('visits');
+        }
 
         return view('threads.show', compact('thread'));
     }
