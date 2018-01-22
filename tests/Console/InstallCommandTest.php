@@ -62,6 +62,7 @@ class InstallCommandTest extends TestCase
     {
         $this->partialMock(['ask', 'secret'], function ($mock) {
             $mock->shouldReceive('ask')->with('Database name')->andReturn('mydatabase');
+            $mock->shouldReceive('ask')->with('Database port', 3306)->andReturn(3306);
             $mock->shouldReceive('ask')->with('Database user')->andReturn('johndoe');
             $mock->shouldReceive('secret')->with('Database password ("null" for no password)')->andReturn('password');
         });
@@ -69,6 +70,7 @@ class InstallCommandTest extends TestCase
         $this->artisan('council:install', ['--no-interaction' => true]);
 
         $this->assertEnvKeyEquals('DB_DATABASE', 'mydatabase');
+        $this->assertEnvKeyEquals('DB_PORT', '3306');
         $this->assertEnvKeyEquals('DB_USERNAME', 'johndoe');
         $this->assertEnvKeyEquals('DB_PASSWORD', 'password');
     }
