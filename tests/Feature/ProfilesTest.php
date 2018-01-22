@@ -10,16 +10,16 @@ class ProfilesTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function a_user_has_a_profile()
+    public function a_user_has_a_profile()
     {
         $user = create('App\User');
 
-        $this->get("/profiles/{$user->name}")
-            ->assertSee($user->name);
+        $response = $this->getJson("/profiles/{$user->name}")->json();
+        $this->assertEquals($response['profileUser']['name'], $user->name);
     }
 
     /** @test */
-    function profiles_display_all_threads_created_by_the_associated_user()
+    public function profiles_display_all_threads_created_by_the_associated_user()
     {
         $this->signIn();
 
