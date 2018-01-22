@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 abstract class Filters
 {
     /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
      * The Eloquent builder.
      *
      * @var \Illuminate\Database\Eloquent\Builder
@@ -24,16 +19,6 @@ abstract class Filters
      * @var array
      */
     protected $filters = [];
-
-    /**
-     * Create a new ThreadFilters instance.
-     *
-     * @param Request $request
-     */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
 
     /**
      * Apply the filters.
@@ -61,6 +46,6 @@ abstract class Filters
      */
     public function getFilters()
     {
-        return array_filter($this->request->only($this->filters));
+        return array_filter(request($this->filters));
     }
 }
