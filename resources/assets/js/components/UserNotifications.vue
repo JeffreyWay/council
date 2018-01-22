@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import requestService from '../services/requestService';
+    import axios from 'axios';
 
     export default {
         props: ['userName'],
@@ -25,13 +25,16 @@
         },
 
         created() {
-            requestService.get(`/profiles/${this.userName}/notifications`)
-                .then(notifications => this.notifications = notifications);
+            this.getNotifications();
         },
 
         methods: {
+            getNotifications() {
+                axios.get(`/profiles/${this.userName}/notifications`)
+                    .then(notifications => this.notifications = notifications);
+            },
             markAsRead(notification) {
-                requestService.delete(`/profiles/${this.userName}/notifications/${notification.id}`)
+                axios.delete(`/profiles/${this.userName}/notifications/${notification.id}`)
                     .then(() => this.removeFromList(notification));
             },
             removeFromList(notification) {
