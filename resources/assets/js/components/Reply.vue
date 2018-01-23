@@ -44,13 +44,12 @@
 
 <script>
     import Favorite from './Favorite.vue';
-    import Highlight from './Highlight.vue';
     import moment from 'moment';
 
     export default {
         props: ['reply'],
 
-        components: { Favorite, Highlight },
+        components: { Favorite },
 
         data() {
             return {
