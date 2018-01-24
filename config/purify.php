@@ -65,7 +65,7 @@ return [
         |
         */
 
-        'HTML.Allowed' => 'div,pre,code,h1,h2,h3,h4,h5,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]',
+        'HTML.Allowed' => 'blockquote,div,pre,code,h1,h2,h3,h4,h5,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]',
 
         /*
         |--------------------------------------------------------------------------
