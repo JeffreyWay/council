@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div ref="question" class="panel-body">
+    <div class="panel-body">
         <highlight :content="body"></highlight>
     </div>
 
