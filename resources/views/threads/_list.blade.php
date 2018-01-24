@@ -27,7 +27,9 @@
         </div>
 
         <div class="panel-body">
-            <div class="body">{!! $thread->body !!}</div>
+            <thread-view :thread="{{ $thread }}" inline-template>
+                <highlight :content="body"></highlight>
+            </thread-view>
         </div>
 
         <div class="panel-footer">
