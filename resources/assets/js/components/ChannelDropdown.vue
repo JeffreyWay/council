@@ -28,19 +28,20 @@
 
 <style lang="scss">
     .channel-dropdown {
-        padding:0;
+        padding: 0;
     }
 
     .input-wrapper {
-        padding:.5rem 1rem;
+        padding: .5rem 1rem;
     }
 
     .channel-list {
-        max-height: 400px; overflow:auto;
-        margin-bottom:0;
+        max-height: 400px; 
+        overflow: auto;
+        margin-bottom: 0;
 
         .list-group-item {
-            border-radius:0;
+            border-radius: 0;
             border-left: none;
             border-right: none;
         }
