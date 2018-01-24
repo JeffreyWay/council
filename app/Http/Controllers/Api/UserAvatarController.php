@@ -26,5 +26,4 @@ class UserAvatarController extends Controller
 
         return response([], 204);
     }
-    
 }
