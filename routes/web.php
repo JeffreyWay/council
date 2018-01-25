@@ -60,4 +60,7 @@ Route::group([
     Route::post('/channels', 'ChannelsController@store')->name('admin.channels.store');
     Route::get('/channels', 'ChannelsController@index')->name('admin.channels.index');
     Route::get('/channels/create', 'ChannelsController@create')->name('admin.channels.create');
+
+    Route::get('/users', 'UsersController@index')->name('admin.users.index');
+    Route::patch('/user-confirm', 'UserConfirmationController@update')->name('admin.confirm-user.update');
 });
