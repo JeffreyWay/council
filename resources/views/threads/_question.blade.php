@@ -50,7 +50,9 @@
         </div>
     </div>
 
-    <div class="panel-body" v-html="body"></div>
+    <div class="panel-body">
+        <highlight :content="body"></highlight>
+    </div>
 
     <div class="panel-footer" v-if="authorize('owns', thread)">
         <button class="btn btn-xs" @click="editing = true">Edit</button>
