@@ -19,7 +19,7 @@ class UserAdministrationTest extends TestCase
     }
 
     /** @test */
-    public function an_administrator_can_access_the_channel_administration_section()
+    public function an_administrator_can_access_the_user_administration_section()
     {
         $this->signInAdmin()
             ->get(route('admin.users.index'))
@@ -27,7 +27,7 @@ class UserAdministrationTest extends TestCase
     }
 
     /** @test */
-    public function non_administrators_cannot_access_the_channel_administration_section()
+    public function non_administrators_cannot_access_the_user_administration_section()
     {
         $regularUser = create(User::class);
 
@@ -47,20 +47,52 @@ class UserAdministrationTest extends TestCase
     }
 
     /** @test */
-    public function an_administrator_can_manually_confirm_a_user()
+    public function an_administrator_can_manually_confirm_a_users_email_address()
     {
-        $this->withoutExceptionHandling();
-
         $user = create(User::class, [
             'confirmed' => false
         ]);
 
-        $this->assertFalse($user->fresh()->confirmed);
+        $this->assertFalse($user->confirmed);
 
-        $response = $this->signInAdmin()
+        $this->signInAdmin()
             ->patch(route('admin.confirm-user.update', ['id' => $user->id]))
             ->assertRedirect(route('admin.users.index'));
 
         $this->assertTrue($user->fresh()->confirmed);
+    }
+
+    /** @test */
+    public function non_administrators_cannot_confirm_a_users_email_address()
+    {
+        $regularUser = create(User::class);
+
+        $this->actingAs($regularUser)
+            ->get(route('admin.users.index'))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    public function administrators_can_suspend_a_users_account()
+    {
+        $user = create(User::class);
+
+        $this->assertTrue($user->active);
+
+        $this->signInAdmin()
+            ->patch(route('admin.suspend-user.update'), ['id' => $user->id])
+            ->assertRedirect(route('admin.users.index'));
+
+        $this->assertFalse($user->fresh()->active);
+    }
+
+    /** @test */
+    public function non_administrators_cannot_suspend_a_users_account()
+    {
+        $regularUser = create(User::class);
+
+        $this->signIn($regularUser)
+            ->patch(route('admin.suspend-user.update'), ['id' => $regularUser->id])
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

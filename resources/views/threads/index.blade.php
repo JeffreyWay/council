@@ -4,6 +4,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+
+                @if(session()->has('warning'))
+                    <div class="alert alert-warning" role="alert">{{ session('warning') }}</div>
+                @endif
+
                 @include ('threads._list')
 
                 {{ $threads->render() }}

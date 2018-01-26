@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\User;
 use App\Exceptions\Handler;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -40,15 +41,36 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
+
+    /**
+     * @return mixed
+     */
+    protected function signInSuspended($suspendedUser = null)
+    {
+        $suspendedUser = $suspendedUser ?: create(User::class, [
+            'active' => false
+        ]);
+
+        $this->actingAs($suspendedUser);
+
+        return $this;
+    }
+
+
     // Hat tip, @adamwathan.
     protected function disableExceptionHandling()
     {
         $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
 
         $this->app->instance(ExceptionHandler::class, new class extends Handler {
-            public function __construct() {}
-            public function report(\Exception $e) {}
-            public function render($request, \Exception $e) {
+            public function __construct()
+            {
+            }
+            public function report(\Exception $e)
+            {
+            }
+            public function render($request, \Exception $e)
+            {
                 throw $e;
             }
         });
