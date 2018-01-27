@@ -20,7 +20,7 @@
             'user' => Auth::user(),
             'signedIn' => Auth::check()
         ]) !!};
-        @if(! Auth::user()->active) {
+        @if(Auth::user() && ! Auth::user()->active) {
             window.App.suspension = {!! json_encode([
                 'support' => config('council.support.suspension')
             ]) !!};
