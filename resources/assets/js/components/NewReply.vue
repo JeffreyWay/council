@@ -14,7 +14,7 @@
         <div v-else-if="! active">
             <div class="alert alert-warning" role="alert">
                 <p>You are unable to reply to threads as your account is currently suspended.</p>
-                <p>Please <a href="mailto:suspension@example.com?Subject=Account%20suspension">Contact Support</a> for assistance.</p>
+                <p>Please <a :href="suspensionSupport">Contact Support</a> for assistance.</p>
             </div>
         </div>
 
@@ -47,6 +47,9 @@
             },
             active() {
                 return window.App.user.active;
+            },
+            suspensionSupport() {
+                return 'mailto:' + window.App.suspension.support + '?Subject=Re:%20Account%20suspension';
             }
         },
 

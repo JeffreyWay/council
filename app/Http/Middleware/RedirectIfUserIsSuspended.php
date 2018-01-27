@@ -22,6 +22,7 @@ class RedirectIfUserIsSuspended
             }
             return redirect('/threads')->with(['warning' => 'You are currently suspended with limited access to the forum. Please contact support for assistance.']);
         }
+
         return $next($request);
     }
 }
