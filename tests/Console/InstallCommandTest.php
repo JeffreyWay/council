@@ -65,6 +65,10 @@ class InstallCommandTest extends TestCase
             $mock->shouldReceive('ask')->with('Database port', 3306)->andReturn(3306);
             $mock->shouldReceive('ask')->with('Database user')->andReturn('johndoe');
             $mock->shouldReceive('secret')->with('Database password ("null" for no password)')->andReturn('password');
+
+            // Ignore calls mockery receives that we are not interested in.
+            // This must be placed after definitions we are interested in.
+            $mock->shouldReceive('ask')->withAnyArgs();
         });
 
         $this->artisan('council:install', ['--no-interaction' => true]);
@@ -73,6 +77,18 @@ class InstallCommandTest extends TestCase
         $this->assertEnvKeyEquals('DB_PORT', '3306');
         $this->assertEnvKeyEquals('DB_USERNAME', 'johndoe');
         $this->assertEnvKeyEquals('DB_PASSWORD', 'password');
+    }
+
+    /** @test */
+    public function it_sets_the_support_env_config()
+    {
+        $this->partialMock(['ask'], function ($mock) {
+            $mock->shouldReceive('ask')->withAnyArgs()->andReturn('support@example.com');
+        });
+
+        $this->artisan('council:install', ['--no-interaction' => true]);
+
+        $this->assertEnvKeyEquals('COUNCIL_SUPPORT_EMAIL', 'support@example.com');
     }
 
     protected function partialMock($methods, $assertions = null)

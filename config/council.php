@@ -12,6 +12,6 @@ return [
         'reply_favorited' => 5
     ],
     'support' => [
-        'suspension' => env('COUNCIL_SUPPORT_SUSPENSION', env('COUNCIL_SUPPORT_EMAIL'))
+        'suspension' => empty(env('COUNCIL_SUPPORT_SUSPENSION_EMAIL')) ? env('COUNCIL_SUPPORT_EMAIL') : env('COUNCIL_SUPPORT_SUSPENSION_EMAIL')
     ]
 ];
