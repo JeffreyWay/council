@@ -39,6 +39,8 @@ class InstallCommand extends Command
 
         $this->updateEnvironmentFile($this->requestDatabaseCredentials());
 
+        $this->updateEnvironmentFile($this->requestSupportEmail());
+
         if ($this->confirm('Do you want to migrate the database?', false)) {
             $this->call('migrate');
 
@@ -97,6 +99,18 @@ class InstallCommand extends Command
             'DB_PORT' => $this->ask('Database port', 3306),
             'DB_USERNAME' => $this->ask('Database user'),
             'DB_PASSWORD' => $this->secret('Database password ("null" for no password)'),
+        ];
+    }
+
+    /**
+     * Request the local database details from the user.
+     *
+     * @return array
+     */
+    protected function requestSupportEmail()
+    {
+        return [
+            'COUNCIL_SUPPORT_EMAIL' => $this->ask('Support Email'),
         ];
     }
 

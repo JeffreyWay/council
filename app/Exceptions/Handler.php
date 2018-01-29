@@ -52,13 +52,6 @@ class Handler extends ExceptionHandler
             }
         }
 
-//        if ($exception instanceof ThrottleException) {
-//            if ($request->expectsJson()) {
-//                return response()->json(['reason' => $exception->getMessage()], Response::HTTP_TOO_MANY_REQUESTS);
-//            }
-//            return response($exception->getMessage(), Response::HTTP_TOO_MANY_REQUESTS);
-//        }
-
         return parent::render($request, $exception);
     }
 
