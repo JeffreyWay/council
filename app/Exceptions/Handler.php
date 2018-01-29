@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -47,13 +48,16 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof ValidationException) {
             if ($request->expectsJson()) {
-                return response('Sorry, validation failed.', 422);
+                return response('Sorry, validation failed.', Response::HTTP_UNPROCESSABLE_ENTITY);
             }
         }
 
-        if ($exception instanceof ThrottleException) {
-            return response($exception->getMessage(), 429);
-        }
+//        if ($exception instanceof ThrottleException) {
+//            if ($request->expectsJson()) {
+//                return response()->json(['reason' => $exception->getMessage()], Response::HTTP_TOO_MANY_REQUESTS);
+//            }
+//            return response($exception->getMessage(), Response::HTTP_TOO_MANY_REQUESTS);
+//        }
 
         return parent::render($request, $exception);
     }

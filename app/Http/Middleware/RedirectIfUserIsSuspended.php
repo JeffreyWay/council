@@ -17,7 +17,7 @@ class RedirectIfUserIsSuspended
     public function handle($request, Closure $next)
     {
         if (! $request->user()->active) {
-            if (request()->wantsJson()) {
+            if (request()->expectsJson()) {
                 return response()->json(['reason' => 'You are currently suspended with limited access to the forum. Please contact support for assistance.'], 403);
             }
             return redirect('/threads')->with(['warning' => 'You are currently suspended with limited access to the forum. Please contact support for assistance.']);
