@@ -17,10 +17,12 @@ class SuspendedUserTest extends TestCase
             ->signInSuspended();
 
         $this->get('/threads/create')
-            ->assertRedirect(route('threads'));
+            ->assertRedirect(route('threads'))
+            ->assertSessionHas('warning');
 
         $this->post(route('threads'))
-            ->assertRedirect(route('threads'));
+            ->assertRedirect(route('threads'))
+            ->assertSessionHas('warning');
     }
 
     /** @test */
@@ -29,11 +31,12 @@ class SuspendedUserTest extends TestCase
         $thread = create('App\Thread');
         $reply = make('App\Reply');
 
-        $this//->withExceptionHandling()
+        $this->withExceptionHandling()
             ->signInSuspended();
 
         $this->post($thread->path() . '/replies', $reply->toArray())
-            ->assertRedirect('/threads');
+            ->assertRedirect('/threads')
+            ->assertSessionHas('warning');
 
         $this->postJSON($thread->path() . '/replies', $reply->toArray())
             ->assertStatus(Response::HTTP_FORBIDDEN)
