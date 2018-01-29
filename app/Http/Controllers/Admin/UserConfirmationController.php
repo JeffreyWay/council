@@ -12,7 +12,7 @@ class UserConfirmationController extends Controller
         $user = User::findOrFail(request()->id);
         $user->confirm();
 
-        if (request()->wantsJson()) {
+        if (request()->expectsJson()) {
             return response($user, 201);
         }
 

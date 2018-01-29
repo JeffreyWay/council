@@ -12,7 +12,7 @@ class UserSuspensionController extends Controller
         $user = User::findOrFail(request()->id);
         $user->toggleActive();
 
-        if (request()->wantsJson()) {
+        if (request()->expectsJson()) {
             return response($user, 201);
         }
 
