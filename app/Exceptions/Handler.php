@@ -5,7 +5,6 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -48,7 +47,7 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof ValidationException) {
             if ($request->expectsJson()) {
-                return response('Sorry, validation failed.', Response::HTTP_UNPROCESSABLE_ENTITY);
+                return response('Sorry, validation failed.', 422);
             }
         }
 

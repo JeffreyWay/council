@@ -49,18 +49,18 @@
                 return window.App.user.active;
             },
             suspensionSupport() {
-                return 'mailto:' + window.App.suspension.support + '?Subject=Re:%20Account%20suspension';
+                return "mailto:" + window.App.suspension.support + "?Subject=Re:%20Account%20suspension";
             }
         },
 
         mounted() {
             $('#body').atwho({
-                at: '@',
+                at: "@",
                 delay: 750,
                 callbacks: {
-                    remoteFilter: function (query, callback) {
-                        $.getJSON('/api/users', { name: query }, function (usernames) {
-                            callback(usernames);
+                    remoteFilter: function(query, callback) {
+                        $.getJSON("/api/users", {name: query}, function(usernames) {
+                            callback(usernames)
                         });
                     }
                 }
@@ -70,17 +70,17 @@
         methods: {
             addReply() {
                 axios.post(location.pathname + '/replies', { body: this.body })
-                  .catch(error => {
-                      flash(error.response.data.reason, 'danger');
-                  })
-                  .then(({ data }) => {
-                      this.body = '';
+                    .catch(error => {
+                        flash(error.response.data.reason, 'danger');
+                    })
+                    .then(({data}) => {
+                        this.body = '';
 
-                      flash('Your reply has been posted.');
+                        flash('Your reply has been posted.');
 
-                      this.$emit('created', data);
-                  });
+                        this.$emit('created', data);
+                    });
             }
         }
-    };
+    }
 </script>
