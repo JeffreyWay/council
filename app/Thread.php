@@ -40,7 +40,8 @@ class Thread extends Model
      * @var array
      */
     protected $casts = [
-        'locked' => 'boolean'
+        'locked' => 'boolean',
+        'pinned' => 'boolean'
     ];
 
     /**
