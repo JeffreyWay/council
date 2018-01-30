@@ -15,6 +15,7 @@ class ThrottleException extends \Exception
         if ($request->expectsJson()) {
             return response()->json(['reason' => $this->getMessage()], 429);
         }
+        #
         return response($this->getMessage(), 429);
     }
 }
