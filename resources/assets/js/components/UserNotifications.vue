@@ -8,7 +8,7 @@
             <li v-for="notification in notifications">
                 <a :href="notification.data.link"
                    v-text="notification.data.message"
-                   @click="markAsRead(notification)"
+                   @click.prevent="markAsRead(notification)"
                 ></a>
             </li>
         </ul>
@@ -29,6 +29,7 @@
         methods: {
             markAsRead(notification) {
                 axios.delete('/profiles/' + window.App.user.name + '/notifications/' + notification.id)
+                .then(response => window.location.href = response.data);
             }
         }
     }
