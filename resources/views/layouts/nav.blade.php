@@ -40,7 +40,7 @@
                     <a href="/threads/create">New Thread</a>
                 </li>
 
-                <channel-dropdown :channels="{{ $channels }}"></channel-dropdown>
+                <channel-dropdown></channel-dropdown>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -68,16 +68,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
+                                <logout-button route="{{ route('logout') }}">Logout</logout-button>
                             </li>
                         </ul>
                     </li>
