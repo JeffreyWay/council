@@ -60,11 +60,11 @@ class InstallCommandTest extends TestCase
     /** @test */
     function it_sets_the_database_env_config()
     {
-        $this->partialMock(['ask', 'secret'], function ($mock) {
+        $this->partialMock(['ask', 'askHiddenWithDefault'], function ($mock) {
             $mock->shouldReceive('ask')->with('Database name')->andReturn('mydatabase');
             $mock->shouldReceive('ask')->with('Database port', 3306)->andReturn(3306);
             $mock->shouldReceive('ask')->with('Database user')->andReturn('johndoe');
-            $mock->shouldReceive('secret')->with('Database password ("null" for no password)')->andReturn('password');
+            $mock->shouldReceive('askHiddenWithDefault')->with('Database password (leave blank for no password)')->andReturn('password');
         });
 
         $this->artisan('council:install', ['--no-interaction' => true]);
