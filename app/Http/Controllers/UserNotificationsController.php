@@ -35,7 +35,7 @@ class UserNotificationsController extends Controller
         $notification->markAsRead();
 
         return json_encode(
-            $notification->data['link']
+            $notification->data
         );
     }
 }

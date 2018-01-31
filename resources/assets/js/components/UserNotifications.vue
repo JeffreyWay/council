@@ -5,7 +5,7 @@
         </a>
 
         <ul class="dropdown-menu">
-            <li v-for="notification in notifications">
+            <li v-for="notification in notifications" :key="notification.id">
                 <a :href="notification.data.link"
                    v-text="notification.data.message"
                    @click.prevent="markAsRead(notification)"
@@ -29,7 +29,10 @@
         methods: {
             markAsRead(notification) {
                 axios.delete('/profiles/' + window.App.user.name + '/notifications/' + notification.id)
-                .then(response => window.location.href = response.data);
+                .then(response => {
+                    this.notifications.splice(notification.id, 1);
+                    document.location.replace(response.data.link);
+                });
             }
         }
     }
