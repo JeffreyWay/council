@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Channel;
 use App\Thread;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PinThreadsTest extends TestCase
 {
@@ -38,36 +37,27 @@ class PinThreadsTest extends TestCase
     /** @test */
     public function pinned_threads_are_listed_first()
     {
-        $channel = create(Channel::class, [
-            'name' => 'PHP',
-            'slug' => 'php'
-        ]);
-
-        create(Thread::class, ['channel_id' => $channel->id]);
-        create(Thread::class, ['channel_id' => $channel->id]);
-        $threadToPin = create(Thread::class, ['channel_id' => $channel->id]);
-
         $this->signInAdmin();
 
-        $response = $this->getJson(route('threads'));
-        $response->assertJson([
+        $threads = create(Thread::class, [], 3);
+        $ids = $threads->pluck('id');
+
+        $this->getJson(route('threads'))->assertJson([
             'data' => [
-                ['id' => '1'],
-                ['id' => '2'],
-                ['id' => '3'],
+                ['id' => $ids[0]],
+                ['id' => $ids[1]],
+                ['id' => $ids[2]],
             ]
         ]);
+        
+        $this->post(route('pinned-threads.store', $pinned = $threads->last()));
 
-        $this->post(route('pinned-threads.store', $threadToPin));
-
-        $response = $this->getJson(route('threads'));
-        $response->assertJson([
+        $this->getJson(route('threads'))->assertJson([
             'data' => [
-                ['id' => '3'],
-                ['id' => '1'],
-                ['id' => '2'],
+                ['id' => $pinned->id],
+                ['id' => $ids[0]],
+                ['id' => $ids[1]],
             ]
         ]);
-
     }
 }
