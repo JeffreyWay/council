@@ -18,12 +18,12 @@
 <script>
     export default {
         data() {
-            return { notifications: false };
+            return { notifications: false }
         },
 
         created() {
             axios.get('/profiles/' + window.App.user.name + '/notifications')
-              .then(response => this.notifications = response.data);
+                .then(response => this.notifications = response.data);
         },
 
         methods: {
@@ -32,5 +32,5 @@
                 .then(response => window.location.href = response.data);
             }
         }
-    };
+    }
 </script>
