@@ -16,19 +16,31 @@
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
+        props: ['userName'],
         data() {
-            return { notifications: false }
+            return {notifications: []}
         },
 
         created() {
-            axios.get('/profiles/' + window.App.user.name + '/notifications')
-                .then(response => this.notifications = response.data);
+            this.getNotifications();
         },
 
         methods: {
+            getNotifications() {
+                axios.get(`/profiles/${this.userName}/notifications`)
+                    .then(notifications => this.notifications = notifications);
+            },
             markAsRead(notification) {
-                axios.delete('/profiles/' + window.App.user.name + '/notifications/' + notification.id)
+                axios.delete(`/profiles/${this.userName}/notifications/${notification.id}`)
+                    .then(() => this.removeFromList(notification));
+            },
+            removeFromList(notification) {
+                this.notifications = this.notifications.filter((item) => {
+                    return item.id !== notification.id;
+                });
             }
         }
     }

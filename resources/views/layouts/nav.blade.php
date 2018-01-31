@@ -50,7 +50,7 @@
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
-                    <user-notifications></user-notifications>
+                    <user-notifications user-name="{{Auth::user()->name}}"></user-notifications>
 
                     @if (Auth::user()->isAdmin())
                         <li><a href="{{ route('admin.dashboard.index') }}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></li>
