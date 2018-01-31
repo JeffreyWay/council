@@ -22,15 +22,18 @@
         },
 
         created() {
-            axios.get('/profiles/' + window.App.user.name + '/notifications')
-                .then(response => this.notifications = response.data);
+            this.fetchNotifications();
         },
 
         methods: {
+            fetchNotifications() {
+                axios.get('/profiles/' + window.App.user.name + '/notifications')
+                  .then(response => this.notifications = response.data);
+            },
             markAsRead(notification) {
                 axios.delete('/profiles/' + window.App.user.name + '/notifications/' + notification.id)
                 .then(response => {
-                    this.notifications.splice(notification.id, 1);
+                    this.fetchNotifications();
                     document.location.replace(response.data.link);
                 });
             }
