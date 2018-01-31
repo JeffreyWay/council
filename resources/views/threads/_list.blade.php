@@ -5,6 +5,9 @@
                 <div class="flex">
                     <h4>
                         <a href="{{ $thread->path() }}">
+                            @if ($thread->pinned)
+                                <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                            @endif
                             @if (auth()->check() && $thread->hasUpdatesFor(auth()->user()))
                                 <strong>
                                     {{ $thread->title }}
@@ -33,7 +36,12 @@
         </div>
 
         <div class="panel-footer">
-            {{ $thread->visits }} Visits
+            <div class="level">
+                <div class="flex">
+                    {{ $thread->visits }} Visits            
+                </div>
+                <a href="/threads/{{ $thread->channel->slug }}"><span class="label label-primary">{{ $thread->channel->name}}</span></a>            
+            </div>
         </div>
     </div>
 @empty
