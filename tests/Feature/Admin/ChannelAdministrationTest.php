@@ -55,21 +55,24 @@ class ChannelAdministrationTest extends TestCase
     }
 
     /** @test */
-    public function an_administrator_can_edit_an_existing_channel()
+    public function an_administrator_can_mark_an_existing_channel_as_archived()
     {
         $this->signInAdmin();
 
+        $channel = create('App\Channel');
+
+        $this->assertFalse($channel->archived);
+
         $this->patch(
-            route('admin.channels.update', ['channel' => create('App\Channel')->slug]),
-            $updatedChannel = [
+            route('admin.channels.update', ['channel' => $channel->slug]),
+            [
                 'name' => 'altered',
-                'description' => 'altered channel description'
+                'description' => 'altered channel description',
+                'archived' => true
             ]
         );
 
-        $this->get(route('admin.channels.index'))
-            ->assertSee($updatedChannel['name'])
-            ->assertSee($updatedChannel['description']);
+        $this->assertTrue($channel->fresh()->archived);
     }
 
     /** @test */
