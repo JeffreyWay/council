@@ -23,7 +23,7 @@ class Channel extends Model
     protected static function boot()
     {
         parent::boot();
-        
+
         static::addGlobalScope('active', function ($builder) {
             $builder->where('archived', false)
                 ->orderBy('name', 'asc');
