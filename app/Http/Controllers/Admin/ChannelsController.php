@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Channel;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class ChannelsController extends Controller
@@ -50,6 +51,7 @@ class ChannelsController extends Controller
             request()->validate([
                 'name' => ['required', Rule::unique('channels')->ignore($channel->id)],
                 'description' => 'required',
+                'archived' => 'required|boolean'
             ])
         );
 
