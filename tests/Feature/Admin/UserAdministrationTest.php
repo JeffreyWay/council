@@ -72,27 +72,53 @@ class UserAdministrationTest extends TestCase
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
+    // User Suspension Tests
+
     /** @test */
     public function administrators_can_suspend_a_users_account()
     {
-        $user = create(User::class);
+        $user = create(User::class, ['active' => true]);
 
         $this->assertTrue($user->active);
 
         $this->signInAdmin()
-            ->patch(route('admin.suspend-user.update'), ['id' => $user->id])
+            ->delete(route('admin.suspend-user.destroy', $user))
             ->assertRedirect(route('admin.users.index'));
 
-        $this->assertFalse($user->fresh()->active);
+        $this->assertFalse($user->fresh()->active, 'Failed asserting that the user is suspended.');
     }
 
     /** @test */
     public function non_administrators_cannot_suspend_a_users_account()
     {
-        $regularUser = create(User::class);
+        $user = create(User::class);
 
-        $this->signIn($regularUser)
-            ->patch(route('admin.suspend-user.update'), ['id' => $regularUser->id])
+        $this->signIn()
+            ->delete(route('admin.suspend-user.destroy', $user))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    public function administrators_can_activate_a_users_account()
+    {
+        $user = create(User::class, ['active' => false]);
+
+        $this->assertFalse($user->active);
+
+        $this->signInAdmin()
+            ->post(route('admin.suspend-user.store', $user))
+            ->assertRedirect(route('admin.users.index'));
+
+        $this->assertTrue($user->fresh()->active, 'Failed asserting that the user is active.');
+    }
+
+    /** @test */
+    public function non_administrators_cannot_activate_a_users_account()
+    {
+        $user = create(User::class);
+
+        $this->signIn()
+            ->post(route('admin.suspend-user.store', $user))
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

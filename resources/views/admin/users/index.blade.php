@@ -49,20 +49,24 @@
                     @endif
                 </td>
                 <td>
-                    <form class="form-inline" action="{{ route('admin.suspend-user.update') }}" method="POST">
-                        <input type="hidden" name="_method" value="PATCH">
-                        <input type="hidden" name="id" value="{{ $user->id }}">
-                        <div class="form-group">
+                    @if($user->active)
+                        <form class="form-inline" action="{{ route('admin.suspend-user.destroy', $user) }}" method="POST">
                             {{ csrf_field() }}
-                            @if($user->active)
+                            <input type="hidden" name="_method" value="DELETE">
+                            <div class="form-group">
                                 <span class="text-success">Active</span>
                                 <button type="submit" class="btn btn-sm btn-danger">Suspend</button>
-                            @else
+                            </div>
+                        </form>
+                    @else
+                        <form class="form-inline" action="{{ route('admin.suspend-user.store', $user) }}" method="POST">
+                            {{ csrf_field() }}
+                            <div class="form-group">
                                 <span class="text-danger">Suspended</span>
                                 <button type="submit" class="btn btn-sm btn-success">Activate</button>
-                            @endif
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    @endif
                 </td>
                 <td>
                     <a href="{{route('threads', ['by' => $user->name])}}" target="_blank" title="View Threads"><span class="glyphicon glyphicon-comment"></span></a>

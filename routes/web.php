@@ -69,5 +69,6 @@ Route::group([
 
     Route::get('/users', 'UsersController@index')->name('admin.users.index');
     Route::patch('/user-confirm', 'UserConfirmationController@update')->name('admin.confirm-user.update');
-    Route::patch('/user-suspend', 'UserSuspensionController@update')->name('admin.suspend-user.update');
+    Route::post('/user-suspend/{user}', 'UserSuspensionController@store')->name('admin.suspend-user.store');
+    Route::delete('/user-suspend/{user}', 'UserSuspensionController@destroy')->name('admin.suspend-user.destroy');
 });
