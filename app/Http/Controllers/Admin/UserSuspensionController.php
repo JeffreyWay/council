@@ -28,7 +28,6 @@ class UserSuspensionController extends Controller
 
         return redirect(route('admin.users.index'))
             ->with('flash', "The account of user $user->name has been suspended");
-
     }
 
     public function store(User $user)
