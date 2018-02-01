@@ -33,6 +33,11 @@ class Channel extends Model
         return $this->hasMany(Thread::class);
     }
 
+    /**
+     * Set the name of the channel.
+     *
+     * @param string $name
+     */
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = $name;
