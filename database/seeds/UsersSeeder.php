@@ -18,6 +18,7 @@ class UsersSeeder extends Seeder
             ->create([
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
+                'password' => bcrypt('password')
             ]);
     }
 }
