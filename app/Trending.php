@@ -28,7 +28,7 @@ class Trending
     {
         $trending = Cache::get($this->cacheKey(), collect());
 
-        $trending[$thread->id] = (object)[
+        $trending[$thread->id] = (object) [
             'score' => $this->score($thread) + $increment,
             'title' => $thread->title,
             'path' => $thread->path(),
@@ -46,7 +46,7 @@ class Trending
     {
         $trending = Cache::get($this->cacheKey(), collect());
 
-        if(! isset($trending[$thread->id])) {
+        if (! isset($trending[$thread->id])) {
             return 0;
         }
 
