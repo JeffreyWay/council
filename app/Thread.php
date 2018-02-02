@@ -28,13 +28,6 @@ class Thread extends Model
     protected $with = ['creator', 'channel'];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = ['isSubscribedTo'];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
