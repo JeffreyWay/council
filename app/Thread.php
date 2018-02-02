@@ -195,7 +195,7 @@ class Thread extends Model
      */
     public function getIsSubscribedToAttribute()
     {
-        if (!auth()->id()) {
+        if (! auth()->id()) {
             return false;
         }
         
