@@ -4,7 +4,7 @@
             <img :src="avatar" width="50" height="50" class="mr-1">
 
             <h1>
-                {{ user.name }}
+                {{ user.username }}
                 <small v-text="reputation"></small>
             </h1>
         </div>
@@ -52,7 +52,7 @@
 
                 data.append('avatar', avatar);
 
-                axios.post(`/api/users/${this.user.name}/avatar`, data)
+                axios.post(`/api/users/${this.user.username}/avatar`, data)
                     .then(() => flash('Avatar uploaded!'));
             }
         }
