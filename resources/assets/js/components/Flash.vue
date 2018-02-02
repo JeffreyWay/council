@@ -3,7 +3,7 @@
          :class="'alert-'+level"
          role="alert"
          v-show="show"
-         v-text="body">
+         v-html="body">
     </div>
 </template>
 
@@ -15,7 +15,8 @@
             return {
                 body: this.message,
                 level: 'success',
-                show: false
+                show: false,
+                timeout: 3000
             }
         },
 
@@ -34,6 +35,7 @@
                 if (data) {
                     this.body = data.message;
                     this.level = data.level;
+                    this.timeout = data.timeout;
                 }
 
                 this.show = true;
@@ -44,7 +46,7 @@
             hide() {
                 setTimeout(() => {
                     this.show = false;
-                }, 3000);
+                }, this.timeout);
             }
         }
     };

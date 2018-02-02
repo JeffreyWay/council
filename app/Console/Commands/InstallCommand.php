@@ -48,6 +48,14 @@ class InstallCommand extends Command
             $this->line('~ Database successfully migrated.');
         }
 
+        if ($this->confirm('Do you want to broadcast events using Pusher?', false)) {
+            $this->updateEnvironmentFile($this->requestPusherCredentials());
+        } else {
+            $this->updateEnvironmentFile([
+                'BROADCAST_DRIVER' => 'null'
+            ]);
+        }
+
         $this->call('cache:clear');
 
         $this->goodbye();
@@ -100,6 +108,22 @@ class InstallCommand extends Command
             'DB_PORT' => $this->ask('Database port', 3306),
             'DB_USERNAME' => $this->ask('Database user'),
             'DB_PASSWORD' => $this->askHiddenWithDefault('Database password (leave blank for no password)'),
+        ];
+    }
+
+    /**
+     * Request Pusherdetails from the user.
+     *
+     * @return array
+     */
+    protected function requestPusherCredentials()
+    {
+        return [
+            'BROADCAST_DRIVER' => 'pusher',
+            'PUSHER_APP_ID' => $this->ask('Pusher App ID'),
+            'MIX_PUSHER_APP_KEY' => $this->ask('Pusher Key'),
+            'PUSHER_APP_SECRET' => $this->ask('Pusher Secret Key'),
+            'MIX_PUSHER_APP_CLUSTER' => $this->ask('Pusher Cluster'),
         ];
     }
 
