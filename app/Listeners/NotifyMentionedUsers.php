@@ -16,7 +16,7 @@ class NotifyMentionedUsers
     public function handle($event)
     {
         tap($event->subject(), function ($subject) {
-            User::whereIn('name', $this->mentionedUsers($subject))
+            User::whereIn('username', $this->mentionedUsers($subject))
                 ->get()->each->notify(new YouWereMentioned($subject));
         });
     }
