@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 
 class Trending
 {
@@ -13,7 +13,10 @@ class Trending
      */
     public function get()
     {
-        return array_map('json_decode', Redis::zrevrange($this->cacheKey(), 0, 4));
+        return Cache::get($this->cacheKey(), collect())
+                    ->sortByDesc('score')
+                    ->slice(0, 5)
+                    ->values();
     }
 
     /**
@@ -23,7 +26,15 @@ class Trending
      */
     public function push($thread, $increment = 1)
     {
-        Redis::zincrby($this->cacheKey(), $increment, $this->encode($thread));
+        $trending = Cache::get($this->cacheKey(), collect());
+
+        $trending[$thread->id] = (object)[
+            'score' => $this->score($thread) + $increment,
+            'title' => $thread->title,
+            'path' => $thread->path(),
+        ];
+
+        Cache::forever($this->cacheKey(), $trending);
     }
 
     /**
@@ -33,7 +44,13 @@ class Trending
      */
     public function score($thread)
     {
-        return Redis::zScore($this->cacheKey(), $this->encode($thread));
+        $trending = Cache::get($this->cacheKey(), collect());
+
+        if(! isset($trending[$thread->id])) {
+            return 0;
+        }
+
+        return $trending[$thread->id]->score;
     }
 
     /**
@@ -41,20 +58,7 @@ class Trending
      */
     public function reset()
     {
-        Redis::del($this->cacheKey());
-    }
-
-    /**
-     * Get the encoded data for a given thread.
-     *
-     * @param int
-     */
-    private function encode($thread)
-    {
-        return json_encode([
-            'title' => $thread->title,
-            'path' => $thread->path(),
-        ]);
+        return Cache::forget($this->cacheKey());
     }
 
     /**
