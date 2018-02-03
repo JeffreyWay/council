@@ -198,6 +198,7 @@ class Thread extends Model
         if (! auth()->id()) {
             return false;
         }
+ 
         return $this->subscriptions()
             ->where('user_id', auth()->id())
             ->exists();
