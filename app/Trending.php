@@ -68,8 +68,6 @@ class Trending
      */
     private function cacheKey()
     {
-        return app()->environment('testing')
-            ? 'testing_trending_threads'
-            : 'trending_threads';
+        return 'trending_threads';
     }
 }
