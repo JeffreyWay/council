@@ -114,7 +114,7 @@ class ChannelAdministrationTest extends TestCase
 
         $this->assertTrue($channel->archived);
 
-        $this->get(route('admin.channels.edit', ['channel' => $channel->slug]))
+        $this->get(route('admin.channels.edit', $channel))
             ->assertStatus(Response::HTTP_OK);
     }
 
@@ -128,7 +128,7 @@ class ChannelAdministrationTest extends TestCase
         $this->assertTrue($channel->archived);
 
         $this->patch(
-            route('admin.channels.update', ['channel' => $channel->slug]),
+            route('admin.channels.update', $channel),
             [
                 'name' => 'altered',
                 'description' => 'altered channel description',
