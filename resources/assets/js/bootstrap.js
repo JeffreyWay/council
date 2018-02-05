@@ -2,6 +2,7 @@
 window._ = require('lodash');
 
 import InstantSearch from 'vue-instantsearch';
+import Echo from "laravel-echo"
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -53,6 +54,14 @@ window.axios.defaults.headers.common = {
 
 window.events = new Vue();
 
-window.flash = function (message, level = 'success') {
-    window.events.$emit('flash', { message, level });
+window.flash = function (message, level = 'success', timeout = 3000) {
+    window.events.$emit('flash', { message, level, timeout });
 };
+
+window.Pusher = require('pusher-js');
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER
+});

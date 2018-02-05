@@ -48,7 +48,7 @@ class InstallCommandTest extends TestCase
     function it_optionally_migrates_the_database()
     {
         $this->partialMock(['confirm', 'call'], function ($mock) {
-            $mock->shouldReceive('confirm')->once()->andReturn(true);
+            $mock->shouldReceive('confirm')->andReturn(true);
             $mock->shouldReceive('call')->with('key:generate');
             $mock->shouldReceive('call')->with('migrate')->once();
             $mock->shouldReceive('call')->with('cache:clear')->once();
@@ -73,6 +73,50 @@ class InstallCommandTest extends TestCase
         $this->assertEnvKeyEquals('DB_PORT', '3306');
         $this->assertEnvKeyEquals('DB_USERNAME', 'johndoe');
         $this->assertEnvKeyEquals('DB_PASSWORD', 'password');
+    }
+
+    /** @test */
+    function it_sets_the_pusher_env_config_if_you_do_want_to_broadcast_with_pusher()
+    {
+        $this->partialMock(['ask', 'confirm', 'secret'], function ($mock) {
+            $mock->shouldReceive('ask')->with('Database name')->andReturn('mydatabase');
+            $mock->shouldReceive('ask')->with('Database port', 3306)->andReturn(3306);
+            $mock->shouldReceive('ask')->with('Database user')->andReturn('johndoe');
+            $mock->shouldReceive('secret')->with('Database password ("null" for no password)')->andReturn('password');
+
+            $mock->shouldReceive('confirm')->andReturn(true);
+            $mock->shouldReceive('ask')->with('Pusher App ID')->andReturn(123456);
+            $mock->shouldReceive('ask')->with('Pusher Key')->andReturn('my1pusher2key3');
+            $mock->shouldReceive('ask')->with('Pusher Secret Key')->andReturn('my1pusher2secret3key');
+            $mock->shouldReceive('ask')->with('Pusher Cluster')->andReturn('pushercluster');
+        });
+
+        $this->artisan('council:install', ['--no-interaction' => true]);
+
+        $this->assertEnvKeyEquals('BROADCAST_DRIVER', 'pusher');
+        $this->assertEnvKeyEquals('PUSHER_APP_ID', '123456');
+        $this->assertEnvKeyEquals('MIX_PUSHER_APP_KEY', 'my1pusher2key3');
+        $this->assertEnvKeyEquals('PUSHER_APP_SECRET', 'my1pusher2secret3key');
+        $this->assertEnvKeyEquals('MIX_PUSHER_APP_CLUSTER', 'pushercluster');
+    }
+
+    /** @test */
+    function it_does_not_set_the_pusher_env_config_if_you_do_not_want_to_broadcast_with_pusher()
+    {
+        $this->partialMock(['ask', 'confirm', 'secret'], function ($mock) {
+            $mock->shouldReceive('ask')->with('Database name')->andReturn('mydatabase');
+            $mock->shouldReceive('ask')->with('Database port', 3306)->andReturn(3306);
+            $mock->shouldReceive('ask')->with('Database user')->andReturn('johndoe');
+            $mock->shouldReceive('secret')->with('Database password ("null" for no password)')->andReturn('password');
+
+            $mock->shouldReceive('confirm')->once()->andReturn(true); //Asks if you want to run migrations
+
+            $mock->shouldReceive('confirm')->once()->andReturn(false); //Asks if you want to broadcast with Pusher
+        });
+
+        $this->artisan('council:install', ['--no-interaction' => true]);
+
+        $this->assertEnvKeyEquals('BROADCAST_DRIVER', 'null');
     }
 
     protected function partialMock($methods, $assertions = null)

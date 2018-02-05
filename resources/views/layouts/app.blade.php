@@ -42,6 +42,7 @@
     @yield('content')
 
     <flash message="{{ session('flash') }}"></flash>
+    <new-user-notification></new-user-notification>
 </div>
 
 <!-- Scripts -->

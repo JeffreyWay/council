@@ -22,6 +22,7 @@ Vue.component('channel-dropdown', require('./components/ChannelDropdown.vue'));
 Vue.component('logout-button', require('./components/LogoutButton'));
 
 Vue.component('thread-view', require('./pages/Thread.vue'));
+Vue.component('new-user-notification', require('./components/NewUserRegistered.vue'))
 
 const app = new Vue({
     el: '#app'

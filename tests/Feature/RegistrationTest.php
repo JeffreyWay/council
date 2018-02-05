@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use App\User;
 use Tests\TestCase;
+use App\Events\NewUserRegistered;
 use App\Mail\PleaseConfirmYourEmail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegistrationTest extends TestCase
@@ -59,5 +61,25 @@ class RegistrationTest extends TestCase
         $this->get(route('register.confirm', ['token' => 'invalid']))
             ->assertRedirect(route('threads'))
             ->assertSessionHas('flash', 'Unknown token.');
+    }
+
+    /** @test */
+    public function a_registration_event_is_broadcast_when_a_user_registers()
+    {
+        Mail::fake();
+        Event::fake();
+
+        $this->post(route('register'), [
+            'name' => 'John',
+            'email' => 'john@example.com',
+            'password' => 'foobar',
+            'password_confirmation' => 'foobar'
+        ]);
+
+        $user = User::whereName('John')->first();
+
+        Event::assertDispatched(NewUserRegistered::class, function ($event) use ($user) {
+            return $event->user->id === $user->id;
+        });
     }
 }

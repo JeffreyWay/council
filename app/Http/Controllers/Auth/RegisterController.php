@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Events\NewUserRegistered;
 use App\Http\Controllers\Controller;
 use App\Mail\PleaseConfirmYourEmail;
 use Illuminate\Support\Facades\Mail;
@@ -83,5 +84,6 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         Mail::to($user)->send(new PleaseConfirmYourEmail($user));
+        NewUserRegistered::dispatch($user);
     }
 }
