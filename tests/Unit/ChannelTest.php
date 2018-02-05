@@ -20,8 +20,9 @@ class ChannelTest extends TestCase
             Assert::assertEquals(count($this), count($items));
 
             $this->zip($items)->each(function ($pair) {
-                list($a, $b) = $pair;
-                Assert::assertTrue($a->is($b));
+                [$actual, $expected] = $pair;
+                
+                Assert::assertTrue($actual->is($expected));
             });
         });
     }
@@ -59,16 +60,10 @@ class ChannelTest extends TestCase
     /** @test */
     public function channels_are_sorted_alphabetically_by_default()
     {
-        $channelA = create('App\Channel', ['name' => 'PHP']);
-        $channelB = create('App\Channel', ['name' => 'Basic']);
-        $channelC = create('App\Channel', ['name' => 'Zsh']);
+        $php = create('App\Channel', ['name' => 'PHP']);
+        $basic = create('App\Channel', ['name' => 'Basic']);
+        $zsh = create('App\Channel', ['name' => 'Zsh']);
 
-        $channels = Channel::all();
-
-        $channels->assertEquals([
-            $channelB,
-            $channelA,
-            $channelC,
-        ]);
+        Channel::all()->assertEquals([$basic, $php, $zsh]);
     }
 }
