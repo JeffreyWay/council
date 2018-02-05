@@ -68,7 +68,7 @@ class ThreadsController extends Controller
                 'required',
                 Rule::exists('channels', 'id')->where(function ($query) {
                     $query->where('archived', false);
-                }),
+                })
             ],
             'g-recaptcha-response' => ['required', $recaptcha]
         ]);
