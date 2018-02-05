@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="new-reply">
         <div v-if="! signedIn">
             <p class="text-center">
                 Please <a href="/login">sign in</a> to participate in this
@@ -71,3 +71,12 @@
         }
     }
 </script>
+
+<style scoped>
+ .new-reply {
+     padding: 15px;
+     background-color: #fff;
+     border: 1px solid #e3e3e3;
+ }
+</style>
+
