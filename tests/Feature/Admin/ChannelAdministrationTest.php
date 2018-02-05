@@ -95,16 +95,12 @@ class ChannelAdministrationTest extends TestCase
     }
     
     /** @test */
-    public function archive_channel_should_not_influence_existing_thread()
+    public function the_path_to_a_channel_is_unaffected_by_its_archived_status()
     {
-        $this->signInAdmin();
-        $channel = create('App\Channel');
-        $thread = create('App\Thread', ['channel_id' => $channel->id]);
+        $thread = create('App\Thread');
         $path = $thread->path();
 
-        $channel->update([
-            'archived' => true
-        ]);
+        $thread->channel->archive();
 
         $this->assertEquals($path, $thread->fresh()->path());
     }
