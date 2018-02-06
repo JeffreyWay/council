@@ -14,14 +14,16 @@ class RegisterUserTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         Mail::fake();
     }
 
     /** @test */
-    public function users_can_register_an_account() {
+    public function users_can_register_an_account()
+    {
         $response = $this->post(route('register'), [
             'name' => 'John Doe',
             'username' => 'johndoe',
@@ -31,9 +33,11 @@ class RegisterUserTest extends TestCase
         ]);
 
         $response->assertRedirect('/threads');
+
         $this->assertTrue(Auth::check());
         $this->assertCount(1, User::all());
-        tap(User::first(), function($user) {
+
+        tap(User::first(), function ($user) {
             $this->assertEquals('John Doe', $user->name);
             $this->assertEquals('johndoe', $user->username);
             $this->assertEquals('johndoe@example.com', $user->email);
@@ -42,7 +46,7 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    function a_confirmation_email_is_sent_upon_registration()
+    public function a_confirmation_email_is_sent_upon_registration()
     {
         $this->post(route('register'), $this->validParams());
 
@@ -50,7 +54,7 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    function user_can_fully_confirm_their_email_addresses()
+    public function user_can_fully_confirm_their_email_addresses()
     {
         $this->post(route('register'), $this->validParams([
             'email' => 'john@example.com',
@@ -71,7 +75,7 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    function confirming_an_invalid_token()
+    public function confirming_an_invalid_token()
     {
         $this->get(route('register.confirm', ['token' => 'invalid']))
             ->assertRedirect(route('threads'))
@@ -79,7 +83,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function name_is_optional() {
+    public function name_is_optional()
+    {
         $response = $this->post(route('register'), $this->validParams([
             'name' => '',
         ]));
@@ -90,7 +95,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function name_cannot_exceed_255_chars() {
+    public function name_cannot_exceed_255_chars()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -105,7 +111,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function username_is_required() {
+    public function username_is_required()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -120,7 +127,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function username_is_url_safe() {
+    public function username_is_url_safe()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -135,7 +143,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function username_cannot_exceed_255_chars() {
+    public function username_cannot_exceed_255_chars()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -150,7 +159,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function username_is_unique() {
+    public function username_is_unique()
+    {
         create('App\User', ['username' => 'john']);
         $this->withExceptionHandling();
         $this->from(route('register'));
@@ -166,7 +176,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function email_is_required() {
+    public function email_is_required()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -181,7 +192,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function email_is_valid() {
+    public function email_is_valid()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -196,7 +208,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function email_cannot_exceed_255_chars() {
+    public function email_cannot_exceed_255_chars()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -211,7 +224,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function email_is_unique() {
+    public function email_is_unique()
+    {
         create('App\User', ['email' => 'johndoe@example.com']);
         $this->withExceptionHandling();
         $this->from(route('register'));
@@ -227,7 +241,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function password_is_required() {
+    public function password_is_required()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -242,7 +257,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function password_must_be_confirmed() {
+    public function password_must_be_confirmed()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -258,7 +274,8 @@ class RegisterUserTest extends TestCase
     }
 
     /** @test */
-    public function password_must_be_6_chars() {
+    public function password_must_be_6_chars()
+    {
         $this->withExceptionHandling();
         $this->from(route('register'));
 
@@ -273,7 +290,8 @@ class RegisterUserTest extends TestCase
         $this->assertCount(0, User::all());
     }
 
-    private function validParams($overrides = []) {
+    private function validParams($overrides = [])
+    {
         return array_merge([
             'name' => 'John Doe',
             'username' => 'johndoe',
