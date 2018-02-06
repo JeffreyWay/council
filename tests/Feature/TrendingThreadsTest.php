@@ -14,8 +14,6 @@ class TrendingThreadsTest extends TestCase
     {
         parent::setUp();
 
-	config(['cache.default' => 'array']);
-
         $this->trending = new Trending();
         $this->trending->reset();
     }
