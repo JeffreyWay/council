@@ -3,11 +3,17 @@
 @section('content')
     <div class="container">
         <div class="row">
-
             <div class="col-md-2">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="{{ route('admin.dashboard.index') }}">Dashboard</a></li>
-                    <li role="presentation"><a href="{{ route('admin.channels.index') }}">Channels</a></li>
+                    <li role="presentation" class="{{ setClassIfRoute('admin.dashboard.index', 'active') }}">
+                        <a href="{{ route('admin.dashboard.index') }}">Dashboard</a>
+                    </li>
+                    <li role="presentation" class="{{ setClassIfRoute('admin.channels.index', 'active') }}">
+                        <a href="{{ route('admin.channels.index') }}">Channels</a>
+                    </li>
+                    <li role="presentation" class="{{ setClassIfRoute('admin.users.index', 'active') }}">
+                        <a href="{{ route('admin.users.index') }}">Users</a>
+                    </li>
                 </ul>
             </div>
 

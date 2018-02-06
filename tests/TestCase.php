@@ -40,6 +40,22 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
+
+    /**
+     * @return mixed
+     */
+    protected function signInSuspended($suspendedUser = null)
+    {
+        $suspendedUser = $suspendedUser ?: create('App\User', [
+            'active' => false
+        ]);
+
+        $this->actingAs($suspendedUser);
+
+        return $this;
+    }
+
+
     // Hat tip, @adamwathan.
     protected function disableExceptionHandling()
     {

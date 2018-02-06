@@ -11,6 +11,13 @@
             To participate in this thread, please check your email and confirm your account.
         </div>
 
+        <div v-else-if="! active">
+            <div class="alert alert-warning" role="alert">
+                <p>You are unable to reply to threads as your account is currently suspended.</p>
+                <p>Please <a :href="suspensionSupport">Contact Support</a> for assistance.</p>
+            </div>
+        </div>
+
         <div v-else>
             <div class="form-group">
                 <wysiwyg name="body" v-model="body" placeholder="Have something to say?"></wysiwyg>
@@ -37,6 +44,12 @@
         computed: {
             confirmed() {
                 return window.App.user.confirmed;
+            },
+            active() {
+                return window.App.user.active;
+            },
+            suspensionSupport() {
+                return "mailto:" + window.App.suspension.support + "?Subject=Re:%20Account%20suspension";
             }
         },
 
@@ -58,7 +71,7 @@
             addReply() {
                 axios.post(location.pathname + '/replies', { body: this.body })
                     .catch(error => {
-                        flash(error.response.data, 'danger');
+                        flash(error.response.data.reason, 'danger');
                     })
                     .then(({data}) => {
                         this.body = '';

@@ -19,7 +19,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'avatar_path'
+        'avatar_path',
+        'active'
     ];
 
     /**
@@ -48,7 +49,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'confirmed' => 'boolean'
+        'confirmed' => 'boolean',
+        'active' => 'boolean'
     ];
 
     /**
@@ -98,6 +100,16 @@ class User extends Authenticatable
     {
         $this->confirmed = true;
         $this->confirmation_token = null;
+
+        $this->save();
+    }
+
+    /**
+     * Toggle the active status of the user's account.
+     */
+    public function toggleActive()
+    {
+        $this->active = ! $this->active;
 
         $this->save();
     }

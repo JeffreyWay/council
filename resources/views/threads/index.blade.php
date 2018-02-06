@@ -4,6 +4,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+
+                @if(session()->has('warning'))
+                    <div class="alert alert-warning" role="alert">
+                    <p>{{ session('warning') }}</p>
+                        @if(session()->has('support'))
+                            <p>Please <a href="mailto:{{ session('support') }}">contact support</a> for assistance.</p>
+                        @endif
+                    </div>
+                @endif
+
                 @include ('threads._list')
 
                 {{ $threads->render() }}
