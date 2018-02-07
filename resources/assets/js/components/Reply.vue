@@ -3,7 +3,7 @@
         <div class="panel-heading">
             <div class="level">
                 <h5 class="flex">
-                    <a :href="'/profiles/' + reply.owner.name"
+                    <a :href="'/profiles/' + reply.owner.username"
                         v-text="reply.owner.name">
                     </a> said <span v-text="ago"></span>
                 </h5>
