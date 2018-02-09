@@ -36,7 +36,7 @@
 
                             <div class="form-group">
                                 <label for="body">Body:</label>
-                                <wysiwyg name="body"></wysiwyg>
+                                <wysiwyg name="body" value="{{ old('body') }}"></wysiwyg>
                             </div>
 
                             <div class="form-group">
