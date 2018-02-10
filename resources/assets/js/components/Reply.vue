@@ -1,43 +1,50 @@
 <template>
-    <div :id="'reply-'+id" class="panel" :class="isBest ? 'panel-success': 'panel-default'">
-        <div class="panel-heading">
-            <div class="level">
-                <h5 class="flex">
-                    <a :href="'/profiles/' + reply.owner.name"
+    <div :id="'reply-'+id" class="border-b py-6" :class="isBest ? 'panel-success': 'panel-default'">
+        <div class="flex">
+            <img src="/images/avatars/default.png"
+                 alt=""
+                 width="36"
+                 height="36"
+                 class="mr-4">
+
+            <div>
+                <h5 class="flex-1 text-blue mb-2 font-normal">
+                    <a class="text-blue font-bold" :href="'/profiles/' + reply.owner.name"
                         v-text="reply.owner.name">
                     </a> said <span v-text="ago"></span>
                 </h5>
 
-                <div v-if="signedIn">
-                    <favorite :reply="reply"></favorite>
-                </div>
-            </div>
-        </div>
 
-        <div class="panel-body">
-            <div v-if="editing">
-                <form @submit.prevent="update">
-                    <div class="form-group">
-                        <wysiwyg v-model="body"></wysiwyg>
+                <div class="mb-4">
+                    <div v-if="editing">
+                        <form @submit.prevent="update">
+                            <div class="form-group">
+                                <wysiwyg v-model="body"></wysiwyg>
+                            </div>
+
+                            <button type="submit" class="btn btn-xs btn-primary">Update</button>
+                            <button class="btn btn-xs btn-link" @click="cancel" type="button">Cancel</button>
+                        </form>
                     </div>
 
-                    <button type="submit" class="btn btn-xs btn-primary">Update</button>
-                    <button class="btn btn-xs btn-link" @click="cancel" type="button">Cancel</button>
-                </form>
-            </div>
+                    <div v-else>
+                        <highlight :content="body"></highlight>
+                    </div>
+                </div>
 
-            <div v-else>
-                <highlight :content="body"></highlight>
-            </div>
-        </div>
+                <div class="flex" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
+                    <div v-if="authorize('owns', reply)">
+                        <button class="text-blue" @click="editing = true" v-if="! editing">Edit</button>
+                        <!-- <button class="btn btn-xs btn-danger mr-1" @click="destroy">Delete</button> -->
+                    </div>
 
-        <div class="panel-footer level" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
-            <div v-if="authorize('owns', reply)">
-                <button class="btn btn-xs mr-1" @click="editing = true" v-if="! editing">Edit</button>
-                <button class="btn btn-xs btn-danger mr-1" @click="destroy">Delete</button>
-            </div>
+                    <button class="btn btn-xs btn-default ml-a" @click="markBestReply" v-if="authorize('owns', reply.thread)">Best Reply?</button>
+                </div>
 
-            <button class="btn btn-xs btn-default ml-a" @click="markBestReply" v-if="authorize('owns', reply.thread)">Best Reply?</button>
+    <!--             <div v-if="signedIn">
+                        <favorite :reply="reply"></favorite>
+                    </div> -->
+            </div>
         </div>
     </div>
 </template>

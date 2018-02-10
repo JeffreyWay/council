@@ -1,5 +1,5 @@
 <template>
-    <div class="new-reply">
+    <div class="py-6">
         <div v-if="! signedIn">
             <p class="text-center">
                 Please <a href="/login">sign in</a> to participate in this
@@ -12,12 +12,12 @@
         </div>
 
         <div v-else>
-            <div class="form-group">
+            <div class="mb-3">
                 <wysiwyg name="body" v-model="body" placeholder="Have something to say?"></wysiwyg>
             </div>
 
             <button type="submit"
-                    class="btn btn-default"
+                    class="btn is-green"
                     @click="addReply">Post</button>
         </div>
     </div>
@@ -74,9 +74,7 @@
 
 <style scoped>
  .new-reply {
-     padding: 15px;
      background-color: #fff;
-     border: 1px solid #e3e3e3;
  }
 </style>
 

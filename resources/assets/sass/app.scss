@@ -1,9 +1,32 @@
+@tailwind preflight;
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+.btn {
+    @apply .bg-grey .text-white .font-normal .text-sm .py-3 .px-4 .rounded;
+    cursor: pointer;
 
-// Variables
-@import "variables";
+    &.is-green {
+        @apply .bg-green;
+    }
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+    &.is-outlined {
+        background: transparent;
+        @apply .border;
+    }
+
+    &:hover {
+        @apply .bg-blue-dark .text-white;
+    }
+}
+
+.widget {
+    @apply .mb-4 .pb-4;
+}
+
+
+
+@tailwind utilities;
+
+a {
+    @apply .text-grey-darkest;
+    text-decoration: none;
+}
