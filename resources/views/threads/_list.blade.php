@@ -27,7 +27,7 @@
                 Posted By: <a href="{{ route('profile', $thread->creator) }}" class="text-blue">{{ $thread->creator->username }}</a>
             </p>
 
-            <thread-view :thread="{{ $thread }}" inline-template class="mb-6 text-grey-darkest leading-loose">
+            <thread-view :thread="{{ $thread }}" inline-template class="mb-6 text-grey-darkest leading-loose pr-8">
                 <highlight :content="body"></highlight>
             </thread-view>
 

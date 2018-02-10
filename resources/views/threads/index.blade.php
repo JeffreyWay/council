@@ -61,7 +61,7 @@
             <div class="mx-8 w-full">
                 @include('breadcrumbs')
 
-                <div class="bg-white py-6 px-8 border rounded">
+                <div class="bg-white py-6 px-8 border rounded rounded-t-none">
                     @include ('threads._list')
 
                     {{ $threads->render() }}
