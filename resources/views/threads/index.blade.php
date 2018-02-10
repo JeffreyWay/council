@@ -9,11 +9,11 @@
                 </div>
 
                 <div class="widget">
-                    <h4 class="mb-2 pb-2 text-xs uppercase text-blue-darkest">Browse</h4>
+                    <h4 class="mb-2 pb-2 text-xs uppercase text-grey-dark">Browse</h4>
 
                     <ul class="list-reset text-sm">
                         <li class="pb-2">
-                            <a href="/threads" class="flex items-center">
+                            <a href="/threads" class="flex items-center {{ Request::is('threads') && ! Request::query() ? 'text-blue font-bold' : '' }}">
                                 @include ('svgs.icons.all-threads', ['class' => 'mr-2'])
                                 All Threads
                             </a>
@@ -21,19 +21,21 @@
 
                         @if (auth()->check())
                             <li class="pb-2">
-                                <a href="/threads?by={{ auth()->user()->username }}">My Threads</a></li>
+                                <a href="/threads?by={{ auth()->user()->username }}" class="{{ Request::query('by') ? 'text-blue font-bold' : '' }}">
+                                    My Threads
+                                </a>
                             </li>
                         @endif
 
                         <li class="pb-2">
-                            <a href="/threads?popular=1" class="flex items-center">
+                            <a href="/threads?popular=1" class="flex items-center {{ Request::query('popular') ? 'text-blue font-bold' : '' }}">
                                 @include ('svgs.icons.star', ['class' => 'mr-2'])
                                 Popular Threads
                             </a>
                         </li>
 
                         <li>
-                            <a href="/threads?unanswered=1" class="flex items-center">
+                            <a href="/threads?unanswered=1" class="flex items-center {{ Request::query('unanswered') ? 'text-blue font-bold' : '' }}">
                                 @include ('svgs.icons.question', ['class' => 'mr-2'])
                                 Unanswered Threads
                             </a>
@@ -43,7 +45,7 @@
 
                 @if (count($trending))
                     <div class="widget">
-                        <h4 class="mb-2 pb-2 text-xs uppercase text-blue-darkest">Trending</h4>
+                        <h4 class="mb-2 pb-2 text-xs uppercase text-grey-dark">Trending</h4>
 
                         <ul class="list-reset">
                             @foreach ($trending as $thread)
