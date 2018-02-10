@@ -30,10 +30,13 @@
                     </p>
                 </div>
 
-                <div class="bg-white p-6 w-3/5 border rounded" v-cloak>
-                    @include ('threads._question')
+                <div class="w-3/5" v-cloak>
+                    @include('breadcrumbs')
+                    <div class="bg-white p-6 border rounded">
+                        @include ('threads._question')
 
-                    <replies @added="repliesCount++" @removed="repliesCount--"></replies>
+                        <replies @added="repliesCount++" @removed="repliesCount--"></replies>
+                    </div>
                 </div>
 
             </div>

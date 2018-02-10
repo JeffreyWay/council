@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mx-auto">
         <div class="flex">
-            <aside class="w-1/5 bg-grey-lighter">
+            <aside class="w-1/4 bg-grey-lighter">
                 <div class="widget border-b-0">
                     <button class="btn is-green w-full">Add New Thread</button>
                 </div>
@@ -13,7 +13,10 @@
 
                     <ul class="list-reset text-sm">
                         <li class="pb-2">
-                            <a href="/threads">All Threads</a>
+                            <a href="/threads" class="flex items-center">
+                                @include ('svgs.icons.all-threads', ['class' => 'mr-2'])
+                                All Threads
+                            </a>
                         </li>
 
                         @if (auth()->check())
@@ -23,38 +26,46 @@
                         @endif
 
                         <li class="pb-2">
-                            <a href="/threads?popular=1">Popular Threads</a>
+                            <a href="/threads?popular=1" class="flex items-center">
+                                @include ('svgs.icons.star', ['class' => 'mr-2'])
+                                Popular Threads
+                            </a>
                         </li>
 
-                        <li class="pb-2">
-                            <a href="/threads?unanswered=1">Unanswered Threads</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="widget">
-                    <h4 class="mb-2 pb-2 text-xs uppercase text-blue-darkest">Trending</h4>
-
-                    <ul class="list-reset text-sm">
-                        <li class="pb-2">
-                            <a href="#">Some thread here</a>
-                        </li>
-
-                        <li class="pb-2">
-                            <a href="#">Some thread here</a>
-                        </li>
-
-                        <li class="pb-2">
-                            <a href="#">Some thread here</a>
+                        <li>
+                            <a href="/threads?unanswered=1", class="flex items-center">
+                                @include ('svgs.icons.question', ['class' => 'mr-2'])
+                                Unanswered Threads
+                            </a>
                         </li>
                     </ul>
                 </div>
+
+                @if (count($trending))
+                    <div class="widget">
+                        <h4 class="mb-2 pb-2 text-xs uppercase text-blue-darkest">Trending</h4>
+
+                        <ul class="list-reset">
+                            @foreach ($trending as $thread)
+                                <li class="pb-2 text-sm">
+                                    <a href="{{ url($thread->path) }}">
+                                        {{ $thread->title }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </aside>
 
-            <div class="mx-8 w-full bg-white py-6 px-8 border rounded">
-                @include ('threads._list')
+            <div class="mx-8 w-full">
+                @include('breadcrumbs')
 
-                {{ $threads->render() }}
+                <div class="bg-white py-6 px-8 border rounded">
+                    @include ('threads._list')
+
+                    {{ $threads->render() }}
+                </div>
             </div>
 
             <div>
@@ -87,21 +98,6 @@
                     </div>
                 </form>
  --}}
-                @if (count($trending))
-                    <div class="widget">
-                        <h4 class="mb-2">Trending Threads</h4>
-
-                        <ul class="list-reset">
-                            @foreach ($trending as $thread)
-                                <li class="pb-2 text-xs">
-                                    <a href="{{ url($thread->path) }}">
-                                        {{ $thread->title }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
             </div>
         </div>
     </div>

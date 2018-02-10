@@ -6,6 +6,7 @@
 
     &.is-green {
         @apply .bg-green;
+        box-shadow: 1px 2px 15px 0 rgba(16, 234, 155, 0.48);
     }
 
     &.is-outlined {

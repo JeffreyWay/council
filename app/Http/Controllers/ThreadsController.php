@@ -38,7 +38,8 @@ class ThreadsController extends Controller
         return view('threads.index', [
             'threads' => $threads,
             'trending' => $trending->get(),
-            'channels' => Channel::all()
+            'channels' => Channel::all(),
+            'channel' => $channel
         ]);
     }
 
