@@ -13,7 +13,7 @@
 
                     <ul class="list-reset text-sm">
                         <li class="pb-2">
-                            <a href="/threads" class="flex items-center {{ Request::is('threads') && ! Request::query() ? 'text-blue font-bold' : '' }}">
+                            <a href="/threads" class="flex items-center text-grey-darkest hover:text-blue hover:font-bold {{ Request::is('threads') && ! Request::query() ? 'text-blue font-bold' : '' }}">
                                 @include ('svgs.icons.all-threads', ['class' => 'mr-2'])
                                 All Threads
                             </a>
@@ -21,21 +21,21 @@
 
                         @if (auth()->check())
                             <li class="pb-2">
-                                <a href="/threads?by={{ auth()->user()->username }}" class="{{ Request::query('by') ? 'text-blue font-bold' : '' }}">
+                                <a href="/threads?by={{ auth()->user()->username }}" class="text-grey-darkest hover:text-blue hover:font-bold  {{ Request::query('by') ? 'text-blue font-bold' : '' }}">
                                     My Threads
                                 </a>
                             </li>
                         @endif
 
                         <li class="pb-2">
-                            <a href="/threads?popular=1" class="flex items-center {{ Request::query('popular') ? 'text-blue font-bold' : '' }}">
+                            <a href="/threads?popular=1" class="flex items-center text-grey-darkest hover:text-blue hover:font-bold {{ Request::query('popular') ? 'text-blue font-bold' : '' }}">
                                 @include ('svgs.icons.star', ['class' => 'mr-2'])
                                 Popular Threads
                             </a>
                         </li>
 
                         <li>
-                            <a href="/threads?unanswered=1" class="flex items-center {{ Request::query('unanswered') ? 'text-blue font-bold' : '' }}">
+                            <a href="/threads?unanswered=1" class="flex items-center text-grey-darkest hover:text-blue hover:font-bold {{ Request::query('unanswered') ? 'text-blue font-bold' : '' }}">
                                 @include ('svgs.icons.question', ['class' => 'mr-2'])
                                 Unanswered Threads
                             </a>
