@@ -1,29 +1,10 @@
 @tailwind preflight;
 
-.btn {
-    @apply .bg-grey .text-white .font-normal .text-sm .py-3 .px-4 .rounded;
-    cursor: pointer;
-
-    &.is-green {
-        @apply .bg-green;
-        box-shadow: 1px 2px 15px 0 rgba(16, 234, 155, 0.48);
-    }
-
-    &.is-outlined {
-        background: transparent;
-        @apply .border;
-    }
-
-    &:hover {
-        @apply .bg-blue-dark .text-white;
-    }
-}
+@import 'components/btn';
 
 .widget {
     @apply .mb-4 .pb-4;
 }
-
-
 
 @tailwind utilities;
 

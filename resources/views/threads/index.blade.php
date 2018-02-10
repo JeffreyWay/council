@@ -33,7 +33,7 @@
                         </li>
 
                         <li>
-                            <a href="/threads?unanswered=1", class="flex items-center">
+                            <a href="/threads?unanswered=1" class="flex items-center">
                                 @include ('svgs.icons.question', ['class' => 'mr-2'])
                                 Unanswered Threads
                             </a>
@@ -75,9 +75,11 @@
                     <ul class="list-reset">
                         @foreach ($channels as $channel)
                             <li class="text-xs pb-3 flex">
-                                <span class="rounded-full h-4 w-4 items-center justify-center bg-red mr-2"></span>
+                                <span class="rounded-full h-3 w-3 mr-2" style="background: {{ $channel->color }}"></span>
 
-                                <a href="{{ route('channels', $channel) }}">{{ $channel->name }}</a>
+                                <a href="{{ route('channels', $channel) }}">
+                                    {{ ucwords($channel->name) }}
+                                </a>
                             </li>
                         @endforeach
                     </ul>

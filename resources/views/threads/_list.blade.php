@@ -1,12 +1,12 @@
 @forelse ($threads as $thread)
-    <div class="mb-6 pb-4 flex">
+    <div class="flex {{ $loop->last ? '' : 'mb-6 pb-4' }}">
         <div class="mr-4">
             <img src="{{ $thread->creator->avatar_path }}"
                      alt="{{ $thread->creator->username }}"
                      class="w-8">
         </div>
 
-        <div class="flex-1 border-b border-blue-lightest">
+        <div class="flex-1 {{ $loop->last ? '' : 'border-b border-blue-lightest' }}">
             <h3 class="text-xl font-normal mb-2">
                 <a href="{{ $thread->path() }}" class="text-blue">
                     @if ($thread->pinned)
@@ -27,12 +27,14 @@
                 Posted By: <a href="{{ route('profile', $thread->creator) }}" class="text-blue">{{ $thread->creator->username }}</a>
             </p>
 
-            <thread-view :thread="{{ $thread }}" inline-template class="mb-6">
+            <thread-view :thread="{{ $thread }}" inline-template class="mb-6 text-grey-darkest leading-loose">
                 <highlight :content="body"></highlight>
             </thread-view>
 
             <div class="flex items-center text-xs mb-6">
-                <a class="btn py-1 px-2 mr-4 text-2xs" href="/threads/{{ $thread->channel->slug }}">
+                <a class="btn py-1 px-2 mr-4 text-2xs flex items-center" href="/threads/{{ $thread->channel->slug }}">
+                    <span class="rounded-full h-2 w-2 mr-2" style="background: {{ $thread->channel->color }}"></span>
+
                     {{ ucwords($thread->channel->name) }}
                 </a>
 
