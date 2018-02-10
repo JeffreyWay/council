@@ -8,7 +8,7 @@
     <thread-view :thread="{{ $thread }}" inline-template>
         <div class="container mx-auto">
             <div class="flex">
-                <div class="w-1/4 mr-6">
+                {{-- <div class="w-1/4 mr-6">
                     <p class="mb-4">
                         This thread was published {{ $thread->created_at->diffForHumans() }} by
                         <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->username }}</a>, and currently
@@ -28,17 +28,17 @@
                                 @click="togglePin"
                                 v-text="pinned ? 'Unpin' : 'Pin'"></button>
                     </p>
-                </div>
+                </div> --}}
 
-                <div class="w-3/5" v-cloak>
+                <div class="px-10 w-full border-l">
                     @include('breadcrumbs')
-                    <div class="bg-white p-6 border rounded">
+
+                    <div class="py-6">
                         @include ('threads._question')
 
                         <replies @added="repliesCount++" @removed="repliesCount--"></replies>
                     </div>
                 </div>
-
             </div>
         </div>
     </thread-view>

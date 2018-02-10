@@ -1,8 +1,8 @@
 <template>
-    <div class="flex">
-        <div class="w-12 mr-4"></div>
+    <div class="flex" style="margin-left: 50px">
+        <!-- <div class="w-12 mr-4"></div> -->
 
-        <div class="flex-1">
+        <div class="flex-1 ml-4">
             <div v-for="(reply, index) in items" :key="reply.id">
                 <reply :reply="reply" @deleted="remove(index)"></reply>
             </div>

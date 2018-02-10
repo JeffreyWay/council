@@ -24,8 +24,6 @@
         ]) !!};
     </script>
 
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-
     @yield('head')
 </head>
 
@@ -35,17 +33,11 @@
 
         <div class="container">
             <div class="flex">
-                @include('sidebar')
-
                 @yield('content')
-
-                 @include('channels-sidebar')
             </div>
         </div>
 
         <flash message="{{ session('flash') }}"></flash>
-
-        @include('modals.all')
     </div>
 
     <!-- Scripts -->

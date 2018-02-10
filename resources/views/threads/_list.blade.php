@@ -7,7 +7,7 @@
         </div>
 
         <div class="flex-1 {{ $loop->last ? '' : 'border-b border-blue-lightest' }}">
-            <h3 class="text-xl font-normal mb-2">
+            <h3 class="text-xl font-normal mb-2 tracking-tight">
                 <a href="{{ $thread->path() }}" class="text-blue">
                     @if ($thread->pinned)
                         <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
@@ -32,7 +32,7 @@
             </thread-view>
 
             <div class="flex items-center text-xs mb-6">
-                <a class="btn py-1 px-2 mr-4 text-2xs flex items-center" href="/threads/{{ $thread->channel->slug }}">
+                <a class="btn bg-grey-light text-grey-darkest py-2 px-3 mr-4 text-2xs flex items-center" href="/threads/{{ $thread->channel->slug }}">
                     <span class="rounded-full h-2 w-2 mr-2" style="background: {{ $thread->channel->color }}"></span>
 
                     {{ ucwords($thread->channel->name) }}

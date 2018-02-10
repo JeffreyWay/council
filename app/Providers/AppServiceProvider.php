@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Trending;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,9 +12,12 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Trending $trending)
     {
         \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
+
+        view()->share('channels', \App\Channel::all());
+        view()->share('trending', $trending->get());
     }
 
     /**
