@@ -15,6 +15,10 @@
 a {
     @apply .text-grey-darkest;
     text-decoration: none;
+
+    &.link:hover {
+        text-decoration: underline;
+    }
 }
 
 input {

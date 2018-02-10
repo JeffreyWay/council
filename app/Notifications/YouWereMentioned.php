@@ -46,6 +46,7 @@ class YouWereMentioned extends Notification
     {
         return [
             'message' => $this->message(),
+            'notifier' => $this->user(),
             'link' => $this->subject->path()
         ];
     }

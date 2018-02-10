@@ -7,7 +7,7 @@
                 <li class="text-xs pb-3 flex">
                     <span class="rounded-full h-3 w-3 mr-2" style="background: {{ $channel->color }}"></span>
 
-                    <a href="{{ route('channels', $channel) }}">
+                    <a href="{{ route('channels', $channel) }}" class="link">
                         {{ ucwords($channel->name) }}
                     </a>
                 </li>
