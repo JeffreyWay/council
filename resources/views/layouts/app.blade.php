@@ -29,11 +29,11 @@
     @yield('head')
 </head>
 
-<body class="font-sans bg-white">
+<body class="font-sans bg-grey-lighter">
     <div id="app">
         @include ('layouts.nav')
 
-        <div class="container">
+        <div class="container mx-auto">
             <div class="flex">
                 @include('sidebar')
 

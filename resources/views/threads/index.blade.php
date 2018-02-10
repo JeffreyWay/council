@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="px-10 w-full border-l">
+    <div class="px-10 bg-white w-full">
         @include('breadcrumbs')
 
         <div class="pt-6">

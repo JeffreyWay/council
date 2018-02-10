@@ -1,5 +1,5 @@
 <nav class="bg-blue-darker py-4">
-    <div class="container flex justify-between items-center text-blue-lightest pl-6">
+    <div class="container mx-auto flex justify-between items-center text-blue-lightest pl-6">
         <div>
             <h1 class="font-normal text-2xl">
                 <a href="/" class="text-blue-lightest flex items-center">
@@ -20,9 +20,13 @@
                 {{-- User dropdown. --}}
                 <div>
                     <dropdown>
-                        <img slot="heading" src="{{ auth()->user()->avatar_path }}"
-                         alt="{{ auth()->user()->username }}"
-                         class="w-10 relative z-10 bg-blue-darker rounded-full">
+                        <div slot="heading"
+                             class="rounded-full bg-blue-darkest w-10 h-10 flex items-center justify-center cursor-pointer relative z-10"
+                        >
+                            <img src="{{ auth()->user()->avatar_path }}"
+                                 alt="{{ auth()->user()->username }}"
+                                 class="relative z-10 w-4 rounded-full">
+                        </div>
 
                         <template slot="links">
                             <li class="text-sm pb-3">

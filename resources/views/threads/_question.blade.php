@@ -32,7 +32,7 @@
              alt="{{ $thread->creator->username }}"
              width="36"
              height="36"
-             class="mr-1">
+             class="mr-1 bg-blue-darker rounded-full p-2">
 
         <div class="flex-1 border-b pb-4 ml-4">
             <h1 class="text-blue mb-1 text-2xl font-normal">{{ $thread->title }}</h1>

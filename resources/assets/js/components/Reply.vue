@@ -1,11 +1,11 @@
 <template>
     <div :id="'reply-'+id" class="border-b py-6" :class="isBest ? 'panel-success': 'panel-default'">
         <div class="flex">
-            <img src="/images/avatars/default.png"
+            <img src="/images/avatars/default.svg"
                  alt=""
                  width="36"
                  height="36"
-                 class="mr-4">
+                 class="mr-4 bg-blue-darker rounded-full p-2">
 
             <div class="flex-1">
                 <div class="flex items-center mb-4">

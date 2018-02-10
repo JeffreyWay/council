@@ -1,4 +1,4 @@
-<aside class="w-1/3 bg-grey-lighter p-6 pr-10">
+<aside class="w-1/3 bg-blue-lightest p-6 pr-10 border-l border-r">
     <div class="widget border-b-0">
         @if (auth()->check())
             <button class="btn is-green w-full" @click="$modal.show('new-thread')">Add New Thread</button>
@@ -25,7 +25,7 @@
                     >
                         <img src="{{ auth()->user()->avatar_path }}"
                              alt="{{ auth()->user()->username }}"
-                             class="w-4 mr-2">
+                             class="w-4 h-4 mr-2 bg-grey-darkest text-grey-darkest rounded-full p-1">
 
                         My Threads
                     </a>

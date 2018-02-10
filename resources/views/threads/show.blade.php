@@ -6,7 +6,7 @@
 
 @section('content')
     <thread-view :thread="{{ $thread }}" inline-template>
-        <div class="container mx-auto">
+        <div class="container mx-auto bg-white">
             <div class="flex">
                 {{-- <div class="w-1/4 mr-6">
                     <p class="mb-4">
@@ -30,7 +30,7 @@
                     </p>
                 </div> --}}
 
-                <div class="px-10 w-full border-l">
+                <div class="px-10 w-full">
                     @include('breadcrumbs')
 
                     <div class="py-6">
