@@ -21,6 +21,7 @@ Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));
 Vue.component('dropdown', require('./components/Dropdown.vue'));
 Vue.component('channel-dropdown', require('./components/ChannelDropdown.vue'));
 Vue.component('logout-button', require('./components/LogoutButton'));
+Vue.component('login', require('./components/Login'));
 
 Vue.component('thread-view', require('./pages/Thread.vue'));
 

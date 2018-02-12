@@ -3,7 +3,7 @@
         @if (auth()->check())
             <button class="btn is-green w-full" @click="$modal.show('new-thread')">Add New Thread</button>
         @else
-            <button class="btn is-green w-full" @click="$modal.show('register')">Join Us!</button>
+            <button class="btn is-green w-full tracking-wide uppercase" @click="$modal.show('login')">Join Us!</button>
         @endif
     </div>
 
