@@ -45,7 +45,7 @@ class Reply extends Model
 
         static::deleting(function ($reply) {
             if ($reply->isBest()) {
-                $reply->thread->unsetBestReplay();
+                $reply->thread->unsetBestReply();
             }
         });
 
