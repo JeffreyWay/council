@@ -17,7 +17,7 @@
             </div>
 
             <div class="mt-6" v-if="feedback">
-                <span class="text-xsm text-red" v-text="feedback"></span>
+                <span class="text-xs text-red" v-text="feedback"></span>
             </div>
         </form>
     </modal>
