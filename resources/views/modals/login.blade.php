@@ -13,7 +13,7 @@
 
             <div class="flex -mx-4">
                 <button type="button" class="btn flex-1 mx-4" @click="$modal.hide('login')">Cancel</button>
-                <button type="submit" class="btn is-green flex-1 mx-4" :class="loading ? 'loader' : ''">Log In</button>
+                <button type="submit" class="btn is-green flex-1 mx-4" :class="loading ? 'loader' : ''" :disabled="loading">Log In</button>
             </div>
 
             <div class="mt-6" v-if="feedback">
