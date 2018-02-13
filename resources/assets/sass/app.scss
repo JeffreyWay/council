@@ -19,3 +19,7 @@ a {
 input {
     @apply .border .border-grey-light;
 }
+
+[v-if], [v-show] {
+	display: none;
+}
