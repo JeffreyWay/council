@@ -19,7 +19,7 @@
         </thead>
 
         <tbody>
-            @forelse($channels as $channel)
+            @forelse($allChannels as $channel)
                 <tr class="{{ $channel->archived ? 'danger' : '' }}">
                     <td>{{$channel->name}}</td>
                     <td>{{$channel->slug}}</td>
