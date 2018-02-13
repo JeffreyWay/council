@@ -1,6 +1,6 @@
 <login inline-template>
     <modal name="login" height="auto">
-        <form class="p-10" @submit.prevent="login">
+        <form class="p-10" @submit.prevent="login" @keydown="feedback = ''">
             <div class="mb-6">
                 <label for="email" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2">Email</label>
                 <input type="text" class="w-full p-2 leading-normal" id="email" name="email" autocomplete="email" placeholder="joe@example.com" value="{{ old('email') }}" required v-model="form.email">
