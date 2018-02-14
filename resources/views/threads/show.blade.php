@@ -19,7 +19,7 @@
                         <div class="panel-body">
                             <p>
                                 This thread was published {{ $thread->created_at->diffForHumans() }} by
-                                <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a>, and currently
+                                <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->username }}</a>, and currently
                                 has <span
                                         v-text="repliesCount"></span> {{ str_plural('comment', $thread->replies_count) }}
                                 .
@@ -28,10 +28,15 @@
                             <p>
                                 <subscribe-button :active="{{ json_encode($thread->isSubscribedTo) }}" v-if="signedIn"></subscribe-button>
 
-                                <button class="btn btn-default"
+                                <button :class="classes(locked)"
                                         v-if="authorize('isAdmin')"
                                         @click="toggleLock"
                                         v-text="locked ? 'Unlock' : 'Lock'"></button>
+
+                                <button :class="classes(pinned)"
+                                        v-if="authorize('isAdmin')"
+                                        @click="togglePin"
+                                        v-text="pinned ? 'Unpin' : 'Pin'"></button>
                             </p>
                         </div>
                     </div>

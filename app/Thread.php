@@ -28,19 +28,13 @@ class Thread extends Model
     protected $with = ['creator', 'channel'];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = ['isSubscribedTo'];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
-        'locked' => 'boolean'
+        'locked' => 'boolean',
+        'pinned' => 'boolean'
     ];
 
     /**
@@ -100,7 +94,7 @@ class Thread extends Model
      */
     public function channel()
     {
-        return $this->belongsTo(Channel::class);
+        return $this->belongsTo(Channel::class)->withoutGlobalScope('active');
     }
 
     /**
@@ -194,6 +188,10 @@ class Thread extends Model
      */
     public function getIsSubscribedToAttribute()
     {
+        if (! auth()->id()) {
+            return false;
+        }
+
         return $this->subscriptions()
             ->where('user_id', auth()->id())
             ->exists();

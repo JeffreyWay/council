@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Channel;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 class ChannelsController extends Controller
@@ -14,7 +15,7 @@ class ChannelsController extends Controller
      */
     public function index()
     {
-        $channels = Channel::with('threads')->get();
+        $channels = Channel::withArchived()->with('threads')->get();
 
         return view('admin.channels.index', compact('channels'));
     }
@@ -26,7 +27,42 @@ class ChannelsController extends Controller
      */
     public function create()
     {
-        return view('admin.channels.create');
+        return view('admin.channels.create', ['channel' => new Channel]);
+    }
+
+    /**
+     * Show the form to edit an existing channel.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Channel $channel)
+    {
+        return view('admin.channels.edit', compact('channel'));
+    }
+
+    /**
+     * Update an existing channel.
+     *
+     * @return \Illuminate\
+     */
+    public function update(Channel $channel)
+    {
+        $channel->update(
+            request()->validate([
+                'name' => ['required', Rule::unique('channels')->ignore($channel->id)],
+                'description' => 'required',
+                'archived' => 'required|boolean'
+            ])
+        );
+
+        cache()->forget('channels');
+
+        if (request()->wantsJson()) {
+            return response($channel, 200);
+        }
+
+        return redirect(route('admin.channels.index'))
+            ->with('flash', 'Your channel has been updated!');
     }
 
     /**

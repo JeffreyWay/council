@@ -12,6 +12,7 @@
             return {
                 repliesCount: this.thread.replies_count,
                 locked: this.thread.locked,
+                pinned: this.thread.pinned,
                 title: this.thread.title,
                 body: this.thread.body,
                 form: {},
@@ -22,7 +23,7 @@
         created () {
             this.resetForm();
         },
-        
+
         methods: {
             toggleLock () {
                 let uri = `/locked-threads/${this.thread.slug}`;
@@ -30,6 +31,14 @@
                 axios[this.locked ? 'delete' : 'post'](uri);
 
                 this.locked = ! this.locked;
+            },
+
+            togglePin () {
+                let uri = `/pinned-threads/${this.thread.slug}`;
+
+                axios[this.pinned ? 'delete' : 'post'](uri);
+
+                this.pinned = ! this.pinned;
             },
 
             update () {
@@ -51,6 +60,13 @@
                 };
 
                 this.editing = false;
+            },
+
+            classes(target) {
+                return [
+                    'btn',
+                    target ? 'btn-primary' : 'btn-default'
+                ];
             }
         }
     }

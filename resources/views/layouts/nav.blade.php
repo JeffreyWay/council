@@ -28,7 +28,7 @@
                         <li><a href="/threads">All Threads</a></li>
 
                         @if (auth()->check())
-                            <li><a href="/threads?by={{ auth()->user()->name }}">My Threads</a></li>
+                            <li><a href="/threads?by={{ auth()->user()->username }}">My Threads</a></li>
                         @endif
 
                         <li><a href="/threads?popular=1">Popular Threads</a></li>
@@ -40,7 +40,7 @@
                     <a href="/threads/create">New Thread</a>
                 </li>
 
-                <channel-dropdown :channels="{{ $channels }}"></channel-dropdown>
+                <channel-dropdown></channel-dropdown>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -59,7 +59,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            {{ Auth::user()->username }} <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
@@ -68,16 +68,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                      style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
+                                <logout-button route="{{ route('logout') }}">Logout</logout-button>
                             </li>
                         </ul>
                     </li>
