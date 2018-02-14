@@ -6,8 +6,8 @@
 
 @section('content')
     <thread-view :thread="{{ $thread }}" inline-template>
-        <div class="container mx-auto bg-white">
-            <div class="flex">
+        <div class="bg-white flex-1">
+            <div>
                 {{-- <div class="w-1/4 mr-6">
                     <p class="mb-4">
                         This thread was published {{ $thread->created_at->diffForHumans() }} by
@@ -30,7 +30,7 @@
                     </p>
                 </div> --}}
 
-                <div class="px-10 w-full">
+                <div class="mx-10">
                     @include('breadcrumbs')
 
                     <div class="py-6">

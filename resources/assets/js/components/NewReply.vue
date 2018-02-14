@@ -1,8 +1,8 @@
 <template>
     <div class="py-6">
         <div v-if="! signedIn">
-            <p class="text-center">
-                Please <a href="/login">sign in</a> to participate in this
+            <p class="text-center text-sm text-grey-dark">
+                Please <a href="/login" @click.prevent="$modal.show('login')" class="text-blue link">sign in</a> to participate in this
                 discussion.
             </p>
         </div>

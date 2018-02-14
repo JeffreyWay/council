@@ -1,4 +1,4 @@
-<aside class="w-1/3 bg-blue-lightest p-6 pr-10 border-l border-r">
+<aside class="bg-blue-lightest p-6 pr-10 border-l border-r w-64">
     <div class="widget border-b-0">
         @if (auth()->check())
             <button class="btn is-green w-full" @click="$modal.show('new-thread')">Add New Thread</button>

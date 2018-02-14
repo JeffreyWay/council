@@ -1,15 +1,21 @@
 <template>
     <div :id="'reply-'+id" class="border-b py-6" :class="isBest ? 'panel-success': 'panel-default'">
         <div class="flex">
-            <img src="/images/avatars/default.svg"
-                 alt=""
-                 width="36"
-                 height="36"
-                 class="mr-4 bg-blue-darker rounded-full p-2">
+            <div>
+                <img src="/images/avatars/default.svg"
+                     :alt="reply.owner.name"
+                     width="36"
+                     height="36"
+                     class="mr-4 bg-blue-darker rounded-full p-2">
+
+                <div v-if="signedIn" style="padding-left: 13px; padding-top: 5px;" class="text-xs">
+                    <favorite :reply="reply"></favorite>
+                </div>
+            </div>
 
             <div class="flex-1">
                 <div class="flex items-center mb-4">
-                    <h5 class="text-blue font-normal flex-1">
+                    <h5 class="font-normal flex-1">
                         <a class="text-blue font-bold" :href="'/profiles/' + reply.owner.name"
                             v-text="reply.owner.name">
                         </a> said <span v-text="ago"></span>
@@ -27,12 +33,15 @@
                 <div class="mb-4">
                     <div v-if="editing">
                         <form @submit.prevent="update">
-                            <div class="form-group">
+                            <div class="mb-4">
                                 <wysiwyg v-model="body"></wysiwyg>
                             </div>
 
-                            <button type="submit" class="btn btn-xs btn-primary">Update</button>
-                            <button class="btn btn-xs btn-link" @click="cancel" type="button">Cancel</button>
+                            <div class="flex justify-end">
+                                <button type="submit" class="btn is-green is-narrow mr-2 flex-1">Update</button>
+                                <button class="link text-xs text-grey-dark mr-2 link" @click="cancel" type="button">Cancel</button>
+                                <button class="link text-xs text-grey-dark link" @click="destroy">Delete</button>
+                            </div>
                         </form>
                     </div>
 
@@ -43,14 +52,9 @@
 
                 <div class="flex" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
                     <div v-if="authorize('owns', reply)">
-                        <button class="text-blue" @click="editing = true" v-if="! editing">Edit</button>
-                        <!-- <button class="btn btn-xs btn-danger mr-1" @click="destroy">Delete</button> -->
+                        <button class="text-blue mr-4" @click="editing = true" v-if="! editing">Edit</button>
                     </div>
                 </div>
-
-    <!--             <div v-if="signedIn">
-                        <favorite :reply="reply"></favorite>
-                    </div> -->
             </div>
         </div>
     </div>

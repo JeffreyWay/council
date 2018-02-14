@@ -35,13 +35,13 @@
              class="mr-1 bg-blue-darker rounded-full p-2">
 
         <div class="flex-1 border-b pb-4 ml-4">
-            <h1 class="text-blue mb-1 text-2xl font-normal">{{ $thread->title }}</h1>
+            <h1 class="text-blue mb-2 text-2xl font-normal">{{ $thread->title }}</h1>
 
-            <span class="flex text-xs mb-4">
-                Posted by <a href="{{ route('profile', $thread->creator) }}">
+            <p class="text-xs text-grey-darker mb-4">
+                Posted by <a href="{{ route('profile', $thread->creator) }}" class="text-blue">
                     {{ $thread->creator->username }} ({{ $thread->creator->reputation }} XP)
                 </a>
-            </span>
+            </p>
 
             <highlight :content="body"></highlight>
         </div>

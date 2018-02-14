@@ -19,8 +19,7 @@
         computed: {
             classes() {
                 return [
-                    'btn',
-                    this.active ? 'btn-primary' : 'btn-default'
+
                 ];
             },
 

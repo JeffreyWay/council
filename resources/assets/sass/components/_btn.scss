@@ -19,6 +19,10 @@
     &:hover {
         @apply .bg-blue-dark .text-white;
     }
+
+    &.is-narrow {
+        @apply .py-1 .px-2;
+    }
 }
 
 // Hat-tip to Bulma.

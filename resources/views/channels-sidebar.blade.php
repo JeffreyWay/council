@@ -1,4 +1,4 @@
-<div class="w-1/4 border-l border-r p-6 bg-white">
+<div class="border-l border-r p-6 bg-white w-48">
     <div class="widget">
         <h4 class="widget-heading">Channels</h4>
 

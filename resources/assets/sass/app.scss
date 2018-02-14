@@ -4,6 +4,7 @@
 @import "components/widget";
 
 @import "sections/search";
+@import "sections/trix";
 
 @tailwind utilities;
 
@@ -19,3 +20,11 @@ a {
 input {
     @apply .border .border-grey-light;
 }
+
+pre {
+    @apply .whitespace-pre-wrap;
+}
+
+[v-cloak] { display: none; }
+
+

@@ -1,0 +1,16 @@
+#app trix-editor {
+    border-color: #dae1e7;
+    border-radius: 0;
+    @apply .p-2;
+}
+
+#app trix-toolbar .trix-button-group {
+    border-color: #dae1e7;
+    margin-bottom: 0;
+    border-bottom: none;
+    border-radius: 0;
+}
+
+#app trix-toolbar .trix-button {
+    border-bottom: none;
+}
