@@ -35,5 +35,8 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="SCOUT_DRIVER" value="null"/>
+        <env name="ALGOLIA_APP_ID" value="null"/>
+        <env name="ALGOLIA_KEY" value="null"/>
+        <env name="ALGOLIA_SECRET" value="null"/>
     </php>
 </phpunit>

@@ -15,9 +15,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Trending $trending)
     {
         \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
-
-        view()->share('channels', \App\Channel::all());
-        view()->share('trending', $trending->get());
     }
 
     /**
