@@ -11,7 +11,7 @@ class ThreadFilters extends Filters
      *
      * @var array
      */
-    protected $filters = ['by', 'popular', 'unanswered'];
+    protected $filters = ['by', 'popular', 'unanswered', 'active'];
 
     /**
      * Filter the query by a given username.
@@ -46,5 +46,15 @@ class ThreadFilters extends Filters
     protected function unanswered()
     {
         return $this->builder->where('replies_count', 0);
+    }
+
+    /**
+     * Filter the query include only threads on active channels.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function active($bool)
+    {
+        return $this->builder->join('channels', 'channel_id', '=', 'channels.id')->where('channels.archived', false);
     }
 }

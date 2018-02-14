@@ -85,6 +85,16 @@ class ReadThreadsTest extends TestCase
     }
 
     /** @test */
+    function a_user_can_filter_threads_to_show_only_active_threads()
+    {
+        $this->thread->channel->archive();
+
+        $response = $this->getJson('threads?active=1')->json();
+
+        $this->assertCount(0, $response['data']);
+    }
+
+    /** @test */
     function a_user_can_request_all_replies_for_a_given_thread()
     {
         $thread = create('App\Thread');
