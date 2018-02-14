@@ -32,6 +32,17 @@ export default {
 
     created() {
         this.fetch();
+
+        if (typeof window.Echo !== 'undefined') {
+            window.Echo.join(`forum.${window.channelName}`)
+              .listen('ThreadReceivedNewReply', ({reply}) => {
+                  if (reply.user_id === window.App.user.id) {
+                      return;
+                  }
+                  this.add(reply)
+                  window.flash('A reply has just been posted.')
+              });
+        }
     },
 
     methods: {

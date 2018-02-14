@@ -69,4 +69,13 @@
             </ul>
         </div>
     @endif
+
+    @if (auth()->check() && config('broadcasting.default') === 'pusher' || config('broadcasting.default') === 'redis' )
+        
+        <viewing-thread></viewing-thread>
+
+        <users-online></users-online> 
+
+    @endif
+
 </aside>
