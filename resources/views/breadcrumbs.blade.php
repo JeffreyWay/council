@@ -8,6 +8,11 @@
             @endif
         </li>
 
+        @if (Route::is('search.show'))
+            <li><span class="mx-2">&#10095;</span></li>
+            <li>Search</li>
+        @endif
+
         @if (Route::is('channels'))
             <li><span class="mx-2">&#10095;</span></li>
             <li>{{ ucwords($channel->name) }}</li>

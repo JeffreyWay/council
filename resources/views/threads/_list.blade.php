@@ -10,7 +10,7 @@
             <h3 class="text-xl font-normal mb-2 tracking-tight">
                 <a href="{{ $thread->path() }}" class="text-blue">
                     @if ($thread->pinned)
-                        <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+                        Pinned:
                     @endif
 
                     @if (auth()->check() && $thread->hasUpdatesFor(auth()->user()))

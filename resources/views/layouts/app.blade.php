@@ -35,9 +35,13 @@
 
         <div class="container mx-auto">
             <div class="flex">
-                @include('sidebar')
+                @section('sidebar')
+                    @include('sidebar')
+                @show
 
-                @yield('content')
+                <div class="px-10 bg-white flex-1">
+                    @yield('content')
+                </div>
 
                  @include('channels-sidebar')
             </div>

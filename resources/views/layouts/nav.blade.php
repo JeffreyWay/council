@@ -9,7 +9,7 @@
             </h1>
         </div>
 
-        <div class="flex">
+        <div class="flex" v-cloak>
             <div class="search-wrap rounded-full bg-blue-darkest w-10 cursor-pointer h-10 flex items-center justify-center mr-4 relative" @mouseover="search" @mouseout="searching = false">
                 <form method="GET" action="/threads/search" v-show="searching">
                     <input type="text"
@@ -40,6 +40,12 @@
                             <li class="text-sm pb-3">
                                 <a class="link" href="{{ route('profile', Auth::user()) }}">My Profile</a>
                             </li>
+
+                            @if (Auth::user()->isAdmin())
+                                <li class="text-sm pb-3">
+                                    <a class="link" href="{{ route('admin.dashboard.index') }}">Admin</a>
+                                </li>
+                            @endif
 
                             <li class="text-sm">
                                 <logout-button route="{{ route('logout') }}" class="link">Logout</logout-button>

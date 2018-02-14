@@ -25,6 +25,11 @@ pre {
     @apply .whitespace-pre-wrap;
 }
 
-[v-cloak] { display: none; }
+[v-cloak] {
+    display: none;
+}
 
-
+.ais-highlight > em {
+    font-weight: bold;
+    @apply .text-black;
+}
