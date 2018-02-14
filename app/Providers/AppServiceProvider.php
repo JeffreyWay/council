@@ -16,8 +16,10 @@ class AppServiceProvider extends ServiceProvider
     {
         \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
 
-        view()->share('channels', \App\Channel::all());
-        view()->share('trending', $trending->get());
+        \View::composer('*', function ($view) use ($trending) {
+            $view->with('channels', \App\Channel::all())
+                ->with('trending', $trending->get());
+        });
     }
 
     /**
