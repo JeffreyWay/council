@@ -52,9 +52,13 @@
                 <span v-if="! editing">
                     <span v-if="(authorize('isAdmin') || authorize('owns', thread))">
                         <a href="#" class="text-blue link pl-2 ml-2 border-l" @click.prevent="editing = true">Edit</a>
-                        <a href="#" class="link pl-2 ml-2 border-l" :class="locked ? 'font-bold' : ''" @click.prevent="toggleLock" v-text="locked ? 'Unlock' : 'Lock'"></a>
-                        <a href="#" class="link pl-2 ml-2 border-l" :class="pinned ? 'font-bold' : ''" @click.prevent="togglePin" v-text="pinned ? 'Unpin' : 'Pin'"></a>
+
+                        <span v-if="authorize('isAdmin')">
+                            <a href="#" class="link pl-2 ml-2 border-l" :class="locked ? 'font-bold' : ''" @click.prevent="toggleLock" v-text="locked ? 'Unlock' : 'Lock'"></a>
+                            <a href="#" class="link pl-2 ml-2 border-l" :class="pinned ? 'font-bold' : ''" @click.prevent="togglePin" v-text="pinned ? 'Unpin' : 'Pin'"></a>
+                        </span>
                     </span>
+
                     <subscribe-button :active="{{ json_encode($thread->isSubscribedTo) }}" v-if="signedIn"></subscribe-button>
                 </span>
             </p>
