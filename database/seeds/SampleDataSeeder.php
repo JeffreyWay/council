@@ -32,7 +32,45 @@ class SampleDataSeeder extends Seeder
     {
         Channel::truncate();
 
-        factory(Channel::class, 10)->create();
+        collect([
+            [
+                'name' => 'PHP',
+                'description' => 'A channel for general PHP questions. Use this channel if you can\'t find a more specific channel for your question.',
+                'archived' => false,
+                'color' => '#008000'
+            ],
+            [
+                'name' => 'VueJS',
+                'description' => 'A channel for general VueJS questions. Use this channel if you can\'t find a more specific channel for your question.',
+                'archived' => false,
+                'color' => '#cccccc'
+            ],
+            [
+                'name' => 'Laravel Mix',
+                'description' => 'This channel is for all Laravel Mix related questions.',
+                'archived' => false,
+                'color' => '#43DDF5'
+            ],
+            [
+                'name' => 'Eloquent',
+                'description' => 'This channel is for all Laravel Eloquent related questions.',
+                'archived' => false,
+                'color' => '#a01212'
+            ],
+            [
+                'name' => 'VueEx',
+                'description' => 'This channel is for all VueEx specific questions.',
+                'archived' => false,
+                'color' => '#ff8822'
+            ],
+        ])->each(function ($channel) {
+            factory(Channel::class)->create([
+                'name' => $channel['name'],
+                'description' => $channel['description'],
+                'archived' => false,
+                'color' => $channel['color']
+            ]);
+        });
 
         return $this;
     }
@@ -48,6 +86,25 @@ class SampleDataSeeder extends Seeder
         Activity::truncate();
         Favorite::truncate();
 
-        factory(Thread::class, 50)->create();
+        factory(Thread::class, 50)->states('from_existing_channels_and_users')->create()->each(function ($thread) {
+            $this->recordActivity($thread, 'created', $thread->creator()->first()->id);
+        });
+    }
+
+    /**
+     * @param $model
+     * @param $event_type
+     * @param $user_id
+     *
+     * @throws ReflectionException
+     */
+    public function recordActivity($model, $event_type, $user_id)
+    {
+        $type = strtolower((new \ReflectionClass($model))->getShortName());
+
+        $model->morphMany('App\Activity', 'subject')->create([
+            'user_id' => $user_id,
+            'type' => "{$event_type}_{$type}"
+        ]);
     }
 }
