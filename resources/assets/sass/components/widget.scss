@@ -1,0 +1,7 @@
+.widget {
+    @apply .mb-4 .pb-4;
+
+    > .widget-heading {
+        @apply .mb-2 .pb-2 .text-xs .uppercase .text-grey-dark .tracking-wide;
+    }
+}
