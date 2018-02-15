@@ -49,6 +49,24 @@ $factory->define(App\Thread::class, function ($faker) {
     ];
 });
 
+$factory->state(App\Thread::class, 'from_existing_channels_and_users', function ($faker) {
+    $title = $faker->sentence;
+
+    return [
+        'user_id' => function () {
+            return \App\User::all()->random()->id;
+        },
+        'channel_id' => function () {
+            return \App\Channel::all()->random()->id;
+        },
+        'title' => $title,
+        'body'  => $faker->paragraph,
+        'visits' => $faker->numberBetween(0, 35),
+        'slug' => str_slug($title),
+        'locked' => $faker->boolean(15)
+    ];
+});
+
 $factory->define(App\Channel::class, function ($faker) {
     return [
         'name' => $faker->unique()->word,
