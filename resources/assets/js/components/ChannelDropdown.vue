@@ -1,10 +1,10 @@
 <template>
-    <li class="dropdown" :class="{open: toggle}">
+    <li v-click-outside="onClickOutside" class="dropdown" :class="{open: toggle}">
         <a href="#"
            class="dropdown-toggle"
            aria-haspopup="true"
            aria-expanded="false"
-           @click.prevent="toggle = !toggle"
+           @click.prevent="toggleVisibility"
         >
             Channels <span class="caret"></span>
         </a>
@@ -49,6 +49,8 @@
 </style>
 
 <script>
+    import ClickOutside from '../directives/click-outside';
+
     export default {
         data() {
             return {
@@ -56,6 +58,10 @@
                 toggle: false,
                 filter: ''
             };
+        },
+
+        directives: {
+            ClickOutside
         },
 
         created() {
@@ -69,6 +75,18 @@
                         .toLowerCase()
                         .startsWith(this.filter.toLocaleLowerCase());
                 });
+            }
+        },
+
+        methods: {
+            onClickOutside() {
+                if (this.toggle) {
+                    this.toggleVisibility();
+                }
+            },
+
+            toggleVisibility() {
+                this.toggle = !this.toggle;
             }
         }
     };

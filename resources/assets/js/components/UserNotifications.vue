@@ -56,25 +56,17 @@
             this.fetchNotifications();
         },
 
-        computed: {
-            endpoint() {
-                return `/profiles/${window.App.user.name}/notifications`;
-            }
-        },
-
         methods: {
             fetchNotifications() {
-                axios.get(this.endpoint)
-                    .then(response => this.notifications = response.data);
+                axios.get('/profiles/' + window.App.user.name + '/notifications')
+                  .then(response => this.notifications = response.data);
             },
-
             markAsRead(notification) {
-                axios.delete(`${this.endpoint}/${notification.id}`)
-                    .then(({data}) => {
-                        this.fetchNotifications();
-
-                        document.location.replace(data.link);
-                    });
+                axios.delete('/profiles/' + window.App.user.name + '/notifications/' + notification.id)
+                .then(response => {
+                    this.fetchNotifications();
+                    document.location.replace(response.data.link);
+                });
             }
         }
     }
