@@ -17,7 +17,7 @@
                 <div class="flex items-center mb-6 mt-2">
                     <div class="flex flex-1">
                         <h5 class="font-normal">
-                            <a class="text-blue font-bold link" :href="'/profiles/' + reply.owner.name" v-text="reply.owner.name"></a>
+                            <a class="text-blue font-bold link" :href="'/profiles/' + reply.owner.username" v-text="reply.owner.name"></a>
                         </h5>
 
                         <a v-if="! editing && (authorize('owns', reply) || authorize('owns', reply.thread))"
