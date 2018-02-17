@@ -19,8 +19,8 @@ export default {
                         'Accept':'application/json'
                     }
                 })
-                .then(({data}) => {
-                    location.assign(data.redirect);
+                .then(({data: {redirect}}) => {
+                    location.assign(redirect);
                 })
                 .catch(error => {
                     this.feedback =
