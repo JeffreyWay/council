@@ -9,6 +9,8 @@ This is an open source forum that was built and maintained at Laracasts.com.
 * To run this project, you must have PHP 7 installed.
 * You should setup a host on your web server for your local domain. For this you could also configure Laravel Homestead or Valet. 
 * If you want use Redis as your cache driver you need to install the Redis Server. You can either use homebrew on a Mac or compile from source (https://redis.io/topics/quickstart). 
+* If you want to enable real time notifications with Pusher you need to create an account at https://pusher.com and create an application that supports client events. Then set your options in the `config/broadcasting.php` file and configure your Pusher credentials in the `.env` file. See https://laravel.com/docs/5.5/broadcasting#installing-laravel-echo and https://pusher.com/docs. Also, set `BROADCAST_DRIVER=pusher` in the `.env` file.
+* If you want to enable real time notifications with Redis you need to install the Redis Server and Laravel Echo Server. See: https://github.com/tlaverdure/laravel-echo-server. Also, set `BROADCAST_DRIVER=redis` in the `.env` file.
 
 ### Step 1
 
