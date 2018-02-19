@@ -12,8 +12,6 @@ import VModal from 'vue-js-modal'
 
 try {
     window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap-sass');
 } catch (e) { }
 
 
