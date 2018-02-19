@@ -32,7 +32,7 @@
 
             <div class="w-3/4">
                 <ais-results>
-                    <template scope="{ result }">
+                    <template slot-scope="{ result }">
                         <li class="list-reset pb-3">
                             <a :href="result.path" class="text-blue link">
                                 <ais-highlight :result="result" attribute-name="title"></ais-highlight>
