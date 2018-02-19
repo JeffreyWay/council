@@ -1,0 +1,61 @@
+.btn {
+    @apply .bg-grey .text-white .font-normal .text-sm .py-2 .px-6 .rounded .font-semibold;
+    cursor: pointer;
+
+    &.is-green {
+        @apply .bg-green;
+        box-shadow: 1px 2px 15px 0 rgba(16, 234, 155, 0.48);
+
+        &:hover {
+            @apply .bg-green-darker;
+        }
+    }
+
+    &.is-outlined {
+        background: transparent;
+        @apply .border;
+    }
+
+    &:hover {
+        @apply .bg-blue-dark .text-white;
+    }
+
+    &.is-narrow {
+        @apply .py-1 .px-2;
+    }
+}
+
+// Hat-tip to Bulma.
+.loader {
+    color: transparent !important;
+    pointer-events: none;
+    position: relative;
+}
+
+.loader:after {
+    animation: spinAround 500ms infinite linear;
+    border: 2px solid #dbdbdb;
+    border-radius: 290486px;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    content: "";
+    display: block;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    position: absolute;
+    left: calc(50% - (1em / 2));
+    top: calc(50% - (1em / 2));
+    position: absolute !important;
+}
+
+@keyframes spinAround {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}

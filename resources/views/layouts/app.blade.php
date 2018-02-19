@@ -11,6 +11,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -22,30 +24,36 @@
         ]) !!};
     </script>
 
-    <style>
-        body { padding-bottom: 100px; }
-        .level { display: flex; align-items: center; }
-        .level-item { margin-right: 1em; }
-        .flex { flex: 1; }
-        .mr-1 { margin-right: 1em; }
-        .ml-a { margin-left: auto; }
-        [v-cloak] { display: none; }
-        .ais-highlight > em { background: yellow; font-style: normal; }
-    </style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 
     @yield('head')
 </head>
-<body>
-<div id="app">
-    @include ('layouts.nav')
 
-    @yield('content')
+<body class="font-sans bg-grey-lighter">
+    <div id="app">
+        @include ('layouts.nav')
 
-    <flash message="{{ session('flash') }}"></flash>
-</div>
+        <div class="container mx-auto">
+            <div class="flex">
+                @section('sidebar')
+                    @include('sidebar')
+                @show
 
-<!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
-@yield('scripts')
+                <div class="px-10 bg-white flex-1">
+                    @yield('content')
+                </div>
+
+                 @include('channels-sidebar')
+            </div>
+        </div>
+
+        <flash message="{{ session('flash') }}"></flash>
+
+        @include('modals.all')
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

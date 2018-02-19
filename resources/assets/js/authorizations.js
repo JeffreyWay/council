@@ -5,7 +5,7 @@ module.exports = {
         return parseInt(model[prop]) === user.id;
     },
 
-    isAdmin () {
+    isAdmin() {
         return user.isAdmin;
     }
 };

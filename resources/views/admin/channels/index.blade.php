@@ -1,32 +1,32 @@
 @extends('admin.layout.app')
 
 @section('administration-content')
-    <p>
-        <a class="btn btn-sm btn-default" href="{{ route('admin.channels.create') }}">
+    <p class="mb-8">
+        <a class="btn bg-blue" href="{{ route('admin.channels.create') }}">
             New Channel <span class="glyphicon glyphicon-plus"></span>
         </a>
     </p>
 
-    <table class="table">
-        <thead>
+    <table style="border-collapse: collapse">
+        <thead class="bg-grey-lightest text-grey-darkest uppercase tracking-wide text-xs">
             <tr>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>Description</th>
-                <th>Threads</th>
-                <th>Actions</th>
+                <th class="p-4 border-b">Name</th>
+                <th class="p-4 border-b">Slug</th>
+                <th class="p-4 border-b">Description</th>
+                <th class="p-4 border-b">Threads</th>
+                <th class="p-4 border-b">Actions</th>
             </tr>
         </thead>
 
         <tbody>
             @forelse($channels as $channel)
-                <tr class="{{ $channel->archived ? 'info' : '' }}">
-                    <td>{{$channel->name}}</td>
-                    <td>{{$channel->slug}}</td>
-                    <td>{{$channel->description}}</td>
-                    <td>{{$channel->threads()->count()}}</td>
-                    <td>
-                        <a href="{{ route('admin.channels.edit', ['channel' => $channel->slug]) }}" class="btn btn-default btn-xs">Edit</a>
+                <tr class="border-b {{ $channel->archived ? 'bg-red-lighter' : '' }}">
+                    <td class="text-sm p-4 border-b">{{ $channel->name }}</td>
+                    <td class="text-sm p-4 border-b">{{ $channel->slug }}</td>
+                    <td class="text-sm p-4 border-b">{{ $channel->description }}</td>
+                    <td class="text-sm p-4 border-b">{{ $channel->threads_count }}</td>
+                    <td class="text-sm p-4 border-b">
+                        <a href="{{ route('admin.channels.edit', $channel) }}" class="text-blue link text-sm">Edit</a>
                     </td>
                 </tr>
             @empty

@@ -24,15 +24,11 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    function guests_may_not_create_threads()
+    public function guests_may_not_create_threads()
     {
         $this->withExceptionHandling();
 
-        $this->get('/threads/create')
-            ->assertRedirect(route('login'));
-
-        $this->post(route('threads'))
-            ->assertRedirect(route('login'));
+        $this->post(route('threads'))->assertStatus(302)->assertRedirect(route('login'));
     }
 
     /** @test */
@@ -153,6 +149,17 @@ class CreateThreadsTest extends TestCase
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
 
         $this->assertEquals(0, Activity::count());
+    }
+
+    /** @test */
+    public function a_new_thread_cannot_be_created_in_an_archived_channel()
+    {
+        $channel = factory('App\Channel')->create(['archived' => true]);
+
+        $this->publishThread(['channel_id' => $channel->id])
+            ->assertSessionHasErrors('channel_id');
+
+        $this->assertCount(0, $channel->threads);
     }
 
     protected function publishThread($overrides = [])

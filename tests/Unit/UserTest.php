@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class UserTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     /** @test */
     public function a_user_can_fetch_their_most_recent_reply()
     {
@@ -20,11 +20,11 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_determine_their_avatar_path()
+    public function a_user_can_determine_their_avatar_path()
     {
         $user = create('App\User');
 
-        $this->assertEquals(asset('images/avatars/default.png'), $user->avatar_path);
+        $this->assertEquals(asset('images/avatars/default.svg'), $user->avatar_path);
 
         $user->avatar_path = 'avatars/me.jpg';
 

@@ -16,12 +16,12 @@ class MentionUsersTest extends TestCase
     public function mentioned_users_in_a_thread_are_notified()
     {
         // Given we have a user, JohnDoe, who is signed in.
-        $john = create('App\User', ['name' => 'JohnDoe']);
+        $john = create('App\User', ['username' => 'JohnDoe']);
 
         $this->signIn($john);
 
         // And we also have a user, JaneDoe.
-        $jane = create('App\User', ['name' => 'JaneDoe']);
+        $jane = create('App\User', ['username' => 'JaneDoe']);
 
         // And JohnDoe create a new thread and mentions @JaneDoe.
         $thread = make('App\Thread', [
@@ -43,12 +43,12 @@ class MentionUsersTest extends TestCase
     public function mentioned_users_in_a_reply_are_notified()
     {
         // Given we have a user, JohnDoe, who is signed in.
-        $john = create('App\User', ['name' => 'JohnDoe']);
+        $john = create('App\User', ['username' => 'JohnDoe']);
 
         $this->signIn($john);
 
         // And we also have a user, JaneDoe.
-        $jane = create('App\User', ['name' => 'JaneDoe']);
+        $jane = create('App\User', ['username' => 'JaneDoe']);
 
         // If we have a thread
         $thread = create('App\Thread');
@@ -72,11 +72,11 @@ class MentionUsersTest extends TestCase
     /** @test */
     public function it_can_fetch_all_mentioned_users_starting_with_the_given_characters()
     {
-        create('App\User', ['name' => 'johndoe']);
-        create('App\User', ['name' => 'johndoe2']);
-        create('App\User', ['name' => 'janedoe']);
+        create('App\User', ['username' => 'johndoe']);
+        create('App\User', ['username' => 'johndoe2']);
+        create('App\User', ['username' => 'janedoe']);
 
-        $results = $this->json('GET', '/api/users', ['name' => 'john']);
+        $results = $this->json('GET', '/api/users', ['username' => 'john']);
 
         $this->assertCount(2, $results->json());
     }

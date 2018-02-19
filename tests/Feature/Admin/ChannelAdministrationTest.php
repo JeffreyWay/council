@@ -93,6 +93,51 @@ class ChannelAdministrationTest extends TestCase
 
         $this->assertTrue($channel->fresh()->archived);
     }
+    
+    /** @test */
+    public function the_path_to_a_thread_is_unaffected_by_its_channels_archived_status()
+    {
+        $thread = create('App\Thread');
+        $path = $thread->path();
+
+        $thread->channel->archive();
+
+        $this->assertEquals($path, $thread->fresh()->path());
+    }
+
+    /** @test */
+    public function an_administrator_can_edit_an_archived_channel()
+    {
+        $this->signInAdmin();
+
+        $channel = create('App\Channel', ['archived' => true]);
+
+        $this->assertTrue($channel->archived);
+
+        $this->get(route('admin.channels.edit', $channel))
+            ->assertStatus(Response::HTTP_OK);
+    }
+
+    /** @test */
+    public function an_administrator_can_activate_an_archived_channel()
+    {
+        $this->signInAdmin();
+
+        $channel = create('App\Channel', ['archived' => true]);
+
+        $this->assertTrue($channel->archived);
+
+        $this->patch(
+            route('admin.channels.update', $channel),
+            [
+                'name' => 'altered',
+                'description' => 'altered channel description',
+                'archived' => false
+            ]
+        );
+
+        $this->assertFalse($channel->fresh()->archived);
+    }
 
     /** @test */
     public function a_channel_requires_a_name()

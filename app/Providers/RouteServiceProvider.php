@@ -23,9 +23,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::bind('channel', function ($slug) {
+            return \App\Channel::withArchived()->where('slug', $slug)->firstOrFail();
+        });
     }
 
     /**

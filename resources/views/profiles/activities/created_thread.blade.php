@@ -1,6 +1,6 @@
 @component('profiles.activities.activity')
     @slot('heading')
-        {{ $profileUser->name }} published
+        {{ $profileUser->username }} published
         <a href="{{ $activity->subject->path() }}">{{ $activity->subject->title }}</a>
     @endslot
 

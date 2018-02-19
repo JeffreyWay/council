@@ -25,6 +25,20 @@ class PinThreadsTest extends TestCase
     }
 
     /** @test */
+    public function regular_users_cannot_unpin_threads()
+    {
+        $this->withExceptionHandling();
+
+        $this->signIn();
+
+        $thread = create('App\Thread', ['user_id' => auth()->id(), 'pinned' => true]);
+
+        $this->delete(route('pinned-threads.destroy', $thread))->assertStatus(403);
+
+        $this->assertTrue($thread->fresh()->pinned);
+    }
+
+    /** @test */
     public function administrators_can_pin_threads()
     {
         $this->signInAdmin();
@@ -45,7 +59,7 @@ class PinThreadsTest extends TestCase
 
         $this->delete(route('pinned-threads.destroy', $thread));
 
-        $this->assertFalse($thread->fresh()->pinned, 'Failed asserting that the thread was unlocked.');
+        $this->assertFalse($thread->fresh()->pinned, 'Failed asserting that the thread was unpinned.');
     }
 
     /** @test */

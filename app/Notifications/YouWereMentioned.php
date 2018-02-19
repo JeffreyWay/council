@@ -46,6 +46,7 @@ class YouWereMentioned extends Notification
     {
         return [
             'message' => $this->message(),
+            'notifier' => $this->user(),
             'link' => $this->subject->path()
         ];
     }
@@ -55,7 +56,7 @@ class YouWereMentioned extends Notification
      */
     public function message()
     {
-        return sprintf('%s mentioned you in "%s"', $this->user()->name, $this->subject->title());
+        return sprintf('%s mentioned you in "%s"', $this->user()->username, $this->subject->title());
     }
 
     /**
