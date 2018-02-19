@@ -6,7 +6,7 @@
             @if(auth()->user()->confirmed)
                 <button class="btn is-green w-full" @click="$modal.show('new-thread')">Add New Thread</button>
             @else
-                <button class="btn w-full">Please confirm your email address</button>
+                <p class="text-xs text-grey-dark font-bold border border-dashed border-grey-dark p-3">Please confirm your email address to participate.</p>
             @endif
         @else
             <button class="btn is-green w-full tracking-wide" @click="$modal.show('login')">Log In To Post</button>
