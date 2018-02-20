@@ -20,7 +20,7 @@ class NotificationsTest extends TestCase
     /** @test */
     function a_notification_is_prepared_when_a_subscribed_thread_receives_a_new_reply_that_is_not_by_the_current_user()
     {
-        $thread = create('App\Thread')->subscribe();
+        $thread = create(\App\Thread::class)->subscribe();
 
         $this->assertCount(0, auth()->user()->notifications);
 
@@ -32,7 +32,7 @@ class NotificationsTest extends TestCase
         $this->assertCount(0, auth()->user()->fresh()->notifications);
 
         $thread->addReply([
-            'user_id' => create('App\User')->id,
+            'user_id' => create(\App\User::class)->id,
             'body' => 'Some reply here'
         ]);
 

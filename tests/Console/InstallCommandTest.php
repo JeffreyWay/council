@@ -77,7 +77,8 @@ class InstallCommandTest extends TestCase
 
     protected function partialMock($methods, $assertions = null)
     {
-        $assertions = $assertions ?? function () {};
+        $assertions = $assertions ?? function () {
+        };
 
         $methods = implode(',', (array) $methods);
 

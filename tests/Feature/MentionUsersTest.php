@@ -16,15 +16,15 @@ class MentionUsersTest extends TestCase
     public function mentioned_users_in_a_thread_are_notified()
     {
         // Given we have a user, JohnDoe, who is signed in.
-        $john = create('App\User', ['username' => 'JohnDoe']);
+        $john = create(\App\User::class, ['username' => 'JohnDoe']);
 
         $this->signIn($john);
 
         // And we also have a user, JaneDoe.
-        $jane = create('App\User', ['username' => 'JaneDoe']);
+        $jane = create(\App\User::class, ['username' => 'JaneDoe']);
 
         // And JohnDoe create a new thread and mentions @JaneDoe.
-        $thread = make('App\Thread', [
+        $thread = make(\App\Thread::class, [
             'body' => 'Hey @JaneDoe check this out.'
         ]);
 
@@ -43,18 +43,18 @@ class MentionUsersTest extends TestCase
     public function mentioned_users_in_a_reply_are_notified()
     {
         // Given we have a user, JohnDoe, who is signed in.
-        $john = create('App\User', ['username' => 'JohnDoe']);
+        $john = create(\App\User::class, ['username' => 'JohnDoe']);
 
         $this->signIn($john);
 
         // And we also have a user, JaneDoe.
-        $jane = create('App\User', ['username' => 'JaneDoe']);
+        $jane = create(\App\User::class, ['username' => 'JaneDoe']);
 
         // If we have a thread
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
 
         // And JohnDoe replies to that thread and mentions @JaneDoe.
-        $reply = make('App\Reply', [
+        $reply = make(\App\Reply::class, [
             'body' => 'Hey @JaneDoe check this out.'
         ]);
 
@@ -72,9 +72,9 @@ class MentionUsersTest extends TestCase
     /** @test */
     public function it_can_fetch_all_mentioned_users_starting_with_the_given_characters()
     {
-        create('App\User', ['username' => 'johndoe']);
-        create('App\User', ['username' => 'johndoe2']);
-        create('App\User', ['username' => 'janedoe']);
+        create(\App\User::class, ['username' => 'johndoe']);
+        create(\App\User::class, ['username' => 'johndoe2']);
+        create(\App\User::class, ['username' => 'janedoe']);
 
         $results = $this->json('GET', '/api/users', ['username' => 'john']);
 

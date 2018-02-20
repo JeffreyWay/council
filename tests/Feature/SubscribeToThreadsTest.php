@@ -15,7 +15,7 @@ class SubscribeToThreadsTest extends TestCase
         $this->signIn();
 
         // Given we have a thread...
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
 
         // And the user subscribes to the thread...
         $this->post($thread->path() . '/subscriptions');
@@ -28,7 +28,7 @@ class SubscribeToThreadsTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
 
         $thread->subscribe();
 

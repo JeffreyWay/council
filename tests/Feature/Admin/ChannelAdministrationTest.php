@@ -60,7 +60,7 @@ class ChannelAdministrationTest extends TestCase
         $this->signInAdmin();
 
         $this->patch(
-            route('admin.channels.update', ['channel' => create('App\Channel')->slug]),
+            route('admin.channels.update', ['channel' => create(\App\Channel::class)->slug]),
             $updatedChannel = [
                 'name' => 'altered',
                 'description' => 'altered channel description',
@@ -78,7 +78,7 @@ class ChannelAdministrationTest extends TestCase
     {
         $this->signInAdmin();
 
-        $channel = create('App\Channel');
+        $channel = create(\App\Channel::class);
 
         $this->assertFalse($channel->archived);
 
@@ -97,7 +97,7 @@ class ChannelAdministrationTest extends TestCase
     /** @test */
     public function the_path_to_a_thread_is_unaffected_by_its_channels_archived_status()
     {
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
         $path = $thread->path();
 
         $thread->channel->archive();
@@ -110,7 +110,7 @@ class ChannelAdministrationTest extends TestCase
     {
         $this->signInAdmin();
 
-        $channel = create('App\Channel', ['archived' => true]);
+        $channel = create(\App\Channel::class, ['archived' => true]);
 
         $this->assertTrue($channel->archived);
 
@@ -123,7 +123,7 @@ class ChannelAdministrationTest extends TestCase
     {
         $this->signInAdmin();
 
-        $channel = create('App\Channel', ['archived' => true]);
+        $channel = create(\App\Channel::class, ['archived' => true]);
 
         $this->assertTrue($channel->archived);
 

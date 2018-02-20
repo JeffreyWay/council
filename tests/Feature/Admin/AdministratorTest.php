@@ -23,7 +23,7 @@ class AdministratorTest extends TestCase
     public function a_non_administrator_cannot_access_the_administration_section()
     {
         $this->withExceptionHandling()
-            ->actingAs(create('App\User'))
+            ->actingAs(create(\App\User::class))
             ->get(route('admin.dashboard.index'))
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
