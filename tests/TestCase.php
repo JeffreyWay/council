@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function signIn($user = null)
     {
-        $user = $user ?: create('App\User');
+        $user = $user ?: create(\App\User::class);
 
         $this->actingAs($user);
 
@@ -31,7 +31,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function signInAdmin($admin = null)
     {
-        $admin = $admin ?: create('App\User');
+        $admin = $admin ?: create(\App\User::class);
 
         config(['council.administrators' => [$admin->email]]);
 

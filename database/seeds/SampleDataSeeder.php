@@ -102,7 +102,7 @@ class SampleDataSeeder extends Seeder
     {
         $type = strtolower((new \ReflectionClass($model))->getShortName());
 
-        $model->morphMany('App\Activity', 'subject')->create([
+        $model->morphMany(\App\Activity::class, 'subject')->create([
             'user_id' => $user_id,
             'type' => "{$event_type}_{$type}"
         ]);

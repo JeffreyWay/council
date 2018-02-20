@@ -12,7 +12,7 @@ class ProfilesTest extends TestCase
     /** @test */
     public function a_user_has_a_profile()
     {
-        $user = create('App\User');
+        $user = create(\App\User::class);
 
         $response = $this->getJson("/profiles/{$user->username}")->json();
 
@@ -24,7 +24,7 @@ class ProfilesTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread', ['user_id' => auth()->id()]);
+        $thread = create(\App\Thread::class, ['user_id' => auth()->id()]);
 
         $this->get(route('profile', auth()->user()->username))
             ->assertSee($thread->title)
