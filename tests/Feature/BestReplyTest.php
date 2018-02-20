@@ -3,14 +3,14 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class BestReplyTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseMigrations;
 
     /** @test */
-    function a_thread_creator_may_mark_any_reply_as_the_best_reply()
+    public function a_thread_creator_may_mark_any_reply_as_the_best_reply()
     {
         $this->signIn();
 
@@ -26,7 +26,7 @@ class BestReplyTest extends TestCase
     }
 
     /** @test */
-    function only_the_thread_creator_may_mark_a_reply_as_best()
+    public function only_the_thread_creator_may_mark_a_reply_as_best()
     {
         $this->withExceptionHandling();
 
@@ -44,7 +44,7 @@ class BestReplyTest extends TestCase
     }
 
     /** @test */
-    function if_a_best_reply_is_deleted_then_the_thread_is_properly_updated_to_reflect_that()
+    public function if_a_best_reply_is_deleted_then_the_thread_is_properly_updated_to_reflect_that()
     {
         $this->signIn();
 
