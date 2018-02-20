@@ -65,7 +65,7 @@ class ReputationTest extends TestCase
 
         $this->assertEquals($this->points['reply_posted'], $reply->owner->reputation);
 
-        $this->delete(route('replies.destroy',$reply->id));
+        $this->delete(route('replies.destroy', $reply->id));
 
         $this->assertEquals(0, $reply->owner->fresh()->reputation);
     }

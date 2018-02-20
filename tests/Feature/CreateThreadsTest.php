@@ -72,7 +72,7 @@ class CreateThreadsTest extends TestCase
     /** @test */
     function a_thread_requires_recaptcha_verification()
     {
-        if ( Recaptcha::isInTestMode() ) {
+        if (Recaptcha::isInTestMode()) {
             $this->markTestSkipped("Recaptcha is in test mode.");
         }
 
