@@ -7,7 +7,8 @@
                   :class="{'font-bold': user.typing}"
                   class="link text-blue"
                   :href="'/profiles/' + user.name"
-                  v-html="'@' + user.name + (user.typing ? ' (typing)':'')">
+                  v-html="'@' + user.name + (user.typing ? ' (typing)':'')"
+                >
                 </a> 
             </li>
         </ul>
@@ -35,64 +36,43 @@ export default {
   },
 
   created() {
-    if (this.viewingThread()) {
-      if (typeof window.Echo !== "undefined" && window.App.signedIn) {
-        window.Echo.join(`forum.${window.channelName}`)
-          .listenForWhisper('typing', ({ user }) => {
-            this.users.forEach(u => {
-              if (u.id === user.id) {
-                u.typing = true;
+    if (this.viewingThread() && typeof window.Echo !== "undefined" && window.App.signedIn) {
+      window.Echo.join(`forum.${window.channelName}`)
+        .listenForWhisper('typing', ({ user }) => {
 
-                // Simulate that the user has stopped typing
-                // after a set amount of time.
-                setTimeout(() => {
-                  u.typing = false;
-                }, 3000);
-              }
-            });
+          let typingUser = this.users.find(entry => {
+            return entry.id === user.id
           })
-          .here(users => {
-            this.users = this.channelUsers(users);
-          })
-          .joining(user => {
-            this.add(user);
-          })
-          .leaving(user => {
-            this.remove(user);
+
+          typingUser.typing = true;
+
+          // Simulate that the user has stopped typing
+          setTimeout(() => {
+            typingUser.typing = false;
+          }, 3000);
+        })
+        .here(users => {
+          this.users = users.map(user => {
+            user.typing = false;
+            return user;
           });
-      }
+        })
+        .joining(user => {
+          user.typing = false;
+          this.users.push(user);
+        })
+        .leaving(user => {
+          let leaving = this.users.find(entry => {
+            return entry.id === user.id;
+          });
+          this.users.splice(this.users.indexOf(leaving), 1);
+        });
     }
   },
 
   methods: {
     viewingThread() {
       return /\/threads\/.*\/.*/i.test(window.location.pathname);
-    },
-    channelUsers(users) {
-      let channelUsers = [];
-
-      users.forEach(user => {
-        channelUsers.push({
-          id: user.id,
-          name: user.name,
-          typing: false
-        });
-      });
-
-      return channelUsers;
-    },
-    add(user) {
-      this.users.push({
-        id: user.id,
-        name: user.name,
-        typing: false
-      });
-    },
-    remove(user) {
-      let entry = this.users.find(u => {
-        return u.id === user.id;
-      });
-      this.users.splice(this.users.indexOf(entry), 1);
     }
   }
 };
