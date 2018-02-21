@@ -50,7 +50,7 @@ class ReputationTest extends TestCase
 
         $reply = $thread->addReply([
             'user_id' => create(\App\User::class)->id,
-            'body' => 'Here is a reply.',
+            'body' => 'Here is a reply.'
         ]);
 
         $this->assertEquals($this->points['reply_posted'], $reply->owner->reputation);
@@ -77,7 +77,7 @@ class ReputationTest extends TestCase
 
         $thread->markBestReply($reply = $thread->addReply([
             'user_id' => create(\App\User::class)->id,
-            'body' => 'Here is a reply.',
+            'body' => 'Here is a reply.'
         ]));
 
         $total = $this->points['reply_posted'] + $this->points['best_reply_awarded'];
@@ -113,7 +113,7 @@ class ReputationTest extends TestCase
         // If the owner of the thread marks Jane's reply as best...
         $thread->markBestReply($thread->addReply([
             'user_id' => $jane->id,
-            'body' => 'Here is a reply.',
+            'body' => 'Here is a reply.'
         ]));
 
         // Then Jane should receive the appropriate reputation points.
@@ -124,7 +124,7 @@ class ReputationTest extends TestCase
 
         $thread->markBestReply($thread->addReply([
             'user_id' => $john->id,
-            'body' => 'Here is a better reply.',
+            'body' => 'Here is a better reply.'
         ]));
 
         // Then, Jane's reputation should be stripped of those "best reply" points.
@@ -147,7 +147,7 @@ class ReputationTest extends TestCase
         // If Jane adds a new reply to a thread...
         $reply = create(\App\Thread::class)->addReply([
             'user_id' => $jane->id,
-            'body' => 'Some reply',
+            'body' => 'Some reply'
         ]);
 
         // And John favorites that reply.
