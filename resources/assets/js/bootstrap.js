@@ -83,14 +83,13 @@ if (window.App.broadcaster == 'pusher') {
     
     window.Pusher = require('pusher-js');
 
-    if (window.App.pusher.key) {
-        window.Echo = new Echo({
-            broadcaster: 'pusher',
-            key: window.App.pusher.key,
-            cluster: window.App.pusher.options.cluster,
-            encrypted: window.App.pusher.options.encrypted
-        });
-    }
+    window.Echo = new Echo({
+        broadcaster: 'pusher',
+        key: window.App.pusher.key,
+        cluster: window.App.pusher.options.cluster,
+        encrypted: window.App.pusher.options.encrypted
+    });
+    
 }
 
 if (window.App.broadcaster == 'redis') {
