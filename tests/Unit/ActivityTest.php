@@ -16,13 +16,13 @@ class ActivityTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
 
         $this->assertDatabaseHas('activities', [
             'type' => 'created_thread',
             'user_id' => auth()->id(),
             'subject_id' => $thread->id,
-            'subject_type' => 'App\Thread'
+            'subject_type' => \App\Thread::class
         ]);
 
         $activity = Activity::first();
@@ -35,7 +35,7 @@ class ActivityTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply');
+        $reply = create(\App\Reply::class);
 
         $this->assertEquals(2, Activity::count());
     }
@@ -45,7 +45,7 @@ class ActivityTest extends TestCase
     {
         $this->signIn();
 
-        create('App\Thread', ['user_id' => auth()->id()], 2);
+        create(\App\Thread::class, ['user_id' => auth()->id()], 2);
 
         auth()->user()->activity()->first()->update(['created_at' => Carbon::now()->subWeek()]);
 

@@ -111,8 +111,7 @@ class User extends Authenticatable
     {
         return in_array(
             strtolower($this->email),
-            array_map('strtolower', config('council.administrators')
-            )
+            array_map('strtolower', config('council.administrators'))
         );
     }
 

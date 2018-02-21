@@ -24,7 +24,7 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_gains_points_when_they_create_a_thread()
     {
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
 
         $this->assertEquals($this->points['thread_published'], $thread->creator->reputation);
     }
@@ -34,7 +34,7 @@ class ReputationTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread', ['user_id' => auth()->id()]);
+        $thread = create(\App\Thread::class, ['user_id' => auth()->id()]);
 
         $this->assertEquals($this->points['thread_published'], $thread->creator->reputation);
 
@@ -46,10 +46,10 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_gains_points_when_they_reply_to_a_thread()
     {
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
 
         $reply = $thread->addReply([
-            'user_id' => create('App\User')->id,
+            'user_id' => create(\App\User::class)->id,
             'body' => 'Here is a reply.'
         ]);
 
@@ -61,11 +61,11 @@ class ReputationTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create('App\Reply', ['user_id' => auth()->id()]);
+        $reply = create(\App\Reply::class, ['user_id' => auth()->id()]);
 
         $this->assertEquals($this->points['reply_posted'], $reply->owner->reputation);
 
-        $this->delete(route('replies.destroy',$reply->id));
+        $this->delete(route('replies.destroy', $reply->id));
 
         $this->assertEquals(0, $reply->owner->fresh()->reputation);
     }
@@ -73,10 +73,10 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_gains_points_when_their_reply_is_marked_as_best()
     {
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
 
         $thread->markBestReply($reply = $thread->addReply([
-            'user_id' => create('App\User')->id,
+            'user_id' => create(\App\User::class)->id,
             'body' => 'Here is a reply.'
         ]));
 
@@ -88,10 +88,10 @@ class ReputationTest extends TestCase
     public function when_a_thread_owner_changes_their_preferred_best_reply_the_points_should_be_transferred()
     {
         // Given a thread exists.
-        $thread = create('App\Thread');
+        $thread = create(\App\Thread::class);
 
         // And we have a user, Jane.
-        $jane = create('App\User');
+        $jane = create(\App\User::class);
 
         // If the owner of the thread marks Jane's reply as best...
         $thread->markBestReply($thread->addReply([
@@ -103,7 +103,7 @@ class ReputationTest extends TestCase
         $this->assertEquals($this->points['reply_posted'] + $this->points['best_reply_awarded'], $jane->fresh()->reputation);
 
         // But, if the owner of the thread decides to choose a different best reply, written by John.
-        $john = create('App\User');
+        $john = create(\App\User::class);
 
         $thread->markBestReply($thread->addReply([
             'user_id' => $john->id,
@@ -122,13 +122,13 @@ class ReputationTest extends TestCase
     public function a_user_gains_points_when_their_reply_is_favorited()
     {
         // Given we have a signed in user, John.
-        $this->signIn($john = create('App\User'));
+        $this->signIn($john = create(\App\User::class));
 
         // And also Jane...
-        $jane = create('App\User');
+        $jane = create(\App\User::class);
 
         // If Jane adds a new reply to a thread...
-        $reply = create('App\Thread')->addReply([
+        $reply = create(\App\Thread::class)->addReply([
             'user_id' => $jane->id,
             'body' => 'Some reply'
         ]);
@@ -150,13 +150,13 @@ class ReputationTest extends TestCase
     public function a_user_loses_points_when_their_favorited_reply_is_unfavorited()
     {
         // Given we have a signed in user, John.
-        $this->signIn($john = create('App\User'));
+        $this->signIn($john = create(\App\User::class));
 
         // And also Jane...
-        $jane = create('App\User');
+        $jane = create(\App\User::class);
 
         // If Jane adds a new reply to a thread...
-        $reply = create('App\Reply', ['user_id' => $jane]);
+        $reply = create(\App\Reply::class, ['user_id' => $jane]);
 
         // And John favorites that reply.
         $this->post(route('replies.favorite', $reply));
