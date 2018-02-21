@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Reputation;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReputationTest extends TestCase
@@ -82,6 +82,23 @@ class ReputationTest extends TestCase
 
         $total = $this->points['reply_posted'] + $this->points['best_reply_awarded'];
         $this->assertEquals($total, $reply->owner->reputation);
+    }
+
+    /** @test */
+    public function a_user_loses_points_when_their_best_reply_is_deleted()
+    {
+        $this->signIn();
+
+        $reply = create(\App\Reply::class, ['user_id' => auth()->id()]);
+
+        $reply->thread->markBestReply($reply);
+
+        $total = $this->points['reply_posted'] + $this->points['best_reply_awarded'];
+        $this->assertEquals($total, auth()->user()->fresh()->reputation);
+
+        $reply->delete();
+
+        $this->assertEquals(0, auth()->user()->fresh()->reputation);
     }
 
     /** @test */
