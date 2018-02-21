@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Reply;
+use App\Thread;
 use App\Reputation;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,7 +26,7 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_gains_points_when_they_create_a_thread()
     {
-        $thread = create(\App\Thread::class);
+        $thread = create(Thread::class);
 
         $this->assertEquals($this->points['thread_published'], $thread->creator->reputation);
     }
@@ -34,7 +36,7 @@ class ReputationTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create(\App\Thread::class, ['user_id' => auth()->id()]);
+        $thread = create(Thread::class, ['user_id' => auth()->id()]);
 
         $this->assertEquals($this->points['thread_published'], $thread->creator->reputation);
 
@@ -46,7 +48,7 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_gains_points_when_they_reply_to_a_thread()
     {
-        $thread = create(\App\Thread::class);
+        $thread = create(Thread::class);
 
         $reply = $thread->addReply([
             'user_id' => create(\App\User::class)->id,
@@ -61,7 +63,7 @@ class ReputationTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create(\App\Reply::class, ['user_id' => auth()->id()]);
+        $reply = create(Reply::class, ['user_id' => auth()->id()]);
 
         $this->assertEquals($this->points['reply_posted'], $reply->owner->reputation);
 
@@ -73,7 +75,7 @@ class ReputationTest extends TestCase
     /** @test */
     public function a_user_gains_points_when_their_reply_is_marked_as_best()
     {
-        $thread = create(\App\Thread::class);
+        $thread = create(Thread::class);
 
         $thread->markBestReply($reply = $thread->addReply([
             'user_id' => create(\App\User::class)->id,
@@ -89,7 +91,7 @@ class ReputationTest extends TestCase
     {
         $this->signIn();
 
-        $reply = create(\App\Reply::class, ['user_id' => auth()->id()]);
+        $reply = create(Reply::class, ['user_id' => auth()->id()]);
 
         $reply->thread->markBestReply($reply);
 
@@ -105,7 +107,7 @@ class ReputationTest extends TestCase
     public function when_a_thread_owner_changes_their_preferred_best_reply_the_points_should_be_transferred()
     {
         // Given a thread exists.
-        $thread = create(\App\Thread::class);
+        $thread = create(Thread::class);
 
         // And we have a user, Jane.
         $jane = create(\App\User::class);
@@ -145,7 +147,7 @@ class ReputationTest extends TestCase
         $jane = create(\App\User::class);
 
         // If Jane adds a new reply to a thread...
-        $reply = create(\App\Thread::class)->addReply([
+        $reply = create(Thread::class)->addReply([
             'user_id' => $jane->id,
             'body' => 'Some reply'
         ]);
