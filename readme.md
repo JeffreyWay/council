@@ -17,6 +17,7 @@ Begin by cloning this repository to your machine, and installing all Composer & 
 ```bash
 git clone git@github.com:JeffreyWay/council.git
 cd council && composer install && npm install
+on windows install redis through this link https://github.com/MicrosoftArchive/redis/releases
 php artisan council:install
 npm run dev
 ```
