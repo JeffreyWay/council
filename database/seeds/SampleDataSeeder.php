@@ -40,8 +40,8 @@ class SampleDataSeeder extends Seeder
                 'color' => '#008000'
             ],
             [
-                'name' => 'VueJS',
-                'description' => 'A channel for general VueJS questions. Use this channel if you can\'t find a more specific channel for your question.',
+                'name' => 'Vue',
+                'description' => 'A channel for general Vue questions. Use this channel if you can\'t find a more specific channel for your question.',
                 'archived' => false,
                 'color' => '#cccccc'
             ],
@@ -58,8 +58,8 @@ class SampleDataSeeder extends Seeder
                 'color' => '#a01212'
             ],
             [
-                'name' => 'VueEx',
-                'description' => 'This channel is for all VueEx specific questions.',
+                'name' => 'Vuex',
+                'description' => 'This channel is for all Vuex related questions.',
                 'archived' => false,
                 'color' => '#ff8822'
             ],
