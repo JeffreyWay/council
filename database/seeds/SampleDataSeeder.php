@@ -36,38 +36,32 @@ class SampleDataSeeder extends Seeder
             [
                 'name' => 'PHP',
                 'description' => 'A channel for general PHP questions. Use this channel if you can\'t find a more specific channel for your question.',
-                'archived' => false,
                 'color' => '#008000'
             ],
             [
                 'name' => 'Vue',
                 'description' => 'A channel for general Vue questions. Use this channel if you can\'t find a more specific channel for your question.',
-                'archived' => false,
                 'color' => '#cccccc'
             ],
             [
                 'name' => 'Laravel Mix',
                 'description' => 'This channel is for all Laravel Mix related questions.',
-                'archived' => false,
                 'color' => '#43DDF5'
             ],
             [
                 'name' => 'Eloquent',
                 'description' => 'This channel is for all Laravel Eloquent related questions.',
-                'archived' => false,
                 'color' => '#a01212'
             ],
             [
                 'name' => 'Vuex',
                 'description' => 'This channel is for all Vuex related questions.',
-                'archived' => false,
                 'color' => '#ff8822'
             ],
         ])->each(function ($channel) {
             factory(Channel::class)->create([
                 'name' => $channel['name'],
                 'description' => $channel['description'],
-                'archived' => false,
                 'color' => $channel['color']
             ]);
         });
