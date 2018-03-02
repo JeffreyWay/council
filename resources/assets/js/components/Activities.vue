@@ -2,7 +2,7 @@
     <div>
         <div ref="timeline" class="mt-2">&nbsp;</div>
 
-        <div class="relative w-full max-w-full border-l-4 border-grey-light">
+        <div class="timeline relative w-full max-w-full border-l-4 border-grey-light">
             <div v-for="(activity, index) in items" :key="activity.id">
                 <div class="entry">
                     <activity-favorite :activity="activity" v-if="activity.type === 'created_favorite'"/>
