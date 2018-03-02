@@ -42,33 +42,13 @@ class Activity extends Model
      * Fetch an activity feed for the given user.
      *
      * @param  User $user
-     * @param  int  $take
      * @return \Illuminate\Database\Eloquent\Collection;
      */
-    public static function feed($user, $take = 50)
+    public static function feed($user)
     {
         return static::where('user_id', $user->id)
             ->latest()
             ->with('subject')
-            ->take($take)
-            ->get()
-            ->groupBy(function ($activity) {
-                return $activity->created_at->format('Y-m-d');
-            });
-    }
-
-    /**
-     * Fetch an activity feed for the given user.
-     *
-     * @param  User $user
-     * @param  int  $take
-     *
-     * @return \Illuminate\Database\Eloquent\Collection;
-     */
-    public static function paginatedFeed($user)
-    {
-        return static::where('user_id', $user->id)
-            ->latest()
-            ->with('subject');
+            ->paginate(30);
     }
 }
