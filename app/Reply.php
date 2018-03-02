@@ -147,12 +147,17 @@ class Reply extends Model
         return $this->isBest();
     }
 
+    /**
+     * Calculate the correct XP amount earned for the current reply.
+     */
     public function getXpAttribute()
     {
-        $xp = $this->isBest() ? config('council.reputation.best_reply_awarded') : 0;
-        $xp += config('council.reputation.reply_posted');
-        $xp += $this->favorites()->count() * config('council.reputation.reply_favorited');
+        $xp = config('council.reputation.reply_posted');
 
-        return $xp;
+        if ($this->isBest()) {
+            $xp += config('council.reputation.best_reply_awarded');
+        }
+
+        return $xp += $this->favorites()->count() * config('council.reputation.reply_favorited');
     }
 }
