@@ -6,5 +6,4 @@
     </div>
 
     <activities :user="{{ $profileUser }}"></activities>
-
 @endsection

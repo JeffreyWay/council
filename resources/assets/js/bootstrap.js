@@ -1,8 +1,8 @@
-
 window._ = require('lodash');
 
 import InstantSearch from 'vue-instantsearch';
-import VModal from 'vue-js-modal'
+import VModal from 'vue-js-modal';
+import moment from 'moment';
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12,8 +12,7 @@ import VModal from 'vue-js-modal'
 
 try {
     window.$ = window.jQuery = require('jquery');
-} catch (e) { }
-
+} catch (e) {}
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -28,8 +27,8 @@ Vue.use(VModal);
 
 let authorizations = require('./authorizations');
 
-Vue.prototype.authorize = function (...params) {
-    if (! window.App.signedIn) return false;
+Vue.prototype.authorize = function(...params) {
+    if (!window.App.signedIn) return false;
 
     if (typeof params[0] === 'string') {
         return authorizations[params[0]](params[1]);
@@ -39,7 +38,7 @@ Vue.prototype.authorize = function (...params) {
 };
 
 Vue.prototype.signedIn = window.App.signedIn;
-
+Vue.prototype.humanTime = timestamp => moment(timestamp).fromNow();
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -62,11 +61,13 @@ let token = document.head.querySelector('meta[name="csrf-token"]');
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error(
+        'CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token'
+    );
 }
 
 window.events = new Vue();
 
-window.flash = function (message, level = 'success') {
+window.flash = function(message, level = 'success') {
     window.events.$emit('flash', { message, level });
 };
