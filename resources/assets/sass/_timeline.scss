@@ -1,0 +1,17 @@
+.timeline {
+  .entry {
+    clear: both;
+    text-align: left;
+    position: relative;
+    .title {
+      @apply absolute float-left text-right;
+      &:before {
+        content: '';
+        @apply absolute h-6 w-6 rounded-full bg-blue-darker border-4 border-blue-darker;
+        top: -1.5rem;
+        right: calc(-.25rem - 2px);
+        z-index: 99;
+      }
+    }
+  }
+}
