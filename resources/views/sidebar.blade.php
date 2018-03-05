@@ -16,7 +16,7 @@
     <div class="widget">
         <h4 class="widget-heading">Browse</h4>
 
-        <ul class="list-reset text-sm">
+        <ul class="mb-2 list-reset text-sm">
             <li class="pb-3">
                 <a href="/threads" class="flex items-center text-grey-darkest hover:text-blue hover:font-bold {{ Request::is('threads') && ! Request::query() ? 'text-blue font-bold' : '' }}">
                     @include ('svgs.icons.all-threads', ['class' => 'mr-3 text-grey'])
@@ -45,13 +45,22 @@
                 </a>
             </li>
 
-            <li>
+            <li class="pb-3">
                 <a href="/threads?unanswered=1" class="flex items-center text-grey-darkest hover:text-blue hover:font-bold {{ Request::query('unanswered') ? 'text-blue font-bold' : '' }}">
                     @include ('svgs.icons.question', ['class' => 'mr-3 text-grey'])
                     Unanswered Threads
                 </a>
             </li>
+
+            <li>
+                <a href="/leaderboard" class="flex items-center text-grey-darkest hover:text-blue hover:font-bold {{ request()->getPathInfo() === '/leaderboard' ? 'text-blue font-bold' : '' }}">
+                    @include ('svgs.icons.leaderboard')
+                    Leaderboard
+                </a>
+            </li>
+
         </ul>
+
     </div>
 
     @if (count($trending))

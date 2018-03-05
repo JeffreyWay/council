@@ -9,6 +9,8 @@ class LeaderboardController extends Controller
 {
     public function index()
     {
-        return User::limit(10)->orderBy('reputation', 'desc')->get();
+        return [
+            'leaderboard' => User::limit(10)->orderBy('reputation', 'desc')->get()
+        ];
     }
 }

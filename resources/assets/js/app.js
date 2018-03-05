@@ -31,6 +31,7 @@ Vue.component("logout-button", require("./components/LogoutButton"));
 Vue.component("login", require("./components/Login"));
 Vue.component("register", require("./components/Register"));
 Vue.component("highlight", require("./components/Highlight"));
+Vue.component("leaderboard", require("./components/Leaderboard"));
 
 Vue.component("thread-view", require("./pages/Thread.vue"));
 
