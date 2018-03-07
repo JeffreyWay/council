@@ -19,10 +19,9 @@
 </template>
 
 <script>
+import activation from '../mixins/activation';
 
-    import activation from '../mixins/activation';
-
-    export default {
-        mixins: [ activation ],
-    }
+export default {
+    mixins: [activation]
+};
 </script>
