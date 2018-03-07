@@ -23,6 +23,23 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
+     * Use observers to group all of your listeners into a single class
+     *
+     * @var array
+     */
+    protected $observers = [
+        \App\Thread::class => [
+            \App\Observers\GenerateThreadSlugObserver::class,
+            \App\Observers\RemoveThreadRepliesObserver::class,
+            \App\Observers\ThreadReputationObserver::class,
+        ],
+        \App\Reply::class => [
+            \App\Observers\ReplyReputationObserver::class,
+            \App\Observers\ThreadRepliesCountObserver::class,
+        ],
+    ];
+
+    /**
      * Register any events for your application.
      *
      * @return void
@@ -31,6 +48,10 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        foreach ($this->observers as $model => $observers) {
+            foreach ($observers as $observer) {
+                $model::observe($observer);
+            }
+        }
     }
 }
