@@ -9,9 +9,6 @@ before_script:
   - composer install --no-interaction
   - php artisan key:generate
 
-services:
-  - redis-server
-
 cache:
   directories:
     - vendor
