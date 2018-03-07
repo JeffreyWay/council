@@ -43,13 +43,13 @@ class Reply extends Model
             $reply->owner->gainReputation('reply_posted');
         });
 
-        static::deleted(function ($reply) {
+        static::deleting(function ($reply) {
             $reply->thread->decrement('replies_count');
 
             $reply->owner->loseReputation('reply_posted');
 
             if ($reply->isBest()) {
-                $reply->owner->loseReputation('best_reply_awarded');
+                $reply->thread->removeBestReply();
             }
         });
     }
