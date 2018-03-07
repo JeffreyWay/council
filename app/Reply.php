@@ -31,30 +31,6 @@ class Reply extends Model
     protected $appends = ['favoritesCount', 'isFavorited', 'isBest', 'xp', 'path'];
 
     /**
-     * Boot the reply instance.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($reply) {
-            $reply->thread->increment('replies_count');
-
-            $reply->owner->gainReputation('reply_posted');
-        });
-
-        static::deleted(function ($reply) {
-            $reply->thread->decrement('replies_count');
-
-            $reply->owner->loseReputation('reply_posted');
-
-            if ($reply->isBest()) {
-                $reply->owner->loseReputation('best_reply_awarded');
-            }
-        });
-    }
-
-    /**
      * A reply has an owner.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
