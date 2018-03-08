@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ config('app.locale') }}" class="h-full">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,12 +29,12 @@
     @yield('head')
 </head>
 
-<body class="font-sans bg-grey-lighter">
-    <div id="app">
+<body class="font-sans bg-grey-lighter h-full">
+    <div id="app" class="flex flex-col h-full">
         @include ('layouts.nav')
 
-        <div class="container mx-auto">
-            <div class="flex">
+        <div class="container mx-auto flex flex-1">
+            <div class="flex flex-1">
                 @section('sidebar')
                     @include('sidebar')
                 @show
