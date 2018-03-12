@@ -81,4 +81,29 @@ class ReplyTest extends TestCase
 
         $this->assertEquals(57, $reply->xp);
     }
+
+    /** @test */
+    public function it_generates_the_correct_path_for_a_paginated_thread()
+    {
+        $thread = create('App\Thread');
+
+        $replies = create('App\Reply', ['thread_id' => $thread->id], 3);
+
+        config(['council.pagination.perPage' => 1]);
+
+        $this->assertEquals(
+            $thread->path() . '?page=1#reply-1',
+            $replies->first()->path()
+        );
+
+        $this->assertEquals(
+            $thread->path() . '?page=2#reply-2',
+            $replies[1]->path()
+        );
+
+        $this->assertEquals(
+            $thread->path() . '?page=3#reply-3',
+            $replies->last()->path()
+        );
+    }
 }
