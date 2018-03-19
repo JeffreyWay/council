@@ -165,13 +165,10 @@ class ThreadTest extends TestCase
     {
         Event::fake();
 
-        $thread = create('App\Thread');
-
-        $thread->addReply([
-                'thread_id' => $thread->id,
-                'body' => 'Some body',
-                'user_id' => 999
-            ]);
+        $this->thread->addReply([
+            'body' => 'Foobar',
+            'user_id' => 1
+        ]);
 
         Event::assertDispatched(ThreadReceivedNewReply::class);
     }
