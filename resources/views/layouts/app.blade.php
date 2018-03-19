@@ -20,11 +20,20 @@
         window.App = {!! json_encode([
             'csrfToken' => csrf_token(),
             'user' => Auth::user(),
-            'signedIn' => Auth::check()
+            'signedIn' => Auth::check(),
+            'broadcaster' => config('broadcasting.default'),
+            'pusher' => [
+                'key' => config('broadcasting.connections.pusher.key', null),
+                'options' => config('broadcasting.connections.pusher.options')
+            ]
         ]) !!};
     </script>
 
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    
+    @if (config('broadcasting.default') === 'redis')
+      <script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
+    @endif
 
     @yield('head')
 </head>

@@ -71,3 +71,46 @@ window.events = new Vue();
 window.flash = function(message, level = 'success') {
     window.events.$emit('flash', { message, level });
 };
+
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+
+import Echo from 'laravel-echo'
+
+if (window.App.broadcaster == 'pusher') {
+    
+    window.Pusher = require('pusher-js');
+
+    window.Echo = new Echo({
+        broadcaster: 'pusher',
+        key: window.App.pusher.key,
+        cluster: window.App.pusher.options.cluster,
+        encrypted: window.App.pusher.options.encrypted
+    });
+    
+}
+
+if (window.App.broadcaster == 'redis') {
+    window.Echo = new Echo({
+        broadcaster: 'socket.io',
+        host: window.location.hostname + ':6001'
+    });
+}
+
+
+/**
+ * Create a channel name based on pathname.
+ * 
+ * This name will be used to create a
+ * presence channel when a user is
+ * viewing a thread.
+ * 
+ * E.g. 'threads-culpa-123'.
+ */
+
+window.channelName = window.location.pathname.split('/').join('-').replace(/^-/, '');
+
+

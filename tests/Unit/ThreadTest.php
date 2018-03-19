@@ -6,6 +6,8 @@ use Tests\TestCase;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use App\Events\ThreadReceivedNewReply;
 
 class ThreadTest extends TestCase
 {
@@ -155,5 +157,19 @@ class ThreadTest extends TestCase
         $thread = make(\App\Thread::class, ['body' => '<script>alert("bad")</script><p>This is okay.</p>']);
 
         $this->assertEquals("<p>This is okay.</p>", $thread->body);
+        $this->assertEquals('<p>This is okay.</p>', $thread->body);
+    }
+
+    /** @test */
+    public function an_event_is_fired_when_a_reply_is_added_to_a_thread()
+    {
+        Event::fake();
+
+        $this->thread->addReply([
+            'body' => 'Foobar',
+            'user_id' => 1
+        ]);
+
+        Event::assertDispatched(ThreadReceivedNewReply::class);
     }
 }

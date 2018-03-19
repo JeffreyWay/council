@@ -31,6 +31,9 @@ Vue.component("logout-button", require("./components/LogoutButton"));
 Vue.component("login", require("./components/Login"));
 Vue.component("register", require("./components/Register"));
 Vue.component("highlight", require("./components/Highlight"));
+Vue.component('users-online', require('./components/UsersOnline.vue'));
+Vue.component('viewing-thread', require('./components/ViewingThread.vue'));
+
 
 Vue.component("thread-view", require("./pages/Thread.vue"));
 
