@@ -55,8 +55,10 @@ class ThreadReceivedNewReply implements ShouldBroadcastNow
      */
     protected function channel()
     {
-        $path = str_before($this->reply->path(), '#'); // slice everything before the anchor
+        $path = str_before($this->reply->path(), '?');
         $path = str_replace('/', '-', $path); // replace / with -
-        return str_after($path, '-'); // slice everything after the first -
+        $path = str_after($path, '-'); // slice everything after the first -
+
+        return $path;
     }
 }
