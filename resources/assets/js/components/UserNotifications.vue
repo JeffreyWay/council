@@ -1,5 +1,5 @@
 <template>
-    <div @mouseover="active = true" @mouseout="active = false">
+    <div @mouseover="activate" @mouseout="deactivate">
        <div class="rounded-full bg-blue-darkest w-10 h-10 flex items-center justify-center mr-4 cursor-pointer relative z-10">
             <!-- "New Notifications Available" bubble. -->
             <div class="rounded-full bg-red w-2 h-2 absolute pin-t pin-r mt-1" v-if="notifications.length"></div>
@@ -47,9 +47,15 @@
 </template>
 
 <script>
+
+    import activation from '../mixins/activation';
+
     export default {
+
+        mixins: [ activation ],
+
         data() {
-            return { notifications: false, active: false }
+            return { notifications: false }
         },
 
         created() {

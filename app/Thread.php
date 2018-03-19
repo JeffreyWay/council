@@ -28,6 +28,13 @@ class Thread extends Model
     protected $with = ['creator', 'channel'];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['path'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -67,6 +74,18 @@ class Thread extends Model
     public function path()
     {
         return "/threads/{$this->channel->slug}/{$this->slug}";
+    }
+
+    /**
+     * Fetch the path to the thread as a property.
+     */
+    public function getPathAttribute()
+    {
+        if (! $this->channel) {
+            return '';
+        }
+
+        return $this->path();
     }
 
     /**
@@ -259,6 +278,16 @@ class Thread extends Model
         $this->update(['best_reply_id' => $reply->id]);
 
         $reply->owner->gainReputation('best_reply_awarded');
+    }
+
+    /**
+     * Reset the best reply record.
+     */
+    public function removeBestReply()
+    {
+        $this->bestReply->owner->loseReputation('best_reply_awarded');
+
+        $this->update(['best_reply_id' => null]);
     }
 
     /**

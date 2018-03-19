@@ -28,7 +28,7 @@ class Reply extends Model
      *
      * @var array
      */
-    protected $appends = ['favoritesCount', 'isFavorited', 'isBest'];
+    protected $appends = ['favoritesCount', 'isFavorited', 'isBest', 'xp', 'path'];
 
     /**
      * Boot the reply instance.
@@ -43,10 +43,14 @@ class Reply extends Model
             $reply->owner->gainReputation('reply_posted');
         });
 
-        static::deleted(function ($reply) {
+        static::deleting(function ($reply) {
             $reply->thread->decrement('replies_count');
 
             $reply->owner->loseReputation('reply_posted');
+
+            if ($reply->isBest()) {
+                $reply->thread->removeBestReply();
+            }
         });
     }
 
@@ -95,7 +99,21 @@ class Reply extends Model
      */
     public function path()
     {
-        return $this->thread->path()."#reply-{$this->id}";
+        $perPage = config('council.pagination.perPage');
+
+        $replyPosition = $this->thread->replies()->pluck('id')->search($this->id) + 1;
+
+        $page = ceil($replyPosition / $perPage);
+
+        return $this->thread->path()."?page={$page}#reply-{$this->id}";
+    }
+
+    /**
+     * Fetch the path to the thread as a property.
+     */
+    public function getPathAttribute()
+    {
+        return $this->path();
     }
 
     /**
@@ -141,5 +159,19 @@ class Reply extends Model
     public function getIsBestAttribute()
     {
         return $this->isBest();
+    }
+
+    /**
+     * Calculate the correct XP amount earned for the current reply.
+     */
+    public function getXpAttribute()
+    {
+        $xp = config('council.reputation.reply_posted');
+
+        if ($this->isBest()) {
+            $xp += config('council.reputation.best_reply_awarded');
+        }
+
+        return $xp += $this->favorites()->count() * config('council.reputation.reply_favorited');
     }
 }
