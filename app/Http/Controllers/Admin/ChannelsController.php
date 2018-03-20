@@ -43,7 +43,7 @@ class ChannelsController extends Controller
     /**
      * Update an existing channel.
      *
-     * @return \Illuminate\
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Channel $channel)
     {
@@ -51,6 +51,7 @@ class ChannelsController extends Controller
             request()->validate([
                 'name' => ['required', Rule::unique('channels')->ignore($channel->id)],
                 'description' => 'required',
+                'color' => 'required',
                 'archived' => 'required|boolean'
             ])
         );
@@ -75,6 +76,7 @@ class ChannelsController extends Controller
         $channel = Channel::create(
             request()->validate([
                 'name' => 'required|unique:channels',
+                'color' => 'required',
                 'description' => 'required',
             ])
         );
