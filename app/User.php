@@ -48,7 +48,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'confirmed' => 'boolean'
+        'confirmed' => 'boolean',
+        'reputation' => 'integer'
     ];
 
     /**

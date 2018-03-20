@@ -55,6 +55,9 @@ Route::get('api/users', 'Api\UsersController@index')->name('api.users');
 Route::post('api/users/{user}/avatar', 'Api\UserAvatarController@store')->middleware('auth')->name('avatar');
 Route::get('api/channels', 'Api\ChannelsController@index');
 
+Route::get('api/leaderboard', 'Api\LeaderboardController@index')->name('api.leaderboard.index');
+Route::get('leaderboard', 'LeaderboardController@index')->name('leaderboard.index');
+
 Route::group([
     'prefix' => 'admin',
     'middleware' => 'admin',
