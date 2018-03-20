@@ -10,10 +10,11 @@
   "devDependencies": {
     "axios": "^0.17",
     "browser-sync": "^2.23.6",
-    "browser-sync-webpack-plugin": "^2.0.1",
+    "browser-sync-webpack-plugin": "2.0.1",
     "cross-env": "^5.1",
     "jquery": "^3.3.1",
-    "laravel-mix": "^2.0",
+    "laravel-mix": "^2.1.11",
+    "laravel-mix-tailwind": "^0.1.0",
     "lodash": "^4.17.5",
     "tailwindcss": "^0.4.3",
     "vue": "^2.5.13"
