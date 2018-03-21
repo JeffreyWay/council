@@ -21,7 +21,7 @@ class Reply extends Model
      *
      * @var array
      */
-    protected $with = ['owner', 'favorites'];
+    protected $with = ['owner', 'favorites', 'thread'];
 
     /**
      * The accessors to append to the model's array form.
