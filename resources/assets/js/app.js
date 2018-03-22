@@ -14,10 +14,7 @@ require("./bootstrap");
 
 Vue.component("flash", require("./components/Flash.vue"));
 Vue.component("paginator", require("./components/Paginator.vue"));
-Vue.component(
-    "user-notifications",
-    require("./components/UserNotifications.vue")
-);
+Vue.component("user-notifications", require("./components/UserNotifications.vue"));
 Vue.component("avatar-form", require("./components/AvatarForm.vue"));
 Vue.component("activities", require("./components/Activities"));
 Vue.component("activity-layout", require("./components/ActivityLayout"));
