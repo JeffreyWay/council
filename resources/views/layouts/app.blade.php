@@ -32,7 +32,7 @@
 <body class="font-sans bg-grey-lighter h-full">
     <div id="app" class="flex flex-col min-h-full">
         @include ('layouts.nav')
-
+        @includeWhen (Auth::user() && Session::has('login'),'layouts.welcome_panel')
         <div class="container mx-auto flex flex-1">
             <div class="flex flex-1">
                 @section('sidebar')
