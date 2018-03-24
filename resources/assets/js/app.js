@@ -25,6 +25,7 @@ Vue.component("activity-favorite", require("./components/ActivityFavorite"));
 Vue.component("activity-reply", require("./components/ActivityReply"));
 Vue.component("activity-thread", require("./components/ActivityThread"));
 Vue.component("wysiwyg", require("./components/Wysiwyg.vue"));
+Vue.component("recaptcha", require("./components/Recaptcha.vue"));
 Vue.component("dropdown", require("./components/Dropdown.vue"));
 Vue.component("channel-dropdown", require("./components/ChannelDropdown.vue"));
 Vue.component("logout-button", require("./components/LogoutButton"));
