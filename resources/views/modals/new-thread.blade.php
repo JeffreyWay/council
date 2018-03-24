@@ -29,7 +29,7 @@
             </div>
 
             <div class="mb-6">
-                <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.key') }}"></div>
+                <recaptcha ref="recaptcha" sitekey="{{ config('services.recaptcha.key') }}"></recaptcha>
             </div>
 
             <div class="flex justify-end">
