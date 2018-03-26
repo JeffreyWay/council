@@ -19,7 +19,9 @@ a {
     }
 }
 
-input {
+input,
+textarea,
+select {
     @apply .border .border-grey-light;
 }
 

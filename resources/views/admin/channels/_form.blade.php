@@ -1,23 +1,23 @@
 {{ csrf_field() }}
 <div class="mb-4">
     <label for="name" class="tracking-wide uppercase text-grey-dark text-xs block pb-2">Name</label>
-    <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $channel->name) }}" required>
+    <input type="text" class="w-full p-2 leading-normal" id="name" name="name" value="{{ old('name', $channel->name) }}" required>
 </div>
 
 <div class="mb-4">
     <label for="description" class="tracking-wide uppercase text-grey-dark text-xs block pb-2">Description</label>
-    <input type="text" class="form-control" id="description" name="description" value="{{ old('description', $channel->description) }}" required>
+    <input type="text" class="w-full p-2 leading-normal" id="description" name="description" value="{{ old('description', $channel->description) }}" required>
 </div>
 
 <div class="mb-4">
     <label for="color" class="tracking-wide uppercase text-grey-dark text-xs block pb-2">Color</label>
-    <input type="text" class="form-control" id="color" name="color" value="{{ old('color', $channel->color) }}" required>
+    <input type="text" class="w-full p-2 leading-normal" id="color" name="color" value="{{ old('color', $channel->color) }}" required>
 </div>
 
 <div class="mb-4">
     <label for="archived" class="tracking-wide uppercase text-grey-dark text-xs block pb-2">Status</label>
 
-    <select name="archived" id="archived" class="form-control">
+    <select name="archived" id="archived" class="w-full p-2 leading-normal">
         <option value="0" {{ old('archived', $channel->archived) ? '' : 'selected' }}>Active</option>
         <option value="1" {{ old('archived', $channel->archived) ? 'selected' : '' }}>Archived</option>
     </select>

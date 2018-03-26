@@ -7,8 +7,8 @@
         </a>
     </p>
 
-    <table style="border-collapse: collapse">
-        <thead class="bg-grey-lightest text-grey-darkest uppercase tracking-wide text-xs">
+    <table class="w-full" style="border-collapse: collapse">
+        <thead class="bg-grey-lightest text-grey-darkest text-left uppercase tracking-wide text-xs">
             <tr>
                 <th class="p-4 border-b" colspan="2">Name</th>
                 <th class="p-4 border-b">Slug</th>
