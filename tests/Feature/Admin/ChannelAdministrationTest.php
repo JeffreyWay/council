@@ -5,7 +5,7 @@ namespace Tests\Feature\Admin;
 use App\User;
 use App\Channel;
 use Tests\TestCase;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ChannelAdministrationTest extends TestCase

@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use App\User;
 use Tests\TestCase;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LeaderboardTest extends TestCase

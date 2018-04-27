@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ParticipateInThreadsTest extends TestCase
@@ -55,7 +56,7 @@ class ParticipateInThreadsTest extends TestCase
 
         $this->signIn()
             ->delete("/replies/{$reply->id}")
-            ->assertStatus(403);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -64,7 +65,7 @@ class ParticipateInThreadsTest extends TestCase
         $this->signIn();
         $reply = create(\App\Reply::class, ['user_id' => auth()->id()]);
 
-        $this->delete("/replies/{$reply->id}")->assertStatus(302);
+        $this->delete("/replies/{$reply->id}")->assertStatus(Response::HTTP_FOUND);
 
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
 
@@ -83,7 +84,7 @@ class ParticipateInThreadsTest extends TestCase
 
         $this->signIn()
             ->patch(route('replies.update', $reply->id))
-            ->assertStatus(403);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -112,7 +113,7 @@ class ParticipateInThreadsTest extends TestCase
         ]);
 
         $this->json('post', $thread->path() . '/replies', $reply->toArray())
-            ->assertStatus(422);
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /** @test */
@@ -126,9 +127,9 @@ class ParticipateInThreadsTest extends TestCase
         $reply = make(\App\Reply::class);
 
         $this->post($thread->path() . '/replies', $reply->toArray())
-            ->assertStatus(201);
+            ->assertStatus(Response::HTTP_CREATED);
 
         $this->post($thread->path() . '/replies', $reply->toArray())
-            ->assertStatus(429);
+            ->assertStatus(Response::HTTP_TOO_MANY_REQUESTS);
     }
 }

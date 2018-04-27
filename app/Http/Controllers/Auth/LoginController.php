@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -48,7 +49,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($request->wantsJson()) {
-            return response()->json(['redirect' => $this->redirectTo], 200);
+            return response()->json(['redirect' => $this->redirectTo], Response::HTTP_OK);
         }
 
         redirect()->intended($this->redirectPath());

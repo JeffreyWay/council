@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BestReplyTest extends TestCase
@@ -38,7 +39,7 @@ class BestReplyTest extends TestCase
 
         $this->signIn(create(\App\User::class));
 
-        $this->postJson(route('best-replies.store', [$replies[1]->id]))->assertStatus(403);
+        $this->postJson(route('best-replies.store', [$replies[1]->id]))->assertStatus(Response::HTTP_FORBIDDEN);
 
         $this->assertFalse($replies[1]->fresh()->isBest());
     }

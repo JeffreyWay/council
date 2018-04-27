@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,6 +25,6 @@ class UserAvatarController extends Controller
             'avatar_path' => request()->file('avatar')->store('avatars', 'public')
         ]);
 
-        return response([], 204);
+        return response([], Response::HTTP_NO_CONTENT);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Channel;
+use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
@@ -59,7 +60,7 @@ class ChannelsController extends Controller
         cache()->forget('channels');
 
         if (request()->wantsJson()) {
-            return response($channel, 200);
+            return response($channel, Response::HTTP_OK);
         }
 
         return redirect(route('admin.channels.index'))
@@ -84,7 +85,7 @@ class ChannelsController extends Controller
         cache()->forget('channels');
 
         if (request()->wantsJson()) {
-            return response($channel, 201);
+            return response($channel, Response::HTTP_CREATED);
         }
 
         return redirect(route('admin.channels.index'))

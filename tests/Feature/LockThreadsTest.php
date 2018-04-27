@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LockThreadsTest extends TestCase
@@ -19,7 +19,7 @@ class LockThreadsTest extends TestCase
 
         $thread = create(\App\Thread::class, ['user_id' => auth()->id()]);
 
-        $this->post(route('locked-threads.store', $thread))->assertStatus(403);
+        $this->post(route('locked-threads.store', $thread))->assertStatus(Response::HTTP_FORBIDDEN);
 
         $this->assertFalse($thread->fresh()->locked);
     }
