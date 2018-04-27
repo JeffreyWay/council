@@ -3,7 +3,7 @@
 namespace Tests\Feature\Admin;
 
 use Tests\TestCase;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdministratorTest extends TestCase

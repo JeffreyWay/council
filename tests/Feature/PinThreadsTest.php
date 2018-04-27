@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Thread;
 use Tests\TestCase;
+use Illuminate\Http\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PinThreadsTest extends TestCase
@@ -19,7 +20,7 @@ class PinThreadsTest extends TestCase
 
         $thread = create(\App\Thread::class, ['user_id' => auth()->id()]);
 
-        $this->post(route('pinned-threads.store', $thread))->assertStatus(403);
+        $this->post(route('pinned-threads.store', $thread))->assertStatus(Response::HTTP_FORBIDDEN);
 
         $this->assertFalse($thread->fresh()->pinned, 'Failed asserting that the thread was unpinned.');
     }
@@ -33,7 +34,7 @@ class PinThreadsTest extends TestCase
 
         $thread = create(\App\Thread::class, ['user_id' => auth()->id(), 'pinned' => true]);
 
-        $this->delete(route('pinned-threads.destroy', $thread))->assertStatus(403);
+        $this->delete(route('pinned-threads.destroy', $thread))->assertStatus(Response::HTTP_FORBIDDEN);
 
         $this->assertTrue($thread->fresh()->pinned);
     }

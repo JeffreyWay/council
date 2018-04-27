@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Activity;
 use Tests\TestCase;
+use Illuminate\Http\Response;
 use App\Rules\Recaptcha;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
@@ -28,7 +29,7 @@ class CreateThreadsTest extends TestCase
     {
         $this->withExceptionHandling();
 
-        $this->post(route('threads'))->assertStatus(302)->assertRedirect(route('login'));
+        $this->post(route('threads'))->assertStatus(Response::HTTP_FOUND)->assertRedirect(route('login'));
     }
 
     /** @test */
@@ -130,7 +131,7 @@ class CreateThreadsTest extends TestCase
         $this->delete($thread->path())->assertRedirect('/login');
 
         $this->signIn();
-        $this->delete($thread->path())->assertStatus(403);
+        $this->delete($thread->path())->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -143,7 +144,7 @@ class CreateThreadsTest extends TestCase
 
         $response = $this->json('DELETE', $thread->path());
 
-        $response->assertStatus(204);
+        $response->assertStatus(Response::HTTP_NO_CONTENT);
 
         $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);

@@ -6,6 +6,7 @@ use App\Thread;
 use App\Channel;
 use App\Trending;
 use App\Rules\Recaptcha;
+use Illuminate\Http\Response;
 use App\Filters\ThreadFilters;
 use Illuminate\Validation\Rule;
 
@@ -81,7 +82,7 @@ class ThreadsController extends Controller
         ]);
 
         if (request()->wantsJson()) {
-            return response($thread, 201);
+            return response($thread, Response::HTTP_CREATED);
         }
 
         return redirect($thread->path())
@@ -141,7 +142,7 @@ class ThreadsController extends Controller
         $thread->delete();
 
         if (request()->wantsJson()) {
-            return response([], 204);
+            return response([], Response::HTTP_NO_CONTENT);
         }
 
         return redirect('/threads');
