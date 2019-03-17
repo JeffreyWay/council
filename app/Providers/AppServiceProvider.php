@@ -12,7 +12,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+    {   \Schema::defaultStringLength(191);
         \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
     }
 
