@@ -55,4 +55,22 @@ class UpdateThreadsTest extends TestCase
             $this->assertEquals('Changed body.', $thread->body);
         });
     }
+
+    /** @test */
+    function administrators_can_update_threads()
+    {
+        $thread = create(\App\Thread::class, ['user_id' => auth()->id()]);
+
+        $this->signInAdmin();
+
+        $this->patch($thread->path(), [
+            'title' => 'Changed',
+            'body' => 'Changed body.'
+        ]);
+
+        tap($thread->fresh(), function ($thread) {
+            $this->assertEquals('Changed', $thread->title);
+            $this->assertEquals('Changed body.', $thread->body);
+        });
+    }
 }

@@ -19,6 +19,8 @@ class ThreadPolicy
      */
     public function update(User $user, Thread $thread)
     {
+        if ($user->isAdmin()) return true;
+
         return $thread->user_id == $user->id;
     }
 }
