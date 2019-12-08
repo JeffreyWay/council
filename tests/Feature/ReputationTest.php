@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Reply;
 use App\Thread;
-use App\Reputation;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
