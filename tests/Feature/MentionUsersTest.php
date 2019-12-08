@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Thread;
-use App\Mentions;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
