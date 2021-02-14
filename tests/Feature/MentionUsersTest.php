@@ -23,7 +23,7 @@ class MentionUsersTest extends TestCase
         // And we also have a user, JaneDoe.
         $jane = create(\App\User::class, ['username' => 'JaneDoe']);
 
-        // And JohnDoe create a new thread and mentions @JaneDoe.
+        // And JohnDoe creates a new thread and mentions @JaneDoe.
         $thread = make(\App\Thread::class, [
             'body' => 'Hey @JaneDoe check this out.'
         ]);
